@@ -36,6 +36,7 @@
                         </div>
                         </a>
                         <br>
+                        <a style="text-decoration: none;" href="{{ route('modulo2') }}">
                         <div class="row card-custom">
                             <div class="col-md-6 bg-yelow text-white p-5 d-flex flex-column justify-content-between">
                                 <div>
@@ -47,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-
+                    </a>
                   </div>
                   <div class="col" style="margin-top: 150px; z-index: 1000;">
                     <div class="recuadro-texto">
@@ -56,7 +57,7 @@
                   </div>
                   <div class="col" style="z-index: 1000;">
                     <div class="container my-5">
-
+                        <a style="text-decoration: none;" href="{{ route('modulo3') }}">
                         <div class="row card-custom">
                             <div class="col-md-6 bg-orange text-white p-5 d-flex flex-column justify-content-between">
                                 <div>
@@ -67,6 +68,7 @@
                                 <img src="{{ asset('assets/images/svg/modulos/bitrina1.svg') }}" alt="Lab Image" class="img-fluid">
                             </div>
                         </div>
+                        </a>
 
                         <br>
                         <div class="row card-custom">

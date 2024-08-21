@@ -15,6 +15,16 @@ class HomeController extends Controller
         return view('paginas.modulo-1');
     }
 
+       public function modulo2()
+    {
+        return view('paginas.modulo-2');
+    }
+
+           public function modulo3()
+    {
+        return view('paginas.modulo-3');
+    }
+
     public function homebanner()
     {
         return view('home-two');
