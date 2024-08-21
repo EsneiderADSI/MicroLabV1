@@ -1,0 +1,321 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f8ff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+nav a {
+    margin-left: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background: url('background.png') no-repeat center center;
+    background-size: cover;
+}
+
+.content {
+    max-width: 50%;
+}
+
+.highlight {
+    color: #271058;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin: 0 0 20px;
+}
+
+.subtitle {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #2a2dff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.scientist img {
+    /* width: 1600px; */
+    width: 100%;
+    /* max-width: 400px; */
+    height: auto;
+    position: relative;
+    display: inline-block;
+    /* margin-left: -50px;
+    margin-right: -50px; */
+    animation: movimientoSuave 3s ease-in-out infinite;
+    margin-top: -300px;
+}
+.doctor img {
+    width: 350px;
+    /* max-width: 400px; */
+    height: auto;
+    position: absolute;
+    display: inline-block;
+    z-index: 1;
+    margin-top: -150px;
+    margin-left: 150px;
+    /* animation: movimientoSuave 3s ease-in-out infinite; */
+}
+
+.recuadro {
+    position: absolute;
+    margin-top: -150px;
+    width: 100%;
+    height: 150px;
+    background-color: #ffff; /* Color negro */
+    z-index: 1; /* Asegura que el recuadro esté encima de la imagen */
+    opacity: 1; /* Asegura que no haya transparencia */
+    border-top: 2px solid #271058;
+}
+
+.bitrina {
+    width: 350px;
+    margin-left: 100px;
+    margin-top: 60px;
+    z-index: 1;
+    position: relative;
+    /* animation: movimientoSuave 3s ease-in-out infinite; */
+}
+
+.bitrina1 {
+    width: 350px;
+    margin-top: 60px;
+    z-index: 1;
+    position: relative;
+    /* animation: movimientoSuave 3s ease-in-out infinite; */
+}
+.bitrina2 {
+    width: 350px;
+    margin-top: 60px;
+    z-index: 1;
+    position: relative;
+    /* animation: movimientoSuave 3s ease-in-out infinite; */
+}
+
+
+.contenedor-graficos {
+    margin-top: -250px;
+}
+
+.gafas {
+    width: 35%;
+    margin-top: -10px;
+}
+.quimico1 {
+    width: 65%;
+    margin-top: -130px;
+}
+.petri {
+    width: 65%;
+    margin-top: 20px;
+}
+.microscopio {
+    width: 50%;
+    margin-top: -130px;
+}
+
+.imagen-fija {
+    position: fixed;
+    left: 50px; /* Posición horizontal */
+    top: 100px; /* Posición vertical inicial */
+    z-index: 1000; /* Asegura que la imagen esté por encima de otros elementos */
+    animation: movimientoSuave 3s ease-in-out infinite;
+}
+
+@keyframes movimientoSuave {
+    0%, 100% {
+        transform: translateY(0); /* Posición inicial */
+    }
+    50% {
+        transform: translateY(10px); /* Movimiento hacia abajo */
+    }
+}
+
+.button-container {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #2A1A68; /* Color de fondo del botón */
+    color: #FFFFFF; /* Color del texto */
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px; /* Hace que el botón sea ovalado */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #1F1450; /* Color de fondo en hover */
+}
+
+.lab-items {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.shelf img, .table img {
+    width: auto;
+    max-width: 200px;
+    height: auto;
+}
+
+.shelf {
+    margin-right: 50px;
+}
+
+
+/* Estilos para los vectores */
+/*
+#liquidored1 {
+    animation: movimientoSuave 3s ease-in-out infinite;
+}
+
+@keyframes rotateHead {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(10deg); }
+} */
+
+
+.recuadro-texto {
+    padding: 20px 40px;
+    background-color: #2A1A68; /* Color púrpura oscuro */
+    color: #FFFFFF; /* Color blanco para el texto */
+    font-size: 24px; /* Tamaño del texto */
+    font-weight: bold;
+    text-align: center; /* Centrar el texto */
+    border-radius: 15px; /* Bordes redondeados */
+    border: 5px solid #4D7DF2; /* Borde azul claro */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    line-height: 1.2; /* Ajuste de línea para el salto de línea */
+    width: fit-content; /* Ajusta el tamaño del recuadro al contenido */
+    margin-left: 80px;
+}
+
+.recuadro-texto p {
+    margin: 0; /* Elimina el margen por defecto del párrafo */
+}
+
+
+/* --------------------- */
+
+.card-custom {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid black; /* Borde negro */
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-custom:hover {
+    transform: scale(1.05); /* Aumenta el tamaño del card ligeramente */
+}
+
+.bg-red {
+    background-color: #DB1698; /* Color rojo */
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.bg-yelow {
+    background-color: #F3D428; /* Color rojo */
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.bg-orange {
+    background-color: #E38021; /* Color rojo */
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.bg-dark2 {
+    background-color: #381AA4; /* Color rojo */
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.bg-light-blue {
+    background-color: #D3E8FF; /* Color azul claro */
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.nav-links a {
+    color: #666;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: inherit;
+}
+
+.nav-links a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.img-fluid {
+    max-width: 80%;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+/* --------------------- */

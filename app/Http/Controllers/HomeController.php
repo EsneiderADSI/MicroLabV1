@@ -14,4 +14,9 @@ class HomeController extends Controller
     {
         return view('paginas.modulo-1');
     }
+
+    public function homebanner()
+    {
+        return view('home-two');
+    }
 }

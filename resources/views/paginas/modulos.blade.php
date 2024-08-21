@@ -1,62 +1,136 @@
-@extends('layout')
-@section('title', 'Módulos - MicroLab')
-@section('content')
-{{-- Doctor saludando para comenzar --}}
-<div class="container">
-    <div class="row justify-content-center" style="margin-top: -100px;">
-        <div class="col-lg-6 col-md-10">
-            <div class="slider-content">
-                <h3 class="title" style="color: #000;">Módulos</h3>
-            </div> <!-- row -->
-        </div>
-    </div> <!-- row -->
-    <div class="row justify-content-center" style="margin-top: -100px;">
-        <div class="col-lg-4 col-md-7 col-sm-9">
-            <div class="single-features mt-40">
-                <div class="features-title-icon d-flex justify-content-between">
-                    <h4 class="features-title"><a href="{{ route('modulo1') }}">Práctica #1</a></h4>
-                    <div class="features-icon">
-                        <i class="lni lni-brush"></i>
-                        <img class="shape" src="assets/images/f-shape-1.svg" alt="Shape">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulos</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/styles-banner.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <!-- <header>
+        <div class="logo">YOUR LOGO</div>
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">CONTACT</a>
+            <a href="#">GALLERY</a>
+            <a href="#">PHOTOS</a>
+        </nav>
+    </header> -->
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="row">
+                  <div class="col" style="z-index: 1000;">
+                    <div class="container my-5">
+                        <a style="text-decoration: none;" href="{{ route('modulo1') }}">
+                        <div class="row card-custom">
+                            <div class="col-md-6 bg-red text-white p-5 d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5>Práctica # 1</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
+                                <img src="{{ asset('assets/images/svg/modulos/bitrina1.svg') }}" alt="Lab Image" class="img-fluid">
+                            </div>
+                        </div>
+                        </a>
+                        <br>
+                        <div class="row card-custom">
+                            <div class="col-md-6 bg-yelow text-white p-5 d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5>Práctica # 2</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
+                                <img src="{{ asset('assets/images/svg/modulos/bitrina1.svg') }}" alt="Lab Image" class="img-fluid">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="features-content">
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, id ab, quod sed nemo, pariatur tempora dignissimos doloremque nulla voluptatibus iure culpa excepturi eveniet. Laboriosam in esse suscipit magni voluptas.</p>
-                    <a class="features-btn" href="{{ route('modulo1') }}">Realizar</a>
-                </div>
-            </div> <!-- single features -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-9">
-            <div class="single-features mt-40">
-                <div class="features-title-icon d-flex justify-content-between">
-                    <h4 class="features-title"><a href="#">Práctica # 2</a></h4>
-                    <div class="features-icon">
-                        <i class="lni lni-layout"></i>
-                        <img class="shape" src="assets/images/f-shape-1.svg" alt="Shape">
-                    </div>
-                </div>
-                <div class="features-content">
-                    <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, ducimus. Aspernatur atque perspiciatis a sequi perferendis. Velit, autem similique ipsa neque delectus vero est inventore nihil nesciunt aut sed? Laboriosam?</p>
-                    <a class="features-btn" href="#">Realizar</a>
-                </div>
-            </div> <!-- single features -->
-        </div>
-        <div class="col-lg-4 col-md-7 col-sm-9">
-            <div class="single-features mt-40">
-                <div class="features-title-icon d-flex justify-content-between">
-                    <h4 class="features-title"><a href="#">Práctica # 3</a></h4>
-                    <div class="features-icon">
-                        <i class="lni lni-bolt"></i>
-                        <img class="shape" src="assets/images/f-shape-1.svg" alt="Shape">
-                    </div>
-                </div>
-                <div class="features-content">
-                    <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni fuga nemo illum aliquid iusto. Odio maiores facere amet laboriosam, possimus totam, facilis nam hic modi corporis sint, voluptatum fuga voluptate.</p>
-                    <a class="features-btn" href="#">Realizar</a>
-                </div>
-            </div> <!-- single features -->
-        </div>
-    </div> <!-- row -->
-</div>
 
-@endsection
+                  </div>
+                  <div class="col" style="margin-top: 150px; z-index: 1000;">
+                    <div class="recuadro-texto">
+                        <p>MÓDULOS</p>
+                    </div>
+                  </div>
+                  <div class="col" style="z-index: 1000;">
+                    <div class="container my-5">
+
+                        <div class="row card-custom">
+                            <div class="col-md-6 bg-orange text-white p-5 d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5>Práctica # 3</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
+                                <img src="{{ asset('assets/images/svg/modulos/bitrina1.svg') }}" alt="Lab Image" class="img-fluid">
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row card-custom">
+                            <div class="col-md-6 bg-dark2 text-white p-5 d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5>Práctica # 4</h5>
+                                </div>
+                                {{-- <div>
+                                    <a href="#" class="btn btn-light btn-lg">LEARN MORE</a>
+                                </div> --}}
+                            </div>
+                            <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
+                                <img src="{{ asset('assets/images/svg/modulos/bitrina1.svg') }}" alt="Lab Image" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+        </section>
+
+        <div class="contenedor-graficos">
+
+            <div class="scientist">
+                <img src="{{ asset('assets/images/svg/nubes-fig3.svg') }}" alt="Scientist">
+            </div>
+
+            <div class="recuadro">
+                <div class="container text-center">
+                    <div class="row">
+                      <div class="col">
+                        <div class="gafas">
+                            <img src="{{ asset('assets/images/svg/gafas.svg') }}" alt="Scientist">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="quimico1">
+                            <img src="{{ asset('assets/images/svg/quimico1.svg') }}" alt="Scientist">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="petri">
+                            <img src="{{ asset('assets/images/svg/quimico3.svg') }}" alt="Scientist">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="microscopio">
+                            <img src="{{ asset('assets/images/svg/microscopio.svg') }}" alt="Scientist">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
