@@ -21,11 +21,19 @@
 ===========================*/
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800");
 body {
+    background-image: url('assets/images/fondo-practica.webp'); /* Ruta de tu imagen */
   font-family: "Poppins", sans-serif;
   font-weight: normal;
   font-style: normal;
   color: #121212;
   overflow: hidden;
+
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Hace que la imagen se quede fija en su lugar */
+    background-size: cover; /* Ajusta la imagen para cubrir toda el área del body */
+    background-position: center; /* Centra la imagen en la pantalla */
+    margin: 0; /* Elimina el margen del body para evitar scroll innecesario */
+    height: 100vh; /* Asegura que el body tenga una altura de 100% de la ventana */
 }
 
 * {

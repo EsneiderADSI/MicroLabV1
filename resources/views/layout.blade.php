@@ -87,6 +87,10 @@
     <!--====== Main js ======-->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+     <script src="{{ asset('assets/js/JqueryUI/jquery-ui.js') }}"></script>
+     <script src="{{ asset('assets/js/JqueryUI/jquery.ui.touch-punch.js') }}"></script>
+
+    @yield('extra_js')
 
 </body>
 
