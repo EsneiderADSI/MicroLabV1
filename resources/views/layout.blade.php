@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!--====== Custom Styles CSS ======-->
-    <link rel="stylesheet" href="{{ asset('styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('mi.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
 </head>
 
 

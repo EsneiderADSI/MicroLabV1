@@ -1,8 +1,20 @@
 @extends('layout')
-@section('title', 'Módulo 1 - MicroLab')
+@section('title', 'Módulo 3 - MicroLab')
+<style>
+body {
+    background-image: url('assets/images/fondo-practica.webp'); /* Ruta de tu imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Hace que la imagen se quede fija en su lugar */
+    background-size: cover; /* Ajusta la imagen para cubrir toda el área del body */
+    background-position: center; /* Centra la imagen en la pantalla */
+    margin: 0; /* Elimina el margen del body para evitar scroll innecesario */
+    height: 100vh; /* Asegura que el body tenga una altura de 100% de la ventana */
+}
+
+</style>
 @section('content')
 <div class="container">
-    <h1 class="mt-5">Práctica #1 </h1>
+    <h1 class="mt-5">Práctica #3 </h1>
     <p class="">ADN Y ARN Conocélos aquí. <a href="/modulos">Volver al inicio</a></p>
 
   </div>
@@ -14,7 +26,7 @@
 		<div class="col-lg-6" style="pointer-events: none;">
 		    <div class="image-container" id="mesa">
 		        <p>Arrastrar aquí.</p>
-		        <img src="{{ asset('assets/modulos/mesa-1.png') }}" alt="Mesa">
+		        <img src="{{ asset('assets/modulos/mesa-3.png') }}" alt="Mesa">
 		    </div>
 		</div>
 
