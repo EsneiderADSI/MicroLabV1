@@ -1,71 +1,7 @@
-<!doctype html>
-<html class="no-js" lang="en">
+@extends('layout')
 
-<head>
-    <meta charset="utf-8">
-    
-    <!--====== Title ======-->
-    <title>MicroLab</title>
-    
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
-        
-    <!--====== Magnific Popup CSS ======-->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        
-    <!--====== Slick CSS ======-->
-    <link rel="stylesheet" href="assets/css/slick.css">
-        
-    <!--====== Line Icons CSS ======-->
-    <link rel="stylesheet" href="assets/css/LineIcons.css">
-        
-    <!--====== Bootstrap CSS ======-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    
-    <!--====== Default CSS ======-->
-    <link rel="stylesheet" href="assets/css/default.css">
-    
-    <!--====== Style CSS ======-->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <link rel="stylesheet" href="styles.css">
-
-    
-    
-</head>
-
-<body>
-    <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
-   
-    <!--====== PRELOADER PART START ======-->
-
-    <div class="preloader">
-        <div class="loader">
-            <div class="ytp-spinner">
-                <div class="ytp-spinner-container">
-                    <div class="ytp-spinner-rotator">
-                        <div class="ytp-spinner-left">
-                            <div class="ytp-spinner-circle"></div>
-                        </div>
-                        <div class="ytp-spinner-right">
-                            <div class="ytp-spinner-circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--====== NAVBAR TWO PART ENDS ======-->
-    
-    <!--====== SLIDER PART START ======-->
-
+@section('content')
+{{-- Doctor saludando para comenzar --}}
     <section id="home" class="slider_area">
         <div id="carouselThree" class="carousel slide">
             <ol class="carousel-indicators">
@@ -83,7 +19,7 @@
                                     <h1 class="title">Bienvenido a MicroLab</h1>
                                     <p class="text">Laboratorio virtual microbiológico</p>
                                     <ul class="slider-btn rounded-buttons">
-                                        <li><a class="main-btn rounded-one" href="#" data-target="#carouselThree" data-slide-to="1">COMENZAR</a></li>
+                                        <li><a class="main-btn rounded-one" href="{{ route('modulos') }}">COMENZAR</a></li>
                                         <!-- <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li> -->
                                     </ul>
                                 </div>
@@ -98,7 +34,7 @@
                 </div> <!-- carousel-item -->
 
                 <div class="carousel-item">
-                    
+
                     <div class="container">
                         <div class="row justify-content-center" style="margin-top: -100px;">
                             <div class="col-lg-6 col-md-10">
@@ -189,30 +125,4 @@
         </div>
     </section>
 
-    
-
-
-
-    <!--====== Jquery js ======-->
-    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
-    
-    <!--====== Bootstrap js ======-->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    
-    
-    <!--====== Isotope js ======-->
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    
-    <!--====== Scrolling Nav js ======-->
-    <script src="assets/js/jquery.easing.min.js"></script>
-    <script src="assets/js/scrolling-nav.js"></script>
-    
-    <!--====== Main js ======-->
-    <script src="assets/js/main.js"></script>
-    
-</body>
-
-</html>
+@endsection
