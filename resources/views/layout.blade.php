@@ -32,7 +32,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!--====== Custom Styles CSS ======-->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
 </head>
 
@@ -86,6 +85,7 @@
 
     <!--====== Main js ======-->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/mi.js') }}"></script>
 
      <script src="{{ asset('assets/js/JqueryUI/jquery-ui.js') }}"></script>
      <script src="{{ asset('assets/js/JqueryUI/jquery.ui.touch-punch.js') }}"></script>

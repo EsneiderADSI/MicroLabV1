@@ -2,8 +2,14 @@
 @section('title', 'Módulo 1 - MicroLab')
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-lg-12" style="pointer-events: none;">
     <h1 class="mt-5">Práctica #1 </h1>
     <p class="">ADN Y ARN Conocélos aquí. <a href="/modulos">Volver al inicio</a></p>
+        </div>
+
+    </div>
+
 
   </div>
  	<div class="container-fluid custom-padding">
@@ -18,38 +24,36 @@
 		    </div>
 		</div>
 
+        <div class="col-lg-2">
+            <div id="balanza" class="drag" description="Balanza">
+                <div id="display_balanza">Peso: 0g</div>
+                <div id="lamina_balanza" class="drag" description="Lámina de aluminio">LÁMINA</div>
+            </div>
+        </div>
 
-            <div class="col-lg-2">
-			<div class="ui-widget-content draggable" id="agua">
-			  <img src="{{ asset('assets/modulos/practica1/agua.png') }}" alt="agua" width="50px">
-			</div>
-			<div class="ui-widget-content draggable" id="azucar">
-			  <img src="{{ asset('assets/modulos/practica1/tester.png') }}" alt="azucar" width="50px">
-			</div>
+            <div class="col-lg-4" style="border: 1px solid;">
+                @include('paginas.modulo-1-objetos.reactivos')
+                @include('paginas.modulo-1-objetos.espatula')
+                @include('paginas.modulo-1-objetos.portaobjetos')
+                @include('paginas.modulo-1-objetos.cubreobjetos')
+                @include('paginas.modulo-1-objetos.incubadora')
+                @include('paginas.modulo-1-objetos.frasco')
+                @include('paginas.modulo-1-objetos.mechero')
+                @include('paginas.modulo-1-objetos.medios_de_cultivo')
+                @include('paginas.modulo-1-objetos.microorganismos')
+                @include('paginas.modulo-1-objetos.plancha-calentamiento')
+                @include('paginas.modulo-1-objetos.erlenmeyer')
+                @include('paginas.modulo-1-objetos.phmetro')
+                @include('paginas.modulo-1-objetos.cabina-de-flujo')
+                @include('paginas.modulo-1-objetos.autoclave')
+                @include('paginas.modulo-1-objetos.asa')
 
-			<div class="ui-widget-content draggable" id="aceite">
-			  <img src="{{ asset('assets/modulos/practica1/atom.png') }}" alt="aceite" width="50px">
-			</div>
-			<div class="ui-widget-content draggable" id="sal">
-			  <img src="{{ asset('assets/modulos/practica1/chemicals.png') }}" alt="sal" width="50px">
-			</div>
+
+                <div class="petridish draggable drag" description="Placa de petri" width="50px"></div>
             </div>
 
-            <div class="col-lg-2">
-            	<div class="ui-widget-content draggable" id="Agua">
-			  		<img src="{{ asset('assets/modulos/practica1/flask.png') }}" alt="Agua" width="50px">
-				</div>
 
-				<div class="ui-widget-content draggable">
-			  		<img src="{{ asset('assets/modulos/practica1/science.png') }}" alt="Agua" width="50px">
-				</div>
-            </div>
 
-            <div class="col-lg-2">
-            	<h3>Hoy</h3>
-            	<p>CL NA 134 gr 5%</p>
-            	<p>BR BAD 43 gr 5%</p>
-            </div>
         </div>
 
         <!-- Otra fila con margen superior -->
@@ -89,6 +93,59 @@
 	        }
 	     });
 
-  });
+
+         $("#balanza").droppable({
+             tolerance: 'intersect',
+             drop: function(e, ui) {
+                 if (ui.draggable.attr('tipo') == 'medio_cultivo') {
+                    let width = ui.draggable.width();
+                    let height = ui.draggable.height();
+
+                    let weight = (width*height) / 10;
+                    $("#display_balanza").text("Peso: " + weight + "g");
+                    ui.draggable.text(weight + "g");
+                 }
+             },
+            out: function(event, ui) {
+             $("#display_balanza").text("Peso: 0g");
+            }
+         });
+    // Llenar el frasco de agua
+        $(document).on('dblclick', '#frasco', function(event){
+            const agua = document.getElementById('agua');
+            if (agua.style.height === '40%') {
+                // Si está lleno, vaciarlo
+                agua.style.height = '0';
+            } else {
+                // Si está vacío, llenarlo
+                agua.style.height = '40%';
+            }
+        });
+
+        function LlenarBotellas(){
+            $('.botella').each(function() {
+                const liquido_botella = $(this).find('.liquido_botella');
+                liquido_botella.css('height', '40px');
+            });
+        }
+        LlenarBotellas();
+
+        $(document).on('click', '.botella', function(event){
+            const liquido_botella = $(this).find('.liquido_botella');
+            if (liquido_botella.css('height') === '40px') {
+                // Si está lleno, vaciarlo
+                liquido_botella.css('height', '0');
+            } else {
+                // Si está vacío, llenarlo
+                liquido_botella.css('height', '40px');
+            }
+        });
+
+
+    });
+
   </script>
 @endsection
+
+
+
