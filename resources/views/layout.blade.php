@@ -33,6 +33,7 @@
 
     <!--====== Custom Styles CSS ======-->
     <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 </head>
 
 

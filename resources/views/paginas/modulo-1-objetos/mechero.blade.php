@@ -1,4 +1,4 @@
-    <div class="mechero-container draggable drag" description="Mechero">
+    <div class="mechero-container draggable drag resizable-element" description="Mechero">
         <div class="base"></div>
         <div class="soporte"></div>
         <div class="conector"></div>

@@ -1,4 +1,4 @@
-    <div class="botella cristal-violeta draggable drag" description="Cristal Violeta">
+    <div class="botella cristal-violeta draggable drag resizable-element" description="Cristal Violeta">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
@@ -6,7 +6,7 @@
         <div class="texto-botella">Violeta</div>
     </div>
 
-    <div class="botella lugol draggable drag" description="Lugol">
+    <div class="botella lugol draggable drag resizable-element" description="Lugol">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
@@ -14,7 +14,7 @@
         <div class="texto-botella">Lugol</div>
     </div>
 
-    <div class="botella alcohol draggable drag" description="Alcohol">
+    <div class="botella alcohol draggable drag resizable-element" description="Alcohol">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
@@ -22,7 +22,7 @@
         <div class="texto-botella">Alcohol</div>
     </div>
 
-    <div class="botella acetona draggable drag" description="Acetona">
+    <div class="botella acetona draggable drag resizable-element" description="Acetona">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
@@ -30,7 +30,7 @@
         <div class="texto-botella">Acetona</div>
     </div>
 
-    <div class="botella safranina draggable drag" description="Safranina">
+    <div class="botella safranina draggable drag resizable-element" description="Safranina">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
@@ -38,7 +38,7 @@
         <div class="texto-botella">Safranina</div>
     </div>
 
-    <div class="botella fucsina draggable drag" description="Fucsina">
+    <div class="botella fucsina draggable drag resizable-element" description="Fucsina">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>

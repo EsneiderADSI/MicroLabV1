@@ -1,0 +1,1 @@
+<div class="petridish draggable drag" description="Placa de petri" width="50px"></div>

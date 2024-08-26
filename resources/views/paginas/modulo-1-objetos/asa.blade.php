@@ -1,4 +1,4 @@
-    <div class="asa-container draggable drag" description="Asa">
-        <div class="mango"></div>
-        <div class="asa"></div>
+    <div class="asa1-container draggable drag" description="Asa Circular">
+        <div class="mango_asa_1"></div>
+        <div class="asa_1"></div>
     </div>
