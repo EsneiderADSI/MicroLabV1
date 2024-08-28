@@ -1,58 +1,60 @@
-// Código para mostrar Tooltip o ventanita negrita emergente sobre objetos INICIO
-document.addEventListener('DOMContentLoaded', () => {
-    const drags = document.querySelectorAll('.drag');
+$(document).ready(function() {
+    let activeTooltip = null;
 
-    drags.forEach(drag => {
-        drag.addEventListener('mouseenter', showTooltip);
-        drag.addEventListener('mouseleave', hideTooltip);
-    });
-
+    // Función para mostrar el tooltip
     function showTooltip(event) {
-        const description = event.target.getAttribute('description');
-        const tooltip = document.createElement('div');
-        tooltip.classList.add('tooltip-modal');
-        tooltip.innerText = description;
+        const $target = $(event.currentTarget);
+        const description = $target.attr('description');
 
-        document.body.appendChild(tooltip);
+        if (!description) return;
 
-        const rect = event.target.getBoundingClientRect();
-        const tooltipRect = tooltip.getBoundingClientRect();
+        hideAllTooltips();
 
-        let left = rect.right + 10;
+        const $tooltip = $('<div>').addClass('tooltip-modal').text(description);
+        $('body').append($tooltip);
+
+        const targetRect = $target[0].getBoundingClientRect();
+        const tooltipRect = $tooltip[0].getBoundingClientRect();
+
+        let left = targetRect.right + 10;
         if (left + tooltipRect.width > window.innerWidth) {
-            left = rect.left - tooltipRect.width - 10;
+            left = targetRect.left - tooltipRect.width - 10;
         }
-        if (left < 0) {
-            left = 10;
-        }
+        left = Math.max(10, left);
 
-        let top = rect.top + (rect.height / 2) - (tooltipRect.height / 2);
-        if (top < 10) {
-            top = 10;
-        }
-        if (top + tooltipRect.height > window.innerHeight) {
-            top = window.innerHeight - tooltipRect.height - 10;
-        }
+        let top = targetRect.top + (targetRect.height / 2) - (tooltipRect.height / 2);
+        top = Math.max(10, top);
+        top = Math.min(window.innerHeight - tooltipRect.height - 10, top);
 
-        tooltip.style.left = `${left}px`;
-        tooltip.style.top = `${top}px`;
+        $tooltip.css({left: left + 'px', top: top + 'px'});
 
         setTimeout(() => {
-            tooltip.classList.add('show');
+            $tooltip.addClass('show');
         }, 10);
 
-        event.target.tooltipElement = tooltip;
+        activeTooltip = $tooltip;
     }
 
-    function hideTooltip(event) {
-        const tooltip = event.target.tooltipElement;
-        if (tooltip) {
-            tooltip.classList.remove('show');
-            setTimeout(() => {
-                tooltip.remove();
-            }, 300);
+    // Función para ocultar todos los tooltips
+    function hideAllTooltips() {
+        $('.tooltip-modal').remove();
+        activeTooltip = null;
+    }
+
+    // Usar delegación de eventos para manejar elementos actuales y futuros
+    $(document).on({
+        mouseenter: showTooltip,
+        mouseleave: hideAllTooltips
+    }, '.drag[description]');
+
+    // Ocultar todos los tooltips cuando el mouse no está sobre ningún elemento .drag
+    $(document).on('mousemove', function(event) {
+        const $target = $(event.target);
+        if (!$target.closest('.drag[description]').length) {
+            hideAllTooltips();
         }
-    }
-});
+    });
 
-// Código para mostrar Tooltip o ventanita negrita emergente sobre objetos FIN
+    // Ocultar tooltips durante el arrastre
+    $(document).on('dragstart', '.drag', hideAllTooltips);
+});

@@ -62,10 +62,7 @@
 </ul>
 
 <div id="parte1" class="col s12 agrupador">
-            <div class="image-container" id="mesa">
-                <p>Arrastrar aquí.</p>
-                <img src="{{ asset('assets/modulos/mesa-1.png') }}" alt="Mesa">
-            </div>
+        <p>Contenido del parte 1</p>
 </div>
 <div id="parte2" class="col s12 agrupador">
     <p>Contenido del parte 2</p>
@@ -159,68 +156,238 @@ $(document).ready(function() {
     }
 
     // Inicializar elementos arrastrables
-    $(".draggable").draggable({
-        helper: function() {
-            let clone = $(this).clone();
-            clone.removeClass('ui-resizable');
-            // Eliminar los manejadores de redimensionamiento
-            clone.find('.ui-resizable-handle').remove();
-            return clone;
-        },
-        appendTo: "body",
-        zIndex: 1000,
+  // Función para manejar el z-index y la posición de los elementos
+    function handleZIndexAndPosition(element) {
+        if (element.hasClass('vaso')) {
+            element.css('z-index', 900);
+        } else if (element.hasClass('medio_cultivo')) {
+            element.css('z-index', 999);
+        }
+        // Puedes agregar más condiciones para otros tipos de elementos si es necesario
+    }
+
+
+// Objeto para llevar el conteo de elementos agregados
+const elementCounter = {};
+
+// Configuración de elementos aceptados por cada contenedor
+const acceptedElements = {
+  'workspace-inner': ['vaso', 'erlenmeyer', 'petridish', 'plancha-container', 'reactivo', 'microorganismo', 'mechero-container'],
+  'vaso': ['medio_cultivo', 'phmetro', 'microorganismo'],
+  'plancha-container': ['vaso'],
+  'erlenmeyer': ['solucion', 'reactivo'],
+  'petridish': ['agar', 'microorganismo'],
+  'mechero-container': ['vaso']
+};
+$(".draggable").draggable({
+  helper: function() {
+    let clone = $(this).clone();
+    clone.removeClass('ui-resizable');
+    clone.find('.ui-resizable-handle').remove();
+    return clone;
+  },
+  appendTo: "body",
+  zIndex: 1000,
+  start: function(event, ui) {
+    $(ui.helper).css('width', $(this).width());
+  }
+});
+
+var agregados = [];
+// Función para hacer un elemento droppable
+function makeDroppable(element) {
+
+  element.droppable({
+    tolerance: 'touch',
+    accept: function(draggable) {
+      let elementClass = element.attr('class').split(' ')[0];
+      let draggableClass = draggable.attr('class').split(' ')[0];
+      return acceptedElements[elementClass] && acceptedElements[elementClass].includes(draggableClass);
+    },
+    over: function(event, ui) {
+      $(this).addClass('droppable-highlight');
+    },
+    out: function(event, ui) {
+      $(this).removeClass('droppable-highlight');
+    },
+    drop: function(event, ui) {
+      $(this).removeClass('droppable-highlight');
+
+
+      let droppedElement = $(ui.helper).clone();
+      let elementType = ui.draggable.attr('class').split(' ')[0]; // Usamos la clase del elemento original
+      let dropTarget = $(this);
+
+      // Verificar si ya se ha agregado el elemento máximo permitido (solo para workspace-inner)
+
+
+      droppedElement.removeClass('draggable ui-draggable ui-draggable-handle resizable-element')
+        .addClass('dropped')
+        .addClass(elementType); // Mantenemos la clase original del elemento
+
+      droppedElement.find('.ui-resizable-handle').remove();
+
+      if (droppedElement.hasClass('ui-resizable')) {
+        droppedElement.resizable('destroy');
+      }
+
+      let offsetX = ui.offset.left - dropTarget.offset().left;
+      let offsetY = ui.offset.top - dropTarget.offset().top;
+
+      droppedElement.css({
+        position: 'absolute',
+        left: offsetX,
+        top: offsetY
+      });
+
+      // handleZIndexAndPosition(droppedElement);
+      eliminarElementosIguales(droppedElement);
+      dropTarget.append(droppedElement);
+
+      droppedElement.draggable({
+        containment: "parent",
         start: function(event, ui) {
-            $(ui.helper).css('width', $(this).width());
+          $(this).css('z-index', getMaxZIndex() + 1);
         }
-    });
+      });
 
-    // Hacer que el espacio de trabajo acepte elementos arrastrables
-    $(".workspace-inner").droppable({
-        accept: ".draggable",
-        drop: function(event, ui) {
-            let droppedElement = $(ui.helper).clone();
-            droppedElement.removeClass('draggable ui-draggable ui-draggable-handle resizable-element')
-                          .addClass('dropped');
+      // Hacer droppable si el elemento es un contenedor
+      if (acceptedElements[elementType]) {
+        makeDroppable(droppedElement);
+      }
 
-            // Eliminar cualquier manejador de redimensionamiento restante
-            droppedElement.find('.ui-resizable-handle').remove();
+      // Detectar combinaciones específicas
+      detectSpecificCombination(droppedElement, dropTarget);
+    }
+  });
+}
 
-            // Desactivar la funcionalidad de redimensionamiento si existe
-            if (droppedElement.hasClass('ui-resizable')) {
-                droppedElement.resizable('destroy');
+// Función para detectar combinaciones específicas
+function detectSpecificCombination(droppedElement, dropTarget) {
+  let droppedType = droppedElement.attr('class').split(' ').find(cls => acceptedElements[dropTarget.attr('class').split(' ')[0]].includes(cls));
+  let targetType = dropTarget.attr('class').split(' ')[0];
+
+  console.log(`${droppedType} se soltó sobre ${targetType}`);
+
+  // Acciones específicas basadas en la combinación
+  switch(targetType) {
+    case 'workspace-inner':
+      handleWorkspaceInteraction(droppedType);
+      break;
+    case 'vaso':
+      handleVasoInteraction(droppedType);
+      break;
+    case 'erlenmeyer':
+      handleErlenmeyerInteraction(droppedType);
+      break;
+    case 'plancha-container':
+      handlePlanchaInteraction(droppedType);
+      break;
+    // Agrega más casos según sea necesario
+  }
+}
+
+function handleWorkspaceInteraction(elementType) {
+  switch(elementType) {
+    case 'vaso':
+      console.log('Vaso añadido al workspace. Inicializando...');
+      // Lógica específica para vaso en workspace
+      break;
+    case 'erlenmeyer':
+      console.log('Erlenmeyer añadido al workspace. Configurando...');
+      // Lógica específica para erlenmeyer en workspace
+      break;
+    case 'plancha-container':
+      console.log('Plancha añadida al workspace. Preparando...');
+      // Lógica específica para placa de Petri en workspace
+      break;
+    // Más casos según sea necesario
+  }
+}
+
+function handleVasoInteraction(elementType) {
+  switch(elementType) {
+    case 'medio_cultivo':
+      console.log('Medio de cultivo añadido al vaso. Mezclando...');
+      // Lógica para medio de cultivo en vaso
+      break;
+    case 'plancha-container':
+      console.log('pHmetro introducido en el vaso. Midiendo pH...');
+      // Lógica para pHmetro en vaso
+      break;
+    case 'microorganismo':
+      console.log('Microorganismo añadido al vaso. Iniciando cultivo...');
+      // Lógica para microorganismo en vaso
+      break;
+  }
+}
+
+function handleErlenmeyerInteraction(elementType) {
+  // Implementa la lógica específica para interacciones con el erlenmeyer
+  console.log(`${elementType} añadido al erlenmeyer.`);
+}
+
+function handlePlanchaInteraction(elementType) {
+  // Implementa la lógica específica para interacciones con la placa de Petri
+  console.log(`${elementType} añadido a la PLANCHA.`);
+}
+
+// Función para manejar el z-index y la posición
+function handleZIndexAndPosition(element) {
+  let maxZIndex = getMaxZIndex();
+  element.css('z-index', maxZIndex + 1);
+}
+
+// Función para obtener el máximo z-index actual
+function getMaxZIndex() {
+  return Math.max(0, ...$('.dropped').map(function() {
+    return parseInt($(this).css('z-index')) || 0;
+  }));
+}
+
+// Hacer que el espacio de trabajo y los contenedores sean droppables
+$(".workspace-inner, .vaso, .erlenmeyer, .petridish, .plancha-container").each(function() {
+  makeDroppable($(this));
+});
+
+// Inicializar elementos redimensionables existentes
+$(".resizable-element").each(function() {
+  initializeResizable(this);
+});
+
+// Agregar estilos para el highlight
+$("<style>")
+  .prop("type", "text/css")
+  .html(`
+    .droppable-highlight {
+      box-shadow: 0 0 10px #007bff;
+      transition: box-shadow 0.3s ease;
+    }
+  `)
+  .appendTo("head");
+
+
+
+    function eliminarElementosIguales(elemento) {
+        // Seleccionamos todos los elementos iguales dentro de .workspace-inner
+        const elementosIguales = $('.workspace-inner').find($(elemento).prop('tagName').toLowerCase() + '.' + $(elemento).attr('class').split(' ').join('.'));
+
+        // Eliminamos todos los elementos iguales excepto el elemento original
+        elementosIguales.each(function() {
+            if (this !== elemento) {
+                $(this).remove();
             }
-
-            droppedElement.css({
-                position: 'absolute',
-                left: ui.position.left - $(this).offset().left,
-                top: ui.position.top - $(this).offset().top
-            });
-            $(this).append(droppedElement);
-
-            // Hacer que el elemento clonado sea arrastrable dentro del workspace
-            droppedElement.draggable({
-                containment: "parent"
-            });
-        }
-    });
-
-    // Inicializar elementos redimensionables existentes
-    $(".resizable-element").each(function() {
-        initializeResizable(this);
-    });
-
-    // ... (resto del código para scroll y tabs)
-
-
+        });
+    }
         function LlenarBotellas(){
-            $('.botella').each(function() {
+            $('.reactivo').each(function() {
                 const liquido_botella = $(this).find('.liquido_botella');
                 liquido_botella.css('height', '40px');
             });
         }
         LlenarBotellas();
 
-        $(document).on('click', '.botella', function(event){
+        $(document).on('click', '.reactivo', function(event){
             const liquido_botella = $(this).find('.liquido_botella');
             if (liquido_botella.css('height') === '40px') {
                 // Si está lleno, vaciarlo
@@ -234,14 +401,23 @@ $(document).ready(function() {
 
     // Llenar el frasco de agua
         $(document).on('click', '.vaso', function(event){
+            if ($(this).hasClass('jhancarlos_agregado')) {
+                // Aquí puedes agregar el código que deseas ejecutar si tiene la clase
+                alert('El vaso tiene la clase jhancarlos_agregado');
+                const medio_cultivo = $(this).find('.medio_cultivo');
+                medio_cultivo.css('height', '100px');
+                medio_cultivo.css('width', '100px');
+                medio_cultivo.css('background-color', '#9b59b6');
+            }
+
             const agua = $(this).find('#agua_vaso');
-        if (agua.css('height') === '40px') {
-            // Si está lleno, vaciarlo
-            agua.css('height', '0');
-        } else {
-            // Si está vacío, llenarlo
-            agua.css('height', '40px');
-        }
+            if (agua.css('height') === '40px') {
+                // Si está lleno, vaciarlo
+                agua.css('height', '0');
+            } else {
+                // Si está vacío, llenarlo
+                agua.css('height', '40px');
+            }
         });
 
 
@@ -256,10 +432,12 @@ $(document).ready(function() {
     });
 
 
-         $("#mesa").droppable({
+         $(".vaso").droppable({
              tolerance: 'fit',
+             accept: ".medio_cultivo",
              drop: function(e, ui) {
-                 if (ui.draggable.attr('id') == 'agua') {
+                alert("arroz");
+                 if (ui.draggable.attr('tipo') == 'medio_cultivo') {
                         let value = parseFloat(prompt("¿Cuánta agua vas a utilizar? ml", "10"));
                         if (!isNaN(value)) {
                             $("#alerta").html("Has aplicado " + value + " ml a la mezcla");
@@ -277,22 +455,30 @@ $(document).ready(function() {
             }
          });
 
-         $("#balanza").droppable({
+         $(".balanza").droppable({
              tolerance: 'intersect',
              drop: function(e, ui) {
                  if (ui.draggable.attr('tipo') == 'medio_cultivo') {
+                    var balanza = $(this);
                     let width = ui.draggable.width();
                     let height = ui.draggable.height();
 
-                    let weight = (width*height) / 10;
-                    $("#display_balanza").text("Peso: " + weight + "g");
-                    ui.draggable.text(weight + "g");
+                    let weight = balanza.find(".display_balanza").attr("value"); // Acceder al atributo value
+
+                    ui.draggable.text(weight + "g").attr("value", weight);
                  }
              },
             out: function(event, ui) {
-             $("#display_balanza").text("Peso: 0g");
+                var balanza = ui.draggable;
+                balanza.find(".display_balanza").text("0g").attr('value', '0');
             }
          });
+
+         $(document).on('input', '.peso_slider', function(event){
+                const $balanza = $(this).closest('.balanza');
+                const value = $(this).val();
+                $balanza.find('.display_balanza').text(value + 'g').attr('value', value);
+            });
 
 });
 

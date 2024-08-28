@@ -1,4 +1,5 @@
-<div id="balanza" class="drag" description="Balanza">
-    <div id="display_balanza">Peso: 0g</div>
-    <div id="lamina_balanza" class="drag" description="Lámina de aluminio">LÁMINA</div>
-</div>
+    <div id="balanza1" class="balanza drag" description="Balanza 1">
+        <div class="display_balanza" value="0">0g</div>
+        <input type="range" class="peso_slider" min="0" max="500" step="5" value="0">
+        <div class="lamina_balanza">LÁMINA</div>
+    </div>
