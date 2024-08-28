@@ -93,6 +93,7 @@
             <h5>Herramientas</h5>
             <!-- Aquí puedes agregar herramientas adicionales o configuraciones -->
             @include('paginas.modulo-1-objetos.balanza')
+            @include('paginas.modulo-1-objetos.microscopio')
             @include('paginas.modulo-1-objetos.phmetro')
             @include('paginas.modulo-1-objetos.mechero')
             @include('paginas.modulo-1-objetos.plancha-calentamiento')
