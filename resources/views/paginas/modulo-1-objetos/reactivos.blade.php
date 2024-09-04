@@ -1,3 +1,11 @@
+    <div class="reactivo agua draggable drag resizable-element" description="Agua">
+        <div class="borde-superior_botella"></div>
+        <div class="brillo_botella"></div>
+        <div class="tapa_botella"></div>
+        <div class="liquido_botella" style="background-color: rgba(52, 152, 219, 1);"></div>
+        <div class="texto-botella">Agua</div>
+    </div>
+
     <div class="reactivo cristal-violeta draggable drag resizable-element" description="Cristal Violeta">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
@@ -44,4 +52,20 @@
         <div class="tapa_botella"></div>
         <div class="liquido_botella" style="background-color: rgba(233, 30, 99, 0.6);"></div>
         <div class="texto-botella">Fucsina</div>
+    </div>
+
+    <div class="reactivo hidroxido_de_sodio draggable drag resizable-element" description="Hidróxido de sodio">
+        <div class="borde-superior_botella"></div>
+        <div class="brillo_botella"></div>
+        <div class="tapa_botella"></div>
+        <div class="liquido_botella" style="background-color: rgba(181, 170, 175, 0.8);"></div>
+        <div class="texto-botella">NaOH</div>
+    </div>
+
+    <div class="reactivo hidroxido_de_sodio draggable drag resizable-element" description="Ácido clorhídrico">
+        <div class="borde-superior_botella"></div>
+        <div class="brillo_botella"></div>
+        <div class="tapa_botella"></div>
+        <div class="liquido_botella" style="background-color: rgba(178, 235, 242, 0.6);"></div>
+        <div class="texto-botella">HCl</div>
     </div>

@@ -1,4 +1,4 @@
-    <div class="plancha-container draggable drag" description="Calentadora">
+    <div class="plancha-container draggable drag resizable-element" description="Calentadora">
         <div class="plancha">
             <div class="top-plate"></div>
             <div class="knob">

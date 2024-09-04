@@ -1,4 +1,81 @@
+    function mezclarColoresHex(color1, color2) {
+    // Función para convertir hex a RGB
+    function hexAdec(hex) {
+        return parseInt(hex, 16);
+    }
+
+    // Función para convertir RGB a hex
+    function decAhex(dec) {
+        let hex = dec.toString(16);
+        return hex.length === 1 ? "0" + hex : hex; // Asegura que sea de dos caracteres
+    }
+
+    // Quita el símbolo # si está presente
+    color1 = color1.replace("#", "");
+    color2 = color2.replace("#", "");
+
+    // Extrae los valores RGB de cada color
+    const r1 = hexAdec(color1.substring(0, 2));
+    const g1 = hexAdec(color1.substring(2, 4));
+    const b1 = hexAdec(color1.substring(4, 6));
+
+    const r2 = hexAdec(color2.substring(0, 2));
+    const g2 = hexAdec(color2.substring(2, 4));
+    const b2 = hexAdec(color2.substring(4, 6));
+
+    // Mezcla los componentes RGB
+    const rFinal = Math.round((r1 + r2) / 2);
+    const gFinal = Math.round((g1 + g2) / 2);
+    const bFinal = Math.round((b1 + b2) / 2);
+
+    // Convierte los componentes RGB mezclados a formato hexadecimal
+    const colorFinal = "#" + decAhex(rFinal) + decAhex(gFinal) + decAhex(bFinal);
+
+    return colorFinal;
+}
+
+
+
+// Función para convertir rgb() a hex:
+
+function rgbAHex(rgb) {
+    // Extrae los valores R, G, B
+    const rgbArray = rgb.match(/\d+/g);
+
+    if (!rgbArray) return null;
+
+    return "#" + rgbArray.map(x => {
+        // Convierte cada valor R, G, B a hexadecimal
+        let hex = parseInt(x).toString(16);
+        // Asegura que el valor tenga dos caracteres
+        return hex.length === 1 ? "0" + hex : hex;
+    }).join("");
+}
+
+
+
+
 $(document).ready(function() {
+
+// Selecciona el elemento donde se mostrarán las coordenadas
+const coordinatesDisplay = document.getElementById('coordinates');
+
+// Selecciona el contenedor workspace-inner
+const workspaceInner = document.querySelector('.workspace-inner');
+
+// Escucha el evento 'mousemove' en el contenedor
+workspaceInner.addEventListener('mousemove', function(event) {
+    // Obtiene las coordenadas relativas al contenedor
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+    // Actualiza el contenido del <p> con las coordenadas
+    coordinatesDisplay.textContent = `X: ${x}, Y: ${y}`;
+});
+
+
+
+
     let activeTooltip = null;
 
     // Función para mostrar el tooltip
@@ -57,4 +134,7 @@ $(document).ready(function() {
 
     // Ocultar tooltips durante el arrastre
     $(document).on('dragstart', '.drag', hideAllTooltips);
+
+
+
 });
