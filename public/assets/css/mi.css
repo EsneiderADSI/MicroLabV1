@@ -306,12 +306,58 @@
 
         .agua_vaso {
             width: 100%;
-            height: 0;
+            height: 0%;
             background-color: #3498db;
             position: absolute;
             bottom: 0;
             transition: height 2s;
         }
+
+
+/* Clase para activar las animaciones */
+.agua_vaso.hirviendo::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.5) 2px, transparent 2px),
+        radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.5) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+    animation: burbujas_agua_vaso 5s linear infinite;
+}
+
+.agua_vaso.hirviendo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: ondulacion_agua_vaso 2s ease-in-out infinite;
+}
+
+@keyframes burbujas_agua_vaso {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes ondulacion_agua_vaso {
+    0%, 100% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(100%);
+    }
+}
 /*Vaso con agua FIN*/
 
 

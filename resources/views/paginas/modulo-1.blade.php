@@ -64,17 +64,21 @@
 
 <div id="parte1" class="col s12 agrupador">
         <p></p>
- <ol style="padding-left: 20px; font-size: 13px;">
-    <li>Se pesa en balanza analítica sobre lámina de aluminio y espátula estéril la cantidad de medio a preparar.</li>
-    <li>En frasco de vidrio con un volumen de agua menor al volumen total a preparar, depositar el medio de cultivo deshidratado pesado.</li>
-    <li>Agregar el volumen de agua estéril hasta completar el total a preparar.</li>
-    <li>Homogenizar manualmente la mezcla evitando que se formen grumos.</li>
-</ol>
+         <ol style="padding-left: 20px; font-size: 13px;">
+            <li>Se pesa en balanza analítica sobre lámina de aluminio y espátula estéril la cantidad de medio a preparar.</li>
+            <li>En frasco de vidrio con un volumen de agua menor al volumen total a preparar, depositar el medio de cultivo deshidratado pesado.</li>
+            <li>Agregar el volumen de agua estéril hasta completar el total a preparar.</li>
+            <li>Homogenizar manualmente la mezcla evitando que se formen grumos.</li>
+        </ol>
 
 
 </div>
 <div id="parte2" class="col s12 agrupador">
     <p>Contenido del parte 2</p>
+         <ol style="padding-left: 20px; font-size: 13px;">
+            <li>En plancha de calentamiento colocar el medio de cultivo, (si es necesario) hasta que se disuelva perfectamente.</li>
+            <li>Medir el pH de los medios preparados utilizando un pH-metro, y ajustar si es necesario según los requerimientos de pH del medio de cultivo a utilizar o el método de ensayo antes de esterilizar.</li>
+        </ol>
 </div>
 <div id="parte3" class="col s12 agrupador">
     <p>Contenido del parte 3</p>
@@ -314,7 +318,7 @@ function detectSpecificCombination(droppedElement, dropTarget) {
   // Acciones específicas basadas en la combinación
   switch(targetType) {
     case 'workspace-inner':
-      handleWorkspaceInteraction(droppedType);
+      handleWorkspaceInteraction(droppedType, droppedElement);
       break;
     case 'vaso':
       handleVasoInteraction(droppedType, droppedElement, dropTarget);
@@ -323,16 +327,17 @@ function detectSpecificCombination(droppedElement, dropTarget) {
       handleErlenmeyerInteraction(droppedType);
       break;
     case 'plancha-container':
-      handlePlanchaInteraction(droppedType);
+      handlePlanchaInteraction(droppedType, droppedElement, dropTarget);
       break;
     // Agrega más casos según sea necesario
   }
 }
 
-function handleWorkspaceInteraction(elementType) {
+function handleWorkspaceInteraction(elementType, ElementoEnWK) {
   switch(elementType) {
     case 'vaso':
       $("#parte1 p").html('Vaso añadido al workspace. Inicializando...');
+      ElementoEnWK.find(".agua_vaso").removeClass("hirviendo");
       // Lógica específica para vaso en workspace
       break;
     case 'erlenmeyer':
@@ -377,6 +382,7 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
 
             // Aplicar el color mezclado al vaso
             agua_vaso.css('background-color', colorMezclado);
+            Yovaso.attr('data', '{"tipo": soltado_en_el_vaso.attr("tipo"), "accion":"mezclado"}')
 
             // Mostrar el color mezclado en el elemento correspondiente
             $("#parte1 p").html(colorMezclado+ "\n" + "color_Agua_Hex "+ color_Agua_Hex+ " color_agar_Hex "+ color_agar_Hex);
@@ -418,10 +424,10 @@ function handleErlenmeyerInteraction(elementType) {
   $("#parte1 p").html(`${elementType} añadido al erlenmeyer.`);
 }
 
-function handlePlanchaInteraction(elementType) {
+function handlePlanchaInteraction(elementType, soltado_en_plancha, YoPlancha) {
   // Implementa la lógica específica para interacciones con la placa de Petri
   $("#parte1 p").html(`${elementType} añadido a la PLANCHA`);
-
+  soltado_en_plancha.find(".agua_vaso").addClass("hirviendo");
 }
 
 // Función para manejar el z-index y la posición

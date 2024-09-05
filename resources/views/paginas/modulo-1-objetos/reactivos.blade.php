@@ -62,7 +62,7 @@
         <div class="texto-botella">NaOH</div>
     </div>
 
-    <div class="reactivo hidroxido_de_sodio draggable drag resizable-element" description="Ácido clorhídrico">
+    <div class="reactivo acido_clorhidrico draggable drag resizable-element" description="Ácido clorhídrico">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
