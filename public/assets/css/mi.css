@@ -187,6 +187,82 @@
 
 
 
+
+
+/*BOTELLAS DE REACTIVOS INICIO*/
+        .medio_cultivo_caldo {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.1); /* Transparencia para simular vidrio */
+            position: relative;
+            margin: 3px;
+            display: inline-block;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 0px solid #000;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+            cursor: pointer;
+            text-align: center;
+            font-size: 10px;
+            color: #000;
+        }
+
+        .brillo_botella_caldo {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%) rotate(-20deg);
+            border-radius: 50%;
+        }
+
+        .borde-superior_botella_caldo {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            top: 0;
+            left: 0;
+        }
+
+        .tapa_botella_caldo {
+            width: 30%;
+            height: 5px;
+            background-color: #000;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .liquido_botella_caldo {
+            position: absolute;
+            width: 100%;
+            height: 0; /* Inicia vacío */
+            bottom: 0;
+            border-radius: 0 0 8px 8px;
+            transition: height 0.5s ease; /* Animación suave */
+        }
+
+        .texto-botella_caldo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #000;
+            pointer-events: none; /* Para que el clic pase a la botella y no al texto */
+        }
+/*BOTELLAS DE REACTIVOS FIN*/
+
+
 /*BALANZA INICIO */
         .balanza {
             width: 250px;

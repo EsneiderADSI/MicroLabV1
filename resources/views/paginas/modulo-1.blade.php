@@ -26,6 +26,8 @@
                 <div class="divider"></div>
                 <p>Medios de Cultivo</p>
                 @include('paginas.modulo-1-objetos.medios_de_cultivo')
+                <p>Medios de Cultivo Caldos</p>
+                @include('paginas.modulo-1-objetos.medios_de_cultivo_caldos')
                 <div class="divider"></div>
                 <p>Microorganismos</p>
                 @include('paginas.modulo-1-objetos.microorganismos')
@@ -497,6 +499,12 @@ $("<style>")
             $('.reactivo').each(function() {
                 const liquido_botella = $(this).find('.liquido_botella');
                 liquido_botella.css('height', '40px');
+            });
+
+
+            $('.medio_cultivo_caldo').each(function() {
+                const liquido_botella = $(this).find('.liquido_botella_caldo');
+                liquido_botella.css('height', '60%');
             });
         }
         LlenarBotellas();
