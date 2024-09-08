@@ -22,13 +22,6 @@
         <div class="texto-botella_caldo">MK</div>
     </div>
 
-    <div class="medio_cultivo_caldo peptonada draggable drag " description="Caldo peptonada">
-        <div class="borde-superior_botella"></div>
-        <div class="brillo_botella_caldo"></div>
-        <div class="tapa_botella_caldo"></div>
-        <div class="liquido_botella_caldo" style="background-color: rgba(178, 235, 242, 0.6);"></div>
-        <div class="texto-botella_caldo">CP</div>
-    </div>
 
     <div class="medio_cultivo_caldo peptonada draggable drag " description="Agua peptonada">
         <div class="borde-superior_botella"></div>

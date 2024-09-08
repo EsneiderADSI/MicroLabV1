@@ -195,7 +195,7 @@
             height: 40px;
             background-color: rgba(0, 0, 0, 0.1); /* Transparencia para simular vidrio */
             position: relative;
-            margin: 3px;
+            margin: 5px;
             display: inline-block;
             clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
             border-left: 1px solid #000;
@@ -444,7 +444,7 @@
             width: 100px;
             height: 100px;
             position: relative;
-            margin: 50px auto;
+            margin: 50px;
             z-index: 900;
         }
 
@@ -513,29 +513,57 @@
 
 
 /*Placa de Petri INICIO*/
-.petridish {
-    width: 100px; /* Ancho del recipiente */
-    height: 100px; /* Altura del recipiente */
-    border: 6px solid rgba(100, 150, 255, 0.4); /* Borde principal azul claro translúcido */
-    display: inline-block;
-    border-radius: 50%;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco translúcido */
-}
-
-.petridish::before {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 96px; /* Ancho del borde interno */
-    height: 96px; /* Altura del borde interno */
-    border-radius: 50%;
-    border: 3px solid rgba(100, 150, 255, 0.3); /* Borde interno más claro y delgado */
-    background-color: rgba(255, 255, 255, 0.5); /* Capa interna translúcida */
-}
-
-
+        .petridish {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            background-color: #e6e6e6;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .petridish::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            background-color: #e1dce3; /* Color del fondo de la caja petri */
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .petridish::after {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            right: 5%;
+            bottom: 5%;
+            border: 2px solid #d9d9d9;
+            border-radius: 50%;
+        }
+        .shine_petridish {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 50%),
+                linear-gradient(45deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        .shine_petridish::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 15%;
+            height: 15%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
 
 /*Placa de Petri FIN*/
 
@@ -544,7 +572,7 @@
             width: 200px;
             height: 300px;
             position: relative;
-            margin: 50px auto;
+            margin: 50px;
         }
 
         .cuerpo {
@@ -637,7 +665,7 @@
             width: 160px;
             height: 200px;
             position: relative;
-            margin: 50px auto;
+            margin: 50px;
             background-color: #f0f0f0;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -798,7 +826,7 @@
             width: 120px;
             height: 300px;
             position: relative;
-            margin: 50px auto;
+            margin: 50px;
         }
 
         .base {
@@ -917,7 +945,7 @@
         .cubreobjetos {
             width: 80px;
             height: 80px;
-            left: 50%;
+            left: 30%;
             position: relative;
             border-radius: 4px;
             background-color: rgba(173, 216, 230, 0.3);
@@ -983,7 +1011,7 @@
             height: 300px;
             background-color: #f4f4f4;
             position: relative;
-            margin: 50px auto;
+            margin: 50px;
             border-radius: 5px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             overflow: hidden; /* Para evitar que los elementos sobresalgan */
@@ -1109,8 +1137,8 @@
 /*PH METRO INICIO*/
 .phmetro {
     width: 40px; /* 50% de 80px */
-    height: 120px; /* 50% de 240px */
-    margin: 25px auto; /* 50% de 50px */
+    height: 100px; /* 50% de 240px */
+    margin: 50px; /* 50% de 50px */
     position: relative;
     z-index: 999;
 }
@@ -1121,7 +1149,7 @@
     height: 60px; /* 50% de 120px */
     background-color: #d32f2f;
     border-radius: 20px 20px 10px 10px; /* 50% de 40px 40px 20px 20px */
-    position: relative;
+    position: absolute;
     box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.3); /* 50% de 0 5px 10px */
     display: flex;
     align-items: center;
@@ -1271,8 +1299,8 @@
 
 /* microorganismo INICIO */
    .microorganismo {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 999;
@@ -1527,6 +1555,72 @@
     top:  80%;
  }
 
+
+/*TUBO DE ENSAYO INICIO*/
+
+        .tubo-ensayo-container {
+            width: 30px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.3); /* Transparencia para simular vidrio */
+            border-radius: 0 0 20px 20px;
+            border: 2px solid #000;
+            position: relative;
+            overflow: hidden;
+            /*margin: 50px;*/
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tapa del tubo */
+        .tapa-tubo {
+            width: 45px;
+            height: 20px;
+            background-color: #b72f30;
+            border-radius: 15px 15px 0 0;
+            position: absolute;
+            top: -13px;
+            left: -2.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para darle más detalle */
+        }
+
+        /* Líneas de medición */
+        .lineas-medicion {
+            position: absolute;
+            right: 5px;
+            top: 15px;
+            height: 70px;
+            width: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .lineas-medicion div {
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+        }
+
+        /* Líquido dentro del tubo */
+        .liquido-tubo {
+            width: 100%;
+            height: 10%;
+            background-color: #3498db;
+            position: absolute;
+            bottom: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Borde superior del tubo de ensayo */
+        .borde-superior-tubo {
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 10px 10px 0 0;
+        }
+/*TUBO DE ENSAYO FIN*/
 
 /*ESTILOS DEL MICROSCOPIO INICIO*/
 

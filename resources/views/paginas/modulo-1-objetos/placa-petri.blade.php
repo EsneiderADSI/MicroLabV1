@@ -1,1 +1,3 @@
-<div class="petridish draggable drag" description="Placa de petri" width="50px"></div>
+    <div class="petridish draggable drag" description="Placa de petri">
+       <div class="shine_petridish"></div>
+    </div>

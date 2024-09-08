@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio Virtual con MaterializeCSS</title>
+    <title>MicroLab</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
@@ -17,6 +17,9 @@
             <div class="divider"></div>
                 <p>Erlenmeyer</p>
                 @include('paginas.modulo-1-objetos.erlenmeyer')
+                <div class="divider"></div>
+                <p>Tubo de Ensayo</p>
+                @include('paginas.modulo-1-objetos.tubo-ensayo')
                 <div class="divider"></div>
                 <p>Frasco</p>
                 @include('paginas.modulo-1-objetos.frasco')
@@ -186,20 +189,20 @@ $(document).ready(function() {
     }
 
 
-// Objeto para llevar el conteo de elementos agregados
-const elementCounter = {};
-
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['vaso', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro'],
-  'vaso': ['medio_cultivo', 'reactivo', 'microorganismo'],
+  'workspace-inner': ['vaso', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos'],
+  'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
   'plancha-container': ['vaso', 'erlenmeyer'],
   'erlenmeyer': ['solucion', 'reactivo'],
   'petridish': ['agar', 'microorganismo'],
   'incubadora-container': ['reactivo'],
-  // 'receptor': ['plancha-container', 'incubadora-container'],
   'autoclave-container': ['vaso']
 };
+
+// Lista de elementos que deben permanecer fijos en su posición inicial
+const fixedElements = ["autoclave-container", "incubadora-container", "mechero-container", "plancha-container", "cabina-container"];
+
 $(".draggable").draggable({
   helper: function() {
     let clone = $(this).clone();
@@ -216,10 +219,8 @@ $(".draggable").draggable({
   }
 });
 
-var agregados = [];
 // Función para hacer un elemento droppable
 function makeDroppable(element) {
-
   element.droppable({
     tolerance: 'touch',
     accept: function(draggable) {
@@ -236,17 +237,14 @@ function makeDroppable(element) {
     drop: function(event, ui) {
       $(this).removeClass('droppable-highlight');
 
-
       let droppedElement = $(ui.helper).clone();
-      let elementType = ui.draggable.attr('class').split(' ')[0]; // Usamos la clase del elemento original
+      let elementType = ui.draggable.attr('class').split(' ')[0];
       let dropTarget = $(this);
-
-      // Verificar si ya se ha agregado el elemento máximo permitido (solo para workspace-inner)
-
+      let workspace = $('.workspace-inner');
 
       droppedElement.removeClass('draggable ui-draggable ui-draggable-handle resizable-element')
         .addClass('dropped')
-        .addClass(elementType); // Mantenemos la clase original del elemento
+        .addClass(elementType);
 
       droppedElement.find('.ui-resizable-handle').remove();
 
@@ -254,60 +252,56 @@ function makeDroppable(element) {
         droppedElement.resizable('destroy');
       }
 
-      let offsetX = ui.offset.left - dropTarget.offset().left;
-      let offsetY = ui.offset.top - dropTarget.offset().top;
+      // Calcular la posición relativa al workspace-inner
+      let workspaceOffset = workspace.offset();
+      let dropPositionX = ui.offset.left - workspaceOffset.left;
+      let dropPositionY = ui.offset.top - workspaceOffset.top;
 
       droppedElement.css({
         position: 'absolute',
-        left: offsetX,
-        top: offsetY
+        left: dropPositionX,
+        top: dropPositionY,
+        zIndex: getHighestZIndex() + 1
       });
 
-      // handleZIndexAndPosition(droppedElement);
       eliminarElementosIguales(droppedElement);
 
-      // Detectar combinaciones específicas
-      dropTarget.append(droppedElement);
+      // Añadir el elemento al workspace-inner
+      workspace.append(droppedElement);
+
       detectSpecificCombination(droppedElement, dropTarget);
 
-      // Validación personal
-        let droppedType = droppedElement.attr('class').split(' ').find(cls => acceptedElements[dropTarget.attr('class').split(' ')[0]].includes(cls));
-        let targetType = dropTarget.attr('class').split(' ')[0];
-
-        let elementosFijos = ["autoclave-container", "autoclave-container", "incubadora-container", "mechero-container", "plancha-container", "cabina-container"];
-        if (targetType === "workspace-inner") {
-            // hacer que solo algunos se queden fijos
-            if (!elementosFijos.includes(droppedType)){
-                droppedElement.draggable({
-                containment: "parent",
-                start: function(event, ui) {
-
-                    let elementType = $(this).attr('class').split(' ').find(cls => acceptedElements['workspace-inner'].includes(cls));
-                    $("#parte1 p").html("Arrastrando (clonado): " + elementType);
-                  }
-              });
-            }
-        }else{
-
+      if (!fixedElements.includes(elementType)) {
         droppedElement.draggable({
-        // containment: "parent",
+          containment: ".workspace-inner",
+          start: function(event, ui) {
+            $(this).css('zIndex', getHighestZIndex() + 1);
+            let elementType = $(this).attr('class').split(' ').find(cls => acceptedElements['workspace-inner'].includes(cls));
+            $("#parte1 p").html("Arrastrando (clonado): " + elementType);
+          }
+        });
+      }
 
-      });
-        }
-
-
-    // Mi validación
-
-     // initializeWorkspaceDraggables();
-      // Hacer droppable si el elemento es un contenedor
       if (acceptedElements[elementType]) {
         makeDroppable(droppedElement);
       }
-
-
     }
   });
 }
+
+// Función para obtener el zIndex más alto
+function getHighestZIndex() {
+  return Math.max(
+    ...Array.from(document.querySelectorAll('body *'))
+      .map(el => parseFloat(window.getComputedStyle(el).zIndex))
+      .filter(zIndex => !Number.isNaN(zIndex))
+  );
+}
+
+// Inicializar los elementos droppable
+$(".droppable").each(function() {
+  makeDroppable($(this));
+});
 
 // Función para detectar combinaciones específicas
 function detectSpecificCombination(droppedElement, dropTarget) {
@@ -446,7 +440,7 @@ function getMaxZIndex() {
 }
 
 // Hacer que el espacio de trabajo y los contenedores sean droppables
-$(".workspace-inner, .vaso, .erlenmeyer, .plancha-container").each(function() {
+$(".workspace-inner, .vaso, .erlenmeyer, .plancha-container, .phmetro").each(function() {
   makeDroppable($(this));
 });
 
