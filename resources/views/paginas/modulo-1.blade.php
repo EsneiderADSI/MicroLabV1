@@ -203,6 +203,25 @@ const acceptedElements = {
 // Lista de elementos que deben permanecer fijos en su posición inicial
 const fixedElements = ["autoclave-container", "incubadora-container", "mechero-container", "plancha-container", "cabina-container"];
 
+// Función para determinar dónde se debe agregar el elemento
+function determineAppendTarget(draggableType, droppableType) {
+  // Lista de combinaciones que deben agregarse al contenedor específico
+  const appendToTargetCombinations = [
+    { draggable: 'medio_cultivo', droppable: 'vaso' },
+    { draggable: 'microorganismo', droppable: 'petridish' },
+    { draggable: 'vaso', droppable: 'autoclave-container' }
+    // Agrega aquí más combinaciones según sea necesario
+  ];
+
+  // Verifica si la combinación actual está en la lista
+  const shouldAppendToTarget = appendToTargetCombinations.some(
+    combo => combo.draggable === draggableType && combo.droppable === droppableType
+  );
+
+  // Retorna el contenedor apropiado
+  return shouldAppendToTarget ? droppableType : 'workspace-inner';
+}
+
 $(".draggable").draggable({
   helper: function() {
     let clone = $(this).clone();
@@ -252,10 +271,14 @@ function makeDroppable(element) {
         droppedElement.resizable('destroy');
       }
 
-      // Calcular la posición relativa al workspace-inner
-      let workspaceOffset = workspace.offset();
-      let dropPositionX = ui.offset.left - workspaceOffset.left;
-      let dropPositionY = ui.offset.top - workspaceOffset.top;
+      // Determinar el contenedor de destino
+      let appendTarget = determineAppendTarget(elementType, dropTarget.attr('class').split(' ')[0]);
+      let targetContainer = appendTarget === 'workspace-inner' ? workspace : dropTarget;
+
+      // Calcular la posición relativa al contenedor de destino
+      let containerOffset = targetContainer.offset();
+      let dropPositionX = ui.offset.left - containerOffset.left;
+      let dropPositionY = ui.offset.top - containerOffset.top;
 
       droppedElement.css({
         position: 'absolute',
@@ -266,19 +289,24 @@ function makeDroppable(element) {
 
       eliminarElementosIguales(droppedElement);
 
-      // Añadir el elemento al workspace-inner
-      workspace.append(droppedElement);
+      // Añadir el elemento al contenedor determinado
+      targetContainer.append(droppedElement);
 
       detectSpecificCombination(droppedElement, dropTarget);
 
       if (!fixedElements.includes(elementType)) {
         droppedElement.draggable({
-          containment: ".workspace-inner",
+          containment: appendTarget === 'workspace-inner' ? ".workspace-inner" : "parent",
           start: function(event, ui) {
             $(this).css('zIndex', getHighestZIndex() + 1);
             let elementType = $(this).attr('class').split(' ').find(cls => acceptedElements['workspace-inner'].includes(cls));
             $("#parte1 p").html("Arrastrando (clonado): " + elementType);
           }
+        });
+
+        // Agregar evento de doble clic para extraer el elemento
+        droppedElement.on('dblclick', function() {
+          extractElement($(this));
         });
       }
 
@@ -287,6 +315,38 @@ function makeDroppable(element) {
       }
     }
   });
+}
+
+// Función para extraer un elemento de su contenedor y añadirlo al workspace-inner
+function extractElement(element) {
+  let workspace = $('.workspace-inner');
+  let currentParent = element.parent();
+
+  // Si el elemento ya está en workspace-inner, no hacemos nada
+  if (currentParent.attr('id') === 'workspace-inner') {
+    return;
+  }
+
+  // Calculamos la posición global del elemento
+  let globalPosition = element.offset();
+
+  // Calculamos la nueva posición relativa al workspace-inner
+  let workspaceOffset = workspace.offset();
+  let newPositionX = globalPosition.left - workspaceOffset.left;
+  let newPositionY = globalPosition.top - workspaceOffset.top;
+
+  // Actualizamos la posición y el contenedor del elemento
+  element.css({
+    left: newPositionX,
+    top: newPositionY,
+    zIndex: getHighestZIndex() + 1
+  });
+
+  // Movemos el elemento al workspace-inner
+  workspace.append(element);
+
+  // Actualizamos las propiedades de arrastre
+  element.draggable('option', 'containment', '.workspace-inner');
 }
 
 // Función para obtener el zIndex más alto
@@ -406,11 +466,30 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
 
         soltado_en_el_vaso.remove();
       }
+
+      if (soltado_en_el_vaso.hasClass('hidroxido_de_sodio')){
+            if (confirm('¿Estás seguro(a) de aplicar Hidróxido de sodio ?')) {
+                soltado_en_el_vaso.remove();
+                Yovaso.attr('tiene', "NaOH");
+            }
+      }
+
+        if (soltado_en_el_vaso.hasClass('acido_clorhidrico')){
+            if (confirm('¿Estás seguro(a) de aplicar Ácido clorhídrico?')) {
+                soltado_en_el_vaso.remove();
+                Yovaso.attr('tiene', "HCl");
+            }
+      }
       // Lógica para pHmetro en vaso
       break;
     case 'microorganismo':
       $("#parte1 p").html('Microorganismo añadido al vaso. Iniciando cultivo...');
       // Lógica para microorganismo en vaso
+      break;
+
+    case 'phmetro':
+      $("#parte1 p").html('El PHMETRO añadido al vaso. Iniciando medición...');
+        alert("El PH no es el adecuado , utiliza una solución de hidróxido de sodio de o ácido clorhídrico para nivelarlo");
       break;
   }
 }
@@ -516,7 +595,7 @@ $("<style>")
 
 
     // Llenar el frasco de agua
-        $(document).on('click', '.vaso', function(event){
+        $(document).on('click', '.vaso--', function(event){
             if ($(this).hasClass('jhancarlos_agregado')) {
                 // Aquí puedes agregar el código que deseas ejecutar si tiene la clase
                 alert('El vaso tiene la clase jhancarlos_agregado');
@@ -543,7 +622,7 @@ $(document).on('click', '.dropped', function(event){
         event.stopPropagation();
 
         // Mostrar alerta de confirmación
-        if (confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
+        if (confirm('¿Estás seguro(a) de que deseas eliminar este elemento?')) {
             // Destruir el objeto si se acepta
             $(this).remove();
         }
