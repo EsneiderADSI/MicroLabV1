@@ -6,6 +6,7 @@
     <title>MicroLab</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
 </head>
 
@@ -197,10 +198,11 @@ const acceptedElements = {
   'erlenmeyer': ['solucion', 'reactivo'],
   'petridish': ['agar', 'microorganismo'],
   'incubadora-container': ['reactivo'],
-  'autoclave-container': ['vaso']
+  'autoclave-container': ['vaso'],
+  'petridish': ['vaso']
 };
 
-// Lista de elementos que deben permanecer fijos en su posición inicial
+// Lista de elementos que deben permanecer fijos en su posición inicial cuándo se suelta en el workspace-inner
 const fixedElements = ["autoclave-container", "incubadora-container", "mechero-container", "plancha-container", "cabina-container"];
 
 // Función para determinar dónde se debe agregar el elemento
@@ -209,7 +211,7 @@ function determineAppendTarget(draggableType, droppableType) {
   const appendToTargetCombinations = [
     { draggable: 'medio_cultivo', droppable: 'vaso' },
     { draggable: 'microorganismo', droppable: 'petridish' },
-    { draggable: 'vaso', droppable: 'autoclave-container' }
+    // { draggable: 'vaso', droppable: 'autoclave-container' }
     // Agrega aquí más combinaciones según sea necesario
   ];
 
@@ -371,10 +373,11 @@ function detectSpecificCombination(droppedElement, dropTarget) {
   $("#parte1 p").html(`${droppedType} se soltó sobre ${targetType}`);
 
 
+
   // Acciones específicas basadas en la combinación
   switch(targetType) {
     case 'workspace-inner':
-      handleWorkspaceInteraction(droppedType, droppedElement);
+      handleWorkspaceInteraction(droppedType, droppedElement, dropTarget);
       break;
     case 'vaso':
       handleVasoInteraction(droppedType, droppedElement, dropTarget);
@@ -385,11 +388,18 @@ function detectSpecificCombination(droppedElement, dropTarget) {
     case 'plancha-container':
       handlePlanchaInteraction(droppedType, droppedElement, dropTarget);
       break;
+    case 'autoclave-container':
+      handleAutoclaveInteraction(droppedType, droppedElement, dropTarget);
+      break;
+    case 'petridish':
+      handlePlacaPetriInteraction(droppedType, droppedElement, dropTarget);
+      break;
     // Agrega más casos según sea necesario
+
   }
 }
 
-function handleWorkspaceInteraction(elementType, ElementoEnWK) {
+function handleWorkspaceInteraction(elementType, ElementoEnWK, YoWorkspace) {
   switch(elementType) {
     case 'vaso':
       $("#parte1 p").html('Vaso añadido al workspace. Inicializando...');
@@ -403,6 +413,12 @@ function handleWorkspaceInteraction(elementType, ElementoEnWK) {
     case 'plancha-container':
       $("#parte1 p").html('Plancha añadida al workspace. Preparando...');
       // Lógica específica para placa de Petri en workspace
+      break;
+
+    case 'petridish':
+      $("#parte1 p").html('Placa Petri añadida al workspace. Preparando...');
+            // asignar un clase a la placa petri agrega para diferenciarla y que se puedan agregar más , ya que la funcion eliminarElementosIguales elimina elementos iguales tomando como referencia sus clases.
+
       break;
     // Más casos según sea necesario
   }
@@ -470,14 +486,14 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
       if (soltado_en_el_vaso.hasClass('hidroxido_de_sodio')){
             if (confirm('¿Estás seguro(a) de aplicar Hidróxido de sodio ?')) {
                 soltado_en_el_vaso.remove();
-                Yovaso.attr('tiene', "NaOH");
+                Yovaso.attr('regulador_ph', "NaOH");
             }
       }
 
         if (soltado_en_el_vaso.hasClass('acido_clorhidrico')){
             if (confirm('¿Estás seguro(a) de aplicar Ácido clorhídrico?')) {
                 soltado_en_el_vaso.remove();
-                Yovaso.attr('tiene', "HCl");
+                Yovaso.attr('regulador_ph', "HCl");
             }
       }
       // Lógica para pHmetro en vaso
@@ -488,11 +504,19 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
       break;
 
     case 'phmetro':
+    const valor_ph = () => (Math.random() * (7.4 - 6.8) + 6.8).toFixed(1);
       $("#parte1 p").html('El PHMETRO añadido al vaso. Iniciando medición...');
+      if (['HCl', 'NaOH'].includes(Yovaso.attr('regulador_ph'))) {
+        soltado_en_el_vaso.find(".pantalla_phmetro").text(valor_ph);
+        alert("El valor del PH es el adecuado");
+
+
+    }else{
         alert("El PH no es el adecuado , utiliza una solución de hidróxido de sodio de o ácido clorhídrico para nivelarlo");
+    }
       break;
-  }
-}
+  } /*CASE*/
+} /*FUNCIÓN*/
 
 function handleErlenmeyerInteraction(elementType) {
   // Implementa la lógica específica para interacciones con el erlenmeyer
@@ -500,9 +524,39 @@ function handleErlenmeyerInteraction(elementType) {
 }
 
 function handlePlanchaInteraction(elementType, soltado_en_plancha, YoPlancha) {
-  // Implementa la lógica específica para interacciones con la placa de Petri
+  // Implementa la lógica específica para interacciones Plancha
   $("#parte1 p").html(`${elementType} añadido a la PLANCHA`);
   soltado_en_plancha.find(".agua_vaso").addClass("hirviendo");
+}
+
+function handleAutoclaveInteraction(elementType, soltado_en_Autoclave, YoAutoclave) {
+  // Implementa la lógica específica para interaccion
+  $("#parte1 p").html(`${elementType} añadido AL aUTOCLAVE`);
+  YoAutoclave.find(".boton_autoclave, .boton_autoclave_2").addClass("animar");
+  // Animar la subida de temperatura
+  $({ temp: 0 }).animate({ temp: 121 }, {
+    duration: 60000,
+    step: function(now) {
+        YoAutoclave.find(".temperatura_autoclave").text(Math.floor(now) + "°C");
+    }
+});
+
+
+}
+
+function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlacaPetri) {
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido AL placa PETRI`);
+
+    // Generar un id único para la placa petri (añadir prefijo)
+    var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
+    // Asignar el id único al elemento YoPlacaPetri
+    YoPlacaPetri.attr('id', id_unico_petridish);
+    // Cambiar el color del pseudo-elemento ::before para la placa petri específica
+    var newColor = "#ffcc00";
+
+    // Aplicar el estilo al pseudo-elemento ::before del id generado
+    $("<style>#" + id_unico_petridish + "::before { background-color: " + newColor + " !important; }</style>").appendTo("head");
 }
 
 // Función para manejar el z-index y la posición
@@ -541,7 +595,9 @@ $("<style>")
 
 
 
+
     function eliminarElementosIguales(elemento) {
+
         // Seleccionamos todos los elementos iguales dentro de .workspace-inner
         const elementosIguales = $('.workspace-inner').find($(elemento).prop('tagName').toLowerCase() + '.' + $(elemento).attr('class').split(' ').join('.'));
 
