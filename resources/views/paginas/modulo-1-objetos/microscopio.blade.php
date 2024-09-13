@@ -1,4 +1,3 @@
-<div class="microscopio draggable drag resizable-element" description="Microscopio">
-
-
+<div class="microscopio draggable drag" description="Microscopio">
+	<img src="{{ asset('assets\modulos\practica1\microscopio.png')}}" width="200px">
 </div>

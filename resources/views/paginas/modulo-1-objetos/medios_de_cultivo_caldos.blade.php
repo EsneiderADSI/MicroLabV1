@@ -1,4 +1,4 @@
-    <div class="medio_cultivo_caldo tioglicolato draggable drag " description="Caldo tioglicolato">
+    <div class="medio_cultivo_caldo tioglicolato draggable drag" description="Caldo tioglicolato" color="#3498db">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella_caldo"></div>
         <div class="tapa_botella_caldo"></div>
@@ -6,7 +6,7 @@
         <div class="texto-botella_caldo">TG</div>
     </div>
 
-    <div class="medio_cultivo_caldo tetrationato draggable drag " description="Caldo tetrationato">
+    <div class="medio_cultivo_caldo tetrationato draggable drag" description="Caldo tetrationato" color="#583ba6">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella_caldo"></div>
         <div class="tapa_botella_caldo"></div>
@@ -14,7 +14,7 @@
         <div class="texto-botella_caldo">TT</div>
     </div>
 
-    <div class="medio_cultivo_caldo Muller-Kauffman draggable drag " description="Caldo Muller-Kauffman">
+    <div class="medio_cultivo_caldo Muller-Kauffman draggable drag" description="Caldo Muller-Kauffman" color="#a69a31">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella_caldo"></div>
         <div class="tapa_botella_caldo"></div>
@@ -23,7 +23,7 @@
     </div>
 
 
-    <div class="medio_cultivo_caldo peptonada draggable drag " description="Agua peptonada">
+    <div class="medio_cultivo_caldo peptonada draggable drag" description="Agua peptonada" color="#949494">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella_caldo"></div>
         <div class="tapa_botella_caldo"></div>

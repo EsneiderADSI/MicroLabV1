@@ -192,24 +192,28 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['vaso', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio'],
   'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
+  'balanza': ['medio_cultivo'],
   'plancha-container': ['vaso', 'erlenmeyer'],
-  'erlenmeyer': ['solucion', 'reactivo'],
   'petridish': ['agar', 'microorganismo'],
-  'incubadora-container': ['reactivo'],
+  'incubadora-container': ['petridish'],
   'autoclave-container': ['vaso'],
-  'petridish': ['vaso']
+  'petridish': ['vaso'],
+  'erlenmeyer': ['medio_cultivo_caldo', 'reactivo', 'phmetro'],
+  'tubo-ensayo-container': ['erlenmeyer'],
+  'cabina-container': ['erlenmeyer']
 };
 
 // Lista de elementos que deben permanecer fijos en su posición inicial cuándo se suelta en el workspace-inner
-const fixedElements = ["autoclave-container", "incubadora-container", "mechero-container", "plancha-container", "cabina-container"];
+const fixedElements = ["autoclave-container", "incubadora-container", "mechero-container", "plancha-container", "cabina-container", "balanza"];
 
 // Función para determinar dónde se debe agregar el elemento
 function determineAppendTarget(draggableType, droppableType) {
   // Lista de combinaciones que deben agregarse al contenedor específico
   const appendToTargetCombinations = [
     { draggable: 'medio_cultivo', droppable: 'vaso' },
+    { draggable: 'medio_cultivo_caldo', droppable: 'erlenmeyer' },
     { draggable: 'microorganismo', droppable: 'petridish' },
     // { draggable: 'vaso', droppable: 'autoclave-container' }
     // Agrega aquí más combinaciones según sea necesario
@@ -382,8 +386,8 @@ function detectSpecificCombination(droppedElement, dropTarget) {
     case 'vaso':
       handleVasoInteraction(droppedType, droppedElement, dropTarget);
       break;
-    case 'erlenmeyer':
-      handleErlenmeyerInteraction(droppedType);
+    case 'balanza':
+      handleBalanzaInteraction(droppedType, droppedElement, dropTarget);
       break;
     case 'plancha-container':
       handlePlanchaInteraction(droppedType, droppedElement, dropTarget);
@@ -393,6 +397,19 @@ function detectSpecificCombination(droppedElement, dropTarget) {
       break;
     case 'petridish':
       handlePlacaPetriInteraction(droppedType, droppedElement, dropTarget);
+      break;
+    case 'incubadora-container':
+      handleIncubadoraInteraction(droppedType, droppedElement, dropTarget);
+      break;
+    case 'erlenmeyer':
+      handleErlenmeyerInteraction(droppedType, droppedElement, dropTarget);
+      break;
+    case 'tubo-ensayo-container':
+      handleTuboEnsayoInteraction(droppedType, droppedElement, dropTarget);
+      break;
+
+    case 'cabina-container':
+      handleCabinaInteraction(droppedType, droppedElement, dropTarget);
       break;
     // Agrega más casos según sea necesario
 
@@ -419,6 +436,7 @@ function handleWorkspaceInteraction(elementType, ElementoEnWK, YoWorkspace) {
       $("#parte1 p").html('Placa Petri añadida al workspace. Preparando...');
             // asignar un clase a la placa petri agrega para diferenciarla y que se puedan agregar más , ya que la funcion eliminarElementosIguales elimina elementos iguales tomando como referencia sus clases.
 
+
       break;
     // Más casos según sea necesario
   }
@@ -443,7 +461,7 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
         // Verificar si el porcentaje es menor o igual al 10%
         if (porcentajeAltura <= 10) {
             alert("No hay suficiente agua en el vaso");
-            soltado_en_el_vaso.remove();
+            // soltado_en_el_vaso.remove();
         } else {
             // Convertir los colores a formato hexadecimal
             var color_Agua_Hex = rgbAHex(agua_vaso.css('background-color'));
@@ -501,6 +519,7 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
     case 'microorganismo':
       $("#parte1 p").html('Microorganismo añadido al vaso. Iniciando cultivo...');
       // Lógica para microorganismo en vaso
+      soltado_en_el_vaso.remove();
       break;
 
     case 'phmetro':
@@ -518,18 +537,29 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
   } /*CASE*/
 } /*FUNCIÓN*/
 
-function handleErlenmeyerInteraction(elementType) {
-  // Implementa la lógica específica para interacciones con el erlenmeyer
-  $("#parte1 p").html(`${elementType} añadido al erlenmeyer.`);
+
+function handleBalanzaInteraction(elementType, soltado_en_balanza, YoBalanza) {
+  // Implementa la lógica específica para interacciones Plancha
+  $("#parte1 p").html(`${elementType} añadido a la BALANZA`);
+    switch(elementType) {
+     case 'medio_cultivo':
+        let weight = YoBalanza.find(".display_balanza").attr("value"); // Acceder al atributo value
+        soltado_en_balanza.text(weight + "g").attr("value", weight);
+
+        break;
+}
 }
 
 function handlePlanchaInteraction(elementType, soltado_en_plancha, YoPlancha) {
   // Implementa la lógica específica para interacciones Plancha
   $("#parte1 p").html(`${elementType} añadido a la PLANCHA`);
+    YoPlancha.find(".top-plate").css("background-color", "#ffe082");
   soltado_en_plancha.find(".agua_vaso").addClass("hirviendo");
 }
 
 function handleAutoclaveInteraction(elementType, soltado_en_Autoclave, YoAutoclave) {
+    switch(elementType) {
+     case 'vaso':
   // Implementa la lógica específica para interaccion
   $("#parte1 p").html(`${elementType} añadido AL aUTOCLAVE`);
   YoAutoclave.find(".boton_autoclave, .boton_autoclave_2").addClass("animar");
@@ -543,20 +573,195 @@ function handleAutoclaveInteraction(elementType, soltado_en_Autoclave, YoAutocla
 
 
 }
+}
 
 function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlacaPetri) {
+    switch(elementType) {
+        case 'vaso':
+        // Mostrar mensaje de interacción
+        $("#parte1 p").html(`${elementType} añadido AL placa PETRI`);
+
+        // Generar un id único para la placa petri (añadir prefijo)
+        var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
+        // Asignar el id único al elemento YoPlacaPetri
+        YoPlacaPetri.attr('id', id_unico_petridish);
+        // Cambiar el color del pseudo-elemento ::before para la placa petri específica
+        var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.agua_vaso').css('background-color'));
+
+        // Aplicar el estilo al pseudo-elemento ::before del id generado
+        $("<style>#" + id_unico_petridish + "::before { background-color: " + LiquidoVaso + " !important; }</style>").appendTo("head");
+        break;
+}
+}
+
+
+function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncubadora) {
+    switch(elementType) {
+     case 'petridish':
     // Mostrar mensaje de interacción
-    $("#parte1 p").html(`${elementType} añadido AL placa PETRI`);
+    $("#parte1 p").html(`${elementType} añadido A la INCUBADORA`);
+    soltado_en_Incubadora.animate({
+        opacity: 0,      // Cambiar opacidad a 0 para que se desvanezca
+        height: "0px",   // Cambiar la altura a 0
+        width: "0px"     // Cambiar el ancho a 0
+    }, 500, function() {  // Duración de la animación: 500ms
+        soltado_en_Incubadora.css("display", "none"); // Después de la animación, ocultamos el elemento
+    });
+
+  $({ temp: 0 }).animate({ temp: 45 }, {
+    duration: 6000,
+    step: function(now) {
+        YoIncubadora.find(".screen_incubadora").text(Math.floor(now) + "°C");
+        knob_incubadora = YoIncubadora.find('.knob_incubadora');
+        if (now ==45){knob_incubadora.css("background-color", "#0f0"); $(".workspace-inner .petridish").css("display", "block").animate({ width: "80px", height: "80px", opacity: 1 }, 500);}else{knob_incubadora.css("background-color", "#d22");}
+    }
+});
+
+
+}
+}
+
+
+ function handleErlenmeyerInteraction(elementType, soltado_en_Erlenmeyer, YoErlenmeyer) {
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido AL Erlenmeyer`);
+  switch(elementType) {
+    case 'medio_cultivo_caldo':
+      $("#parte1 p").html('Medio de cultivo Caldo añadido al erlenmeyer. Mezclando...');
+      // Lógica para medio de cultivo en vaso
+        soltado_en_Erlenmeyer.draggable({containment: "parent" });
+
+        const agua_erlenmeyer = YoErlenmeyer.find('.agua_erlenmeyer');
+
+        // Obtener el alto del contenedor del vaso (para calcular el porcentaje)
+        const alturaContenedor = agua_erlenmeyer.parent().height();
+
+        // Obtener la altura actual en píxeles y calcular su porcentaje
+        const alturaActual = parseFloat(agua_erlenmeyer.css('height'));
+        const porcentajeAltura = (alturaActual / alturaContenedor) * 100;
+
+        // Verificar si el porcentaje es menor o igual al 10%
+        if (porcentajeAltura <= 10) {
+            alert("No hay suficiente agua en el Erlenmeyer");
+            soltado_en_Erlenmeyer.remove();
+        } else {
+            // Convertir los colores a formato hexadecimal
+            var color_Agua_Hex = rgbAHex(agua_erlenmeyer.css('background-color'));
+            var color_agar_Hex = soltado_en_Erlenmeyer.attr('color')
+
+            // Mezclar los colores en hexadecimal
+            const colorMezclado = mezclarColoresHex(color_Agua_Hex, color_agar_Hex);
+
+            // Aplicar el color mezclado al vaso
+            agua_erlenmeyer.css('background-color', colorMezclado);
+            YoErlenmeyer.attr('data', '{"tipo": soltado_en_Erlenmeyer.attr("tipo"), "accion":"mezclado"}')
+
+            // Mostrar el color mezclado en el elemento correspondiente
+            $("#parte1 p").html(colorMezclado+ "\n" + "color_Agua_Hex "+ color_Agua_Hex+ " color_agar_Hex "+ color_agar_Hex);
+            soltado_en_Erlenmeyer.remove();
+        }
+
+
+      break;
+    case 'reactivo':
+      $("#parte1 p").html('REACTIVO SOLTADO SOBRE EL Erlenmeyer...');
+      if (soltado_en_Erlenmeyer.hasClass('agua')){
+            const agua_erlenmeyer = YoErlenmeyer.find('.agua_erlenmeyer');
+
+            let input = prompt("ESCRIBA EL NIVEL DE AGUA PARA EL Erlenmeyer EN % (UN NÚMERO DE 1 A 100)");
+            // Convierte la entrada a un número entero
+            let procentaje_agua = parseInt(input, 10);
+            // no pasar de 100
+            procentaje_agua = procentaje_agua > 100 ? 100 : (procentaje_agua < 0 ? 0 : procentaje_agua);
+
+            if (!isNaN(procentaje_agua)) {
+                agua_erlenmeyer.css('height', procentaje_agua+'%');
+            } else {
+                agua_erlenmeyer.css('height','0%');
+            }
+
+        soltado_en_Erlenmeyer.remove();
+      }
+
+      if (soltado_en_Erlenmeyer.hasClass('hidroxido_de_sodio')){
+            if (confirm('¿Estás seguro(a) de aplicar Hidróxido de sodio ?')) {
+                soltado_en_Erlenmeyer.remove();
+                YoErlenmeyer.attr('regulador_ph', "NaOH");
+            }
+      }
+
+        if (soltado_en_Erlenmeyer.hasClass('acido_clorhidrico')){
+            if (confirm('¿Estás seguro(a) de aplicar Ácido clorhídrico?')) {
+                soltado_en_Erlenmeyer.remove();
+                YoErlenmeyer.attr('regulador_ph', "HCl");
+            }
+      }
+      // Lógica para pHmetro en vaso
+      break;
+
+    case 'phmetro':
+    const valor_ph = () => (Math.random() * (7.4 - 6.8) + 6.8).toFixed(1);
+      $("#parte1 p").html('El PHMETRO añadido al Erlenmeyer. Iniciando medición...');
+      if (['HCl', 'NaOH'].includes(YoErlenmeyer.attr('regulador_ph'))) {
+        soltado_en_Erlenmeyer.find(".pantalla_phmetro").text(valor_ph);
+        alert("El valor del PH es el adecuado");
+
+
+    }else{
+        alert("El PH no es el adecuado , utiliza una solución de hidróxido de sodio de o ácido clorhídrico para nivelarlo");
+    }
+      break;
+  } /*CASE*/
+
+
+}
+
+
+// INTERACCION CON TUBOS DE ENSAYO
+
+function handleTuboEnsayoInteraction(elementType, soltado_en_TuboEnsayo, YoTuboEnsayo) {
+    switch(elementType) {
+     case 'erlenmeyer':
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido AL TUBO DE ENSAYO`);
 
     // Generar un id único para la placa petri (añadir prefijo)
-    var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
-    // Asignar el id único al elemento YoPlacaPetri
-    YoPlacaPetri.attr('id', id_unico_petridish);
-    // Cambiar el color del pseudo-elemento ::before para la placa petri específica
-    var newColor = "#ffcc00";
+    var id_unico_tubo = 'tubo_ensayo' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
+    // Asignar el id único al elemento YoTuboEnsayo
+    YoTuboEnsayo.attr('id', id_unico_tubo);
 
-    // Aplicar el estilo al pseudo-elemento ::before del id generado
-    $("<style>#" + id_unico_petridish + "::before { background-color: " + newColor + " !important; }</style>").appendTo("head");
+
+    var LiquidoErlenmeyer = rgbAHex(soltado_en_TuboEnsayo.find('.agua_erlenmeyer').css('background-color'));
+    YoTuboEnsayo.find('.liquido-tubo').css({ 'background-color': LiquidoErlenmeyer, 'height': '98%' });
+
+}
+}
+
+
+function handleCabinaInteraction(elementType, soltado_en_Cabina, YoCabina) {
+    switch(elementType) {
+     case 'erlenmeyer':
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido A la CABINA`);
+    soltado_en_Cabina.animate({
+        opacity: 0,      // Cambiar opacidad a 0 para que se desvanezca
+        height: "0px",   // Cambiar la altura a 0
+        width: "0px"     // Cambiar el ancho a 0
+    }, 500, function() {  // Duración de la animación: 500ms
+        soltado_en_Cabina.css("display", "none"); // Después de la animación, ocultamos el elemento
+    });
+
+  $({ temp: 0 }).animate({ temp: 45 }, {
+    duration: 10000,
+    step: function(now) {
+        YoCabina.find(".screen_cabina").text(Math.floor(now) + "°C");
+        panel_de_control_cf = YoCabina.find('.panel_de_control_cf');
+        if (now ==45){panel_de_control_cf.css("background-color", "#0f0"); $(".workspace-inner .erlenmeyer").css("display", "block").animate({ width: "70px", height: "100px", opacity: 1 }, 500);}else{panel_de_control_cf.css("background-color", "#d22");}
+    }
+});
+
+
+}
 }
 
 // Función para manejar el z-index y la posición
@@ -687,25 +892,6 @@ $(document).on('click', '.dropped', function(event){
 
 
 
-
-         $(".balanza").droppable({
-             tolerance: 'intersect',
-             drop: function(e, ui) {
-                 if (ui.draggable.attr('tipo') == 'medio_cultivo') {
-                    var balanza = $(this);
-                    let width = ui.draggable.width();
-                    let height = ui.draggable.height();
-
-                    let weight = balanza.find(".display_balanza").attr("value"); // Acceder al atributo value
-
-                    ui.draggable.text(weight + "g").attr("value", weight);
-                 }
-             },
-            out: function(event, ui) {
-                var balanza = ui.draggable;
-                balanza.find(".display_balanza").text("0g").attr('value', '0');
-            }
-         });
 
          $(document).on('input', '.peso_slider', function(event){
                 const $balanza = $(this).closest('.balanza');
