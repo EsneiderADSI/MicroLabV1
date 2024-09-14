@@ -137,4 +137,35 @@ workspaceInner.addEventListener('mousemove', function(event) {
 
 
 
+        function addMicroorganismsToTube($tube, count) {
+            const colors = ['#8B4513', '#006400', '#4B0082', '#FF4500', '#1E90FF', '#FF69B4', '#32CD32', '#FF8C00', '#9932CC', '#8B0000'];
+            const $liquido = $tube.find('.liquido-tubo_micro');
+            const liquidoHeight = $liquido.height();
+            const liquidoTop = $liquido.position().top;
+
+            for (let i = 0; i < count; i++) {
+                const $microorganism = $('<div>').addClass('microorganismo_micro');
+
+                const top = Math.random() * liquidoHeight + liquidoTop;
+                const left = Math.random() * 28 + 1; // 1px de margen en cada lado
+                const size = Math.random() * 3 + 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                $microorganism.css({
+                    top: `${top}px`,
+                    left: `${left}px`,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    backgroundColor: color
+                });
+
+                $tube.append($microorganism);
+            }
+        }
+
+        // Añadir microorganismos a todos los tubos de ensayo
+        $('.tubo-ensayo-container_micro').each(function() {
+            addMicroorganismsToTube($(this), 20); // 20 microorganismos por tubo
+        });
+
 });

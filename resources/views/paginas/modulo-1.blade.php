@@ -21,6 +21,7 @@
                 <div class="divider"></div>
                 <p>Tubo de Ensayo</p>
                 @include('paginas.modulo-1-objetos.tubo-ensayo')
+                @include('paginas.modulo-1-objetos.tubo-ensayo-microorganismo')
                 <div class="divider"></div>
                 <p>Frasco</p>
                 @include('paginas.modulo-1-objetos.frasco')
@@ -45,7 +46,10 @@
                 <p></p>
                 <div class="divider"></div>
                 <p>Placa Petri</p>
+                <div class="divider"></div>
                 @include('paginas.modulo-1-objetos.placa-petri')
+
+                @include('paginas.modulo-1-objetos.placa-petri-preparada')
                 <p></p>
                 <div class="divider"></div>
                 <p>Porta/Cubre Objetos</p>
@@ -192,17 +196,18 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'petridish_pre','tubo-ensayo-container_micro'],
   'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
   'balanza': ['medio_cultivo'],
   'plancha-container': ['vaso', 'erlenmeyer'],
-  'petridish': ['agar', 'microorganismo'],
+  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container'],
   'incubadora-container': ['petridish'],
   'autoclave-container': ['vaso'],
-  'petridish': ['vaso'],
   'erlenmeyer': ['medio_cultivo_caldo', 'reactivo', 'phmetro'],
   'tubo-ensayo-container': ['erlenmeyer'],
-  'cabina-container': ['erlenmeyer']
+  'cabina-container': ['erlenmeyer'],
+  'mechero-container': ['asa1-container', 'asa2-container'],
+  'petridish_pre': ['asa1-container', 'asa2-container'],
 };
 
 // Lista de elementos que deben permanecer fijos en su posición inicial cuándo se suelta en el workspace-inner
@@ -411,6 +416,14 @@ function detectSpecificCombination(droppedElement, dropTarget) {
     case 'cabina-container':
       handleCabinaInteraction(droppedType, droppedElement, dropTarget);
       break;
+
+    case 'mechero-container':
+      handleMecheroInteraction(droppedType, droppedElement, dropTarget);
+      break;
+
+    case 'petridish_pre':
+      handlePlacaPetriPreparadaInteraction(droppedType, droppedElement, dropTarget);
+      break;
     // Agrega más casos según sea necesario
 
   }
@@ -591,7 +604,12 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
         // Aplicar el estilo al pseudo-elemento ::before del id generado
         $("<style>#" + id_unico_petridish + "::before { background-color: " + LiquidoVaso + " !important; }</style>").appendTo("head");
         break;
+
+        case 'asa1-container':
+        alert("Microorganismo soltado");
+        break;
 }
+
 }
 
 
@@ -761,6 +779,28 @@ function handleCabinaInteraction(elementType, soltado_en_Cabina, YoCabina) {
 });
 
 
+}
+}
+
+function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
+    switch(elementType) {
+     case 'asa1-container':
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido AL MECHERO`);
+    soltado_en_Mechero.find(".asa_1").addClass('caliente');
+
+}
+}
+
+
+function handlePlacaPetriPreparadaInteraction(elementType, soltado_en_PetriPreparada, YoPlacaPetriPreparada) {
+    switch(elementType) {
+        case 'asa1-container':
+        // Mostrar mensaje de interacción
+        $("#parte1 p").html(`${elementType} añadido AL placa PETRI MICROORGANISMO...->`);
+        soltado_en_PetriPreparada.find(".asa_1").removeClass('caliente').addClass('caliente_suave');
+        soltado_en_PetriPreparada.find(".asa_1").append('<div class="microorganismo_en_asa1"></div>');
+        break;
 }
 }
 
