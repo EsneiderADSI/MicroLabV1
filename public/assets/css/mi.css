@@ -569,7 +569,7 @@
 /*Placa de Petri FIN*/
 
 
-/*Placa de Petri INICIO*/
+/*Placa de Petri PREPARADA INICIO */
         .petridish_pre {
             width: 80px;
             height: 80px;
@@ -628,7 +628,9 @@
             opacity: 0.7;
             z-index: 1;
         }
-/*Placa de Petri FIN*/
+
+
+/*Placa de Petri PREPARADA FIN*/
 
 /*AUTOCLAVE INICIO*/
         .autoclave-container {
@@ -889,10 +891,10 @@
 
 /*ASA BACTERIOLOGICA INICIO*/
         .asa1-container {
-            width: 230px;
+            width: 130px;
             height: 50px;
             position: relative;
-            margin: 50px auto;
+            margin: 10px auto;
         }
 
         .mango_asa_1 {
@@ -918,17 +920,17 @@
         }
 
         .asa_1.caliente {
-            background-color: #ffab40;
+            background-color: orange;
         }
 
         .asa_1.caliente_suave {
-            background-color: #fff3e0;
+            background-color: yellow;
         }
 
         .microorganismo_en_asa1{
             width: 10px;
             height: 10px;
-            background-color:#ffab40;
+            background-color:#8e44ad;
             border-radius: 50%;
             top: 0;
             left: 0;
@@ -937,7 +939,7 @@
         }
 
 .asa2-container {
-    width: 230px;
+    width: 120px;
     height: 50px;
     position: relative;
     margin: 50px auto;
@@ -1816,7 +1818,7 @@
             display: inline-block;
             z-index: 900;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+/*            margin: 0px;*/
         }
         .tapa-tubo_micro {
             width: 45px;
@@ -1873,6 +1875,187 @@
         }
 /*TUBOS DE ENSAYO PERO CON MICROORGANISMOS FIN*/
 
-/*ESTILOS DEL MICROSCOPIO INICIO*/
+/*ESTILOS DEL PIPETA INICIO*/
+        .pipeta {
+            width: 8px;
+            height: 70px;
+            position: relative;
+            margin: 20px auto;
+        }
+        .bulb_pipeta {
+            width: 20px;
+            height: 20px;
+            background-color: #4285f4;
+            border-radius: 50%;
+            position: absolute;
+            top: -18px;
+            left: 57%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .stem_pipeta {
+            width: 100%;
+            height: 100%;
+            background-color: #f1f3f4;
+            border: 1px solid #000;
+            border-top: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .measurements_pipeta {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4px 0;
+            box-sizing: border-box;
+        }
+        .measurement_pipeta {
+            width: 100%;
+            height: 1px;
+            background-color: #000;
+        }
+        .measurement_pipeta::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            width: 4px;
+            height: 1px;
+            background-color: #4285f4;
+        }
+        .measurement_pipeta:nth-child(5n)::before {
+            width: 6px;
+            left: -3px;
+        }
+        .tip_pipeta {
+            width: 9px;
+            height: 20px;
+            background-color:rgba(0, 0, 0, 0.1);
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%) rotate(179deg);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+/*ESTILOS DEL PIPETA FIN*/
 
-/*ESTILOS DEL MICROSCOPIO FIN*/
+
+
+
+/*ESTILOS PARA LA GOTA DE AGUA INICIO*/
+        .gota_Agua {
+            width: 30px;
+            height: 20px;
+            background-color: rgba(0, 191, 255, 0.4); /* Color azul claro con transparencia */
+            border-radius: 60% 60% 40% 40%; /* Bordes más extendidos para simular que está "regada" */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3); /* Sombras para simular un efecto de profundidad */
+        }
+/*ESTILOS PARA LA GOTA DE AGUA FIN*/
+
+
+
+
+
+
+/*MICROSCO´PIO*/
+
+#microscopeView button {
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#microscopeView button:hover {
+  background-color: #f0f0f0;
+}
+
+
+.zoom-in {
+  transition: transform 1.5s ease-in-out;
+  transform: scale(1.5);
+}
+
+.microscope-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: background-color 1.5s ease-in-out, opacity 1.5s ease-in-out;
+}
+
+.microscope-view.active {
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+}
+
+.microscope-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  transition: transform 1s ease-in-out 0.5s;
+}
+
+.microscope-view.active .microscope-circle {
+  transform: scale(1);
+}
+
+.microscope-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.microscope-exit-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out 1.5s;
+}
+
+.microscope-view.active .microscope-exit-btn {
+  opacity: 1;
+}
+
+.microscope-view.fade-out {
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+}
+
+.microscope-view.fade-out .microscope-circle {
+  transform: scale(0);
+}

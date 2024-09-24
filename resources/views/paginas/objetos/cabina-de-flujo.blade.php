@@ -1,4 +1,4 @@
-    <div class="cabina-container draggable drag" description="Cabina de Flujo">
+    <div class="cabina-container draggable drag resizable-element" description="Cabina de Flujo">
         <div class="cabina-superior">
             <div></div>
             <div class="panel_de_control_cf"></div>

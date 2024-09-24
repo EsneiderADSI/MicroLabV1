@@ -11,50 +11,53 @@
 </head>
 
 <body style="cursor: auto;">
+<button id="exitButton" style="display:none;">Salir del Microscopio</button>
+<div id="microscopeOverlay" style="display:none;"></div>
     <div class="container-fluid">
 
         <div class="sidebar col-sm-3">
             <h5>Materiales</h5>
             <div class="divider"></div>
                 <p>Erlenmeyer</p>
-                @include('paginas.modulo-1-objetos.erlenmeyer')
+                @include('paginas.objetos.erlenmeyer')
                 <div class="divider"></div>
                 <p>Tubo de Ensayo</p>
-                @include('paginas.modulo-1-objetos.tubo-ensayo')
-                @include('paginas.modulo-1-objetos.tubo-ensayo-microorganismo')
+                @include('paginas.objetos.tubo-ensayo')
+                <div class="divider"></div>
+                @include('paginas.objetos.tubo-ensayo-microorganismo')
                 <div class="divider"></div>
                 <p>Frasco</p>
-                @include('paginas.modulo-1-objetos.frasco')
+                @include('paginas.objetos.frasco')
                 <div class="divider"></div>
                 <p>Reactivos</p>
-                @include('paginas.modulo-1-objetos.reactivos')
+                @include('paginas.objetos.reactivos')
                 <div class="divider"></div>
                 <p>Medios de Cultivo</p>
-                @include('paginas.modulo-1-objetos.medios_de_cultivo')
+                @include('paginas.objetos.medios_de_cultivo')
                 <p>Medios de Cultivo Caldos</p>
-                @include('paginas.modulo-1-objetos.medios_de_cultivo_caldos')
+                @include('paginas.objetos.medios_de_cultivo_caldos')
                 <div class="divider"></div>
                 <p>Microorganismos</p>
-                @include('paginas.modulo-1-objetos.microorganismos')
+                @include('paginas.objetos.microorganismos')
                 <div class="divider"></div>
                 <p>Asa</p>
-                @include('paginas.modulo-1-objetos.asa')
-                @include('paginas.modulo-1-objetos.asa2')
+                @include('paginas.objetos.asa')
+                @include('paginas.objetos.asa2')
                 <div class="divider"></div>
                 <p>Espátula</p>
-                @include('paginas.modulo-1-objetos.espatula')
+                @include('paginas.objetos.espatula')
                 <p></p>
                 <div class="divider"></div>
                 <p>Placa Petri</p>
                 <div class="divider"></div>
-                @include('paginas.modulo-1-objetos.placa-petri')
+                @include('paginas.objetos.placa-petri')
 
-                @include('paginas.modulo-1-objetos.placa-petri-preparada')
+                @include('paginas.objetos.placa-petri-preparada')
                 <p></p>
                 <div class="divider"></div>
                 <p>Porta/Cubre Objetos</p>
-                @include('paginas.modulo-1-objetos.portaobjetos')
-                @include('paginas.modulo-1-objetos.cubreobjetos')
+                @include('paginas.objetos.portaobjetos')
+                @include('paginas.objetos.cubreobjetos')
 
         </div>
         <!-- Espacio de trabajo central -->
@@ -74,21 +77,21 @@
 
 <div id="parte1" class="col s12 agrupador">
         <p></p>
-         <ol style="padding-left: 20px; font-size: 13px;">
+{{--          <ol style="padding-left: 20px; font-size: 13px;">
             <li>Se pesa en balanza analítica sobre lámina de aluminio y espátula estéril la cantidad de medio a preparar.</li>
             <li>En frasco de vidrio con un volumen de agua menor al volumen total a preparar, depositar el medio de cultivo deshidratado pesado.</li>
             <li>Agregar el volumen de agua estéril hasta completar el total a preparar.</li>
             <li>Homogenizar manualmente la mezcla evitando que se formen grumos.</li>
         </ol>
-
+ --}}
 
 </div>
 <div id="parte2" class="col s12 agrupador">
     <p>Contenido del parte 2</p>
-         <ol style="padding-left: 20px; font-size: 13px;">
+{{--          <ol style="padding-left: 20px; font-size: 13px;">
             <li>En plancha de calentamiento colocar el medio de cultivo, (si es necesario) hasta que se disuelva perfectamente.</li>
             <li>Medir el pH de los medios preparados utilizando un pH-metro, y ajustar si es necesario según los requerimientos de pH del medio de cultivo a utilizar o el método de ensayo antes de esterilizar.</li>
-        </ol>
+        </ol> --}}
 </div>
 <div id="parte3" class="col s12 agrupador">
     <p>Contenido del parte 3</p>
@@ -116,14 +119,15 @@
         <div class="sidebar col-sm-3">
             <h5>Herramientas</h5>
             <!-- Aquí puedes agregar herramientas adicionales o configuraciones -->
-            @include('paginas.modulo-1-objetos.balanza')
-            @include('paginas.modulo-1-objetos.microscopio')
-            @include('paginas.modulo-1-objetos.phmetro')
-            @include('paginas.modulo-1-objetos.mechero')
-            @include('paginas.modulo-1-objetos.plancha-calentamiento')
-            @include('paginas.modulo-1-objetos.autoclave')
-            @include('paginas.modulo-1-objetos.cabina-de-flujo')
-            @include('paginas.modulo-1-objetos.incubadora')
+            @include('paginas.objetos.balanza')
+            @include('paginas.objetos.microscopio')
+            @include('paginas.objetos.phmetro')
+            @include('paginas.objetos.pipeta')
+            @include('paginas.objetos.mechero')
+            @include('paginas.objetos.plancha-calentamiento')
+            @include('paginas.objetos.autoclave')
+            @include('paginas.objetos.cabina-de-flujo')
+            @include('paginas.objetos.incubadora')
 
         </div>
 
@@ -196,11 +200,11 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'petridish_pre','tubo-ensayo-container_micro'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta'],
   'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
   'balanza': ['medio_cultivo'],
   'plancha-container': ['vaso', 'erlenmeyer'],
-  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container'],
+  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'pipeta'],
   'incubadora-container': ['petridish'],
   'autoclave-container': ['vaso'],
   'erlenmeyer': ['medio_cultivo_caldo', 'reactivo', 'phmetro'],
@@ -208,6 +212,10 @@ const acceptedElements = {
   'cabina-container': ['erlenmeyer'],
   'mechero-container': ['asa1-container', 'asa2-container'],
   'petridish_pre': ['asa1-container', 'asa2-container'],
+  'tubo-ensayo-container_micro': ['pipeta'],
+  'reactivo': ['pipeta'],
+  'portaobjetos': ['pipeta', 'asa1-container'],
+  'microscopio': ['portaobjetos'],
 };
 
 // Lista de elementos que deben permanecer fijos en su posición inicial cuándo se suelta en el workspace-inner
@@ -424,6 +432,24 @@ function detectSpecificCombination(droppedElement, dropTarget) {
     case 'petridish_pre':
       handlePlacaPetriPreparadaInteraction(droppedType, droppedElement, dropTarget);
       break;
+
+    case 'tubo-ensayo-container_micro':
+      handleTuboEnsayoMicroorganismoInteraction(droppedType, droppedElement, dropTarget);
+      break;
+    case 'reactivo':
+        // cuándo interactuen con el agua
+      handleReactivoInteraction(droppedType, droppedElement, dropTarget);
+      break;
+
+    case 'portaobjetos':
+        // cuándo interactuen con el agua
+      handlePortaObjetoInteraction(droppedType, droppedElement, dropTarget);
+      break;
+
+    case 'microscopio':
+        // cuándo interactuen con el agua
+      handleMicroscopioInteraction(droppedType, droppedElement, dropTarget);
+      break;
     // Agrega más casos según sea necesario
 
   }
@@ -606,7 +632,32 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
         break;
 
         case 'asa1-container':
-        alert("Microorganismo soltado");
+            $("#parte1 p").html(`${elementType} EL ASA SOLTÓ MICROORGANISMO TOMADO DE LA PLACA PETRI PREPARADA`);
+            if (soltado_en_PlacaPetri.find(".asa_1").find(".microorganismo_en_asa1").length > 0) {
+                alert("Excelente");
+
+            }else{
+                alert("El Asa no tiene microorganismo para incubar en la caja petri.");
+                return;
+            }
+
+        break;
+
+        case 'pipeta':
+            $("#parte1 p").html(`${elementType} LA PIPETA SE SOLTÓ SOBRE LA PLACA PETRI`);
+            if (soltado_en_PlacaPetri.attr("tiene_muestra") == "si") {
+            // Generar un id único para la placa petri (añadir prefijo)
+            var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
+            // Asignar el id único al elemento YoPlacaPetri
+            YoPlacaPetri.attr('id', id_unico_petridish).attr("muestra_de_pipeta", "si");
+            // Cambiar el color del pseudo-elemento ::before para la placa petri específica
+            var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.tip_pipeta').css('background-color'));
+
+            // Aplicar el estilo al pseudo-elemento ::before del id generado
+            $("<style>#" + id_unico_petridish + "::before { background-color: " + LiquidoVaso + " !important; }</style>").appendTo("head");
+
+            }
+
         break;
 }
 
@@ -751,9 +802,116 @@ function handleTuboEnsayoInteraction(elementType, soltado_en_TuboEnsayo, YoTuboE
 
     var LiquidoErlenmeyer = rgbAHex(soltado_en_TuboEnsayo.find('.agua_erlenmeyer').css('background-color'));
     YoTuboEnsayo.find('.liquido-tubo').css({ 'background-color': LiquidoErlenmeyer, 'height': '98%' });
+    break;
+}
+}
+
+// INTERACCION CON TUBOS DE ENSAYO CON MICROORGANISMO
+
+function handleTuboEnsayoMicroorganismoInteraction(elementType, soltado_en_TuboEnsayoMicro, YoTuboEnsayoMicro) {
+    switch(elementType) {
+     case 'pipeta':
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido AL TUBO DE ENSAYO CON MICROORGANISMOS`);
+
+
+    soltado_en_TuboEnsayoMicro.find('.tip_pipeta').css('background-color', '#' + Math.floor(Math.random()*16777215).toString(16));
+    soltado_en_TuboEnsayoMicro.attr("tiene_muestra", "si");
+    break;
+}
+}
+
+// INTERACCION CON EL AGUA
+function handleReactivoInteraction(elementType, soltado_en_Agua, YoReactivo) {
+    switch(elementType) {
+     case 'pipeta':
+        // solo si a la pipeta quien le apunta es al agua
+        if (YoReactivo.hasClass("agua")){
+            // Mostrar mensaje de interacción
+            $("#parte1 p").html(`${elementType} añadido AL RECIPIENTE CON AGUA`);
+
+
+            soltado_en_Agua.find('.tip_pipeta').css('background-color', '#3498db');
+            soltado_en_Agua.addClass("tiene_gota_de_Agua");
+
+        }
+        break;
 
 }
 }
+
+// INTERACCION CON EL AGUA
+function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPortaObjeto) {
+    switch(elementType) {
+        case 'pipeta':
+            if (soltado_enPortaObjeto.hasClass("tiene_gota_de_Agua")) {
+                // Mostrar mensaje de interacción
+                $("#parte1 p").html(`${elementType} añadido AL PORTAOBJETOS`);
+                if (!YoPortaObjeto.find(".gota_Agua").length > 0) {
+                    YoPortaObjeto.append('<div class="gota_Agua"></div>').attr("tiene_gota_Agua", "si");
+                }
+            }
+            break; // Break for 'pipeta'
+
+        case 'asa1-container':
+            if (!soltado_enPortaObjeto.find(".microorganismo_en_asa1").length > 0) {
+                alert("El asa no tiene una muestra de microorganismo para soltar en el portaobjetos");
+            } else {
+                if (YoPortaObjeto.find(".gota_Agua").length > 0) {
+                    $("#parte1 p").html(`${elementType} añadido AL PORTAOBJETOS`);
+                    var microorganismo_Asa = soltado_enPortaObjeto.find(".microorganismo_en_asa1");
+                    YoPortaObjeto.find(".gota_Agua").append(microorganismo_Asa).attr("tiene_microorganismo", "si");
+                    soltado_enPortaObjeto.find(".microorganismo_en_asa1").remove();
+
+                } else {
+                    alert("Primero utilice la pipeta y obtenga una gota de agua desde el recipiente de agua y aplíquela al portaobjetos");
+                }
+            }
+            break; // Break for 'asa1-container'
+    }
+}
+
+// CUANDO SE SUELTA EN EL MICROSCOPIO
+ function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicroscopio) {
+  if (elementType === 'portaobjetos') {
+    $("#parte1 p").html(`${elementType} añadido AL MICROSCOPIO ANALIZANDO...`);
+
+    // Aplicar zoom suave
+    $(YoMicroscopio).addClass('zoom-in');
+
+    // Crear pantalla negra con círculo de microscopio
+    const microscopeView = $('<div id="microscopeView" class="microscope-view">').appendTo('body');
+
+    const circle = $('<div class="microscope-circle">').appendTo(microscopeView);
+
+    // Generar objetos aleatorios
+    const color = Math.random() < 0.5 ? 'purple' : 'pink';
+    for (let i = 0; i < 20; i++) {
+      $('<div class="microscope-particle">').css({
+        left: Math.random() * 100 + '%',
+        top: Math.random() * 100 + '%',
+        backgroundColor: color,
+        animationDelay: Math.random() * 2 + 's'
+      }).appendTo(circle);
+    }
+
+    // Botón para salir
+    $('<button class="microscope-exit-btn">').text('Salir').appendTo(microscopeView).click(() => {
+      microscopeView.addClass('fade-out');
+      setTimeout(() => {
+        microscopeView.remove();
+        $(YoMicroscopio).removeClass('zoom-in');
+      }, 1000);
+    });
+
+    // Activar la animación después de un breve retraso
+    setTimeout(() => {
+      microscopeView.addClass('active');
+    }, 100);
+  }
+}
+
+
 
 
 function handleCabinaInteraction(elementType, soltado_en_Cabina, YoCabina) {
@@ -787,7 +945,14 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
      case 'asa1-container':
     // Mostrar mensaje de interacción
     $("#parte1 p").html(`${elementType} añadido AL MECHERO`);
-    soltado_en_Mechero.find(".asa_1").addClass('caliente');
+
+        soltado_en_Mechero.find(".asa_1").removeClass('caliente_suave');
+        soltado_en_Mechero.find(".asa_1").removeClass('caliente_suave');
+
+        soltado_en_Mechero.find(".asa_1").addClass('caliente').attr("tiene_microorganismo", "no");
+        soltado_en_Mechero.find(".microorganismo_en_asa1").remove();
+
+
 
 }
 }
@@ -798,8 +963,28 @@ function handlePlacaPetriPreparadaInteraction(elementType, soltado_en_PetriPrepa
         case 'asa1-container':
         // Mostrar mensaje de interacción
         $("#parte1 p").html(`${elementType} añadido AL placa PETRI MICROORGANISMO...->`);
-        soltado_en_PetriPreparada.find(".asa_1").removeClass('caliente').addClass('caliente_suave');
-        soltado_en_PetriPreparada.find(".asa_1").append('<div class="microorganismo_en_asa1"></div>');
+
+
+        if (soltado_en_PetriPreparada.find(".asa_1").attr("tiene_microorganismo") == "si" && soltado_en_PetriPreparada.find(".asa_1").hasClass("caliente_suave")) {
+                alert("Lleva el asa con la muestra a tu placa petri");
+                return;
+
+             }
+             else{
+                   if (!soltado_en_PetriPreparada.find(".asa_1").hasClass("caliente")) {
+                        alert("El Asa no está caliente , útilice el mechero primero.") ;
+                        return;
+                    }
+                    else{
+                    soltado_en_PetriPreparada.find(".asa_1").removeClass('caliente').addClass('caliente_suave');
+                    soltado_en_PetriPreparada.find(".asa_1").append('<div class="microorganismo_en_asa1"></div>').attr("tiene_microorganismo", "si");
+
+                    }
+             }
+
+
+
+
         break;
 }
 }
@@ -923,7 +1108,7 @@ $(document).on('click', '.dropped', function(event){
         event.stopPropagation();
 
         // Mostrar alerta de confirmación
-        if (confirm('¿Estás seguro(a) de que deseas eliminar este elemento?')) {
+        if (confirm('¿Estás seguro(a) de quitar del espacio de trabajo?')) {
             // Destruir el objeto si se acepta
             $(this).remove();
         }

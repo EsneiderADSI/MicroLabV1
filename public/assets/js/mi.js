@@ -168,4 +168,53 @@ workspaceInner.addEventListener('mousemove', function(event) {
             addMicroorganismsToTube($(this), 20); // 20 microorganismos por tubo
         });
 
+
+// funcion para simular MICROORGANISMOS DENTRO DE LA CAJA PETRI
+
+// Function to generate a random color
+function getRandomColor() {
+    const hue = Math.floor(Math.random() * 360);
+    return `hsl(${hue}, 70%, 50%)`;
+}
+
+// Function to create a microorganism
+function createMicroorganism(petriDish) {
+    const microorganism = document.createElement('div');
+    microorganism.className = 'microorganism_petridish_pre';
+
+    const size = Math.random() * 6 + 2; // Size between 2px and 8px
+    const top = Math.random() * 60 + 20; // Position between 20% and 80%
+    const left = Math.random() * 60 + 20; // Position between 20% and 80%
+
+    microorganism.style.width = `${size}px`;
+    microorganism.style.height = `${size}px`;
+    microorganism.style.top = `${top}%`;
+    microorganism.style.left = `${left}%`;
+    microorganism.style.backgroundColor = getRandomColor();
+
+    petriDish.appendChild(microorganism);
+}
+
+// Function to simulate microorganisms for a single Petri dish
+function simulateMicroorganismsForDish(petriDish) {
+    const numMicroorganisms = Math.floor(Math.random() * 15) + 10; // Between 10 and 24 microorganisms
+
+    for (let i = 0; i < numMicroorganisms; i++) {
+        createMicroorganism(petriDish);
+    }
+}
+
+// Function to simulate microorganisms for all Petri dishes
+function simulateAllMicroorganisms() {
+    const petriDishes = document.querySelectorAll('.petridish_pre');
+    petriDishes.forEach(dish => {
+        simulateMicroorganismsForDish(dish);
+    });
+}
+
+// Run the simulation when the page loads
+window.addEventListener('load', simulateAllMicroorganisms);
+
 });
+
+

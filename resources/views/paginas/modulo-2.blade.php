@@ -17,40 +17,40 @@
             <h5>Materiales</h5>
             <div class="divider"></div>
                 <p>Erlenmeyer</p>
-                @include('paginas.modulo-1-objetos.erlenmeyer')
+                @include('paginas.objetos.erlenmeyer')
                 <div class="divider"></div>
                 <p>Tubo de Ensayo</p>
-                @include('paginas.modulo-1-objetos.tubo-ensayo')
+                @include('paginas.objetos.tubo-ensayo')
                 <div class="divider"></div>
                 <p>Frasco</p>
-                @include('paginas.modulo-1-objetos.frasco')
+                @include('paginas.objetos.frasco')
                 <div class="divider"></div>
                 <p>Reactivos</p>
-                @include('paginas.modulo-1-objetos.reactivos')
+                @include('paginas.objetos.reactivos')
                 <div class="divider"></div>
                 <p>Medios de Cultivo</p>
-                @include('paginas.modulo-1-objetos.medios_de_cultivo')
+                @include('paginas.objetos.medios_de_cultivo')
                 <p>Medios de Cultivo Caldos</p>
-                @include('paginas.modulo-1-objetos.medios_de_cultivo_caldos')
+                @include('paginas.objetos.medios_de_cultivo_caldos')
                 <div class="divider"></div>
                 <p>Microorganismos</p>
-                @include('paginas.modulo-1-objetos.microorganismos')
+                @include('paginas.objetos.microorganismos')
                 <div class="divider"></div>
                 <p>Asa</p>
-                @include('paginas.modulo-1-objetos.asa')
-                @include('paginas.modulo-1-objetos.asa2')
+                @include('paginas.objetos.asa')
+                @include('paginas.objetos.asa2')
                 <div class="divider"></div>
                 <p>Espátula</p>
-                @include('paginas.modulo-1-objetos.espatula')
+                @include('paginas.objetos.espatula')
                 <p></p>
                 <div class="divider"></div>
                 <p>Placa Petri</p>
-                @include('paginas.modulo-1-objetos.placa-petri')
+                @include('paginas.objetos.placa-petri')
                 <p></p>
                 <div class="divider"></div>
                 <p>Porta/Cubre Objetos</p>
-                @include('paginas.modulo-1-objetos.portaobjetos')
-                @include('paginas.modulo-1-objetos.cubreobjetos')
+                @include('paginas.objetos.portaobjetos')
+                @include('paginas.objetos.cubreobjetos')
 
         </div>
         <!-- Espacio de trabajo central -->
@@ -108,14 +108,14 @@
         <div class="sidebar col-sm-3">
             <h5>Herramientas</h5>
             <!-- Aquí puedes agregar herramientas adicionales o configuraciones -->
-            @include('paginas.modulo-1-objetos.balanza')
-            @include('paginas.modulo-1-objetos.microscopio')
-            @include('paginas.modulo-1-objetos.phmetro')
-            @include('paginas.modulo-1-objetos.mechero')
-            @include('paginas.modulo-1-objetos.plancha-calentamiento')
-            @include('paginas.modulo-1-objetos.autoclave')
-            @include('paginas.modulo-1-objetos.cabina-de-flujo')
-            @include('paginas.modulo-1-objetos.incubadora')
+            @include('paginas.objetos.balanza')
+            @include('paginas.objetos.microscopio')
+            @include('paginas.objetos.phmetro')
+            @include('paginas.objetos.mechero')
+            @include('paginas.objetos.plancha-calentamiento')
+            @include('paginas.objetos.autoclave')
+            @include('paginas.objetos.cabina-de-flujo')
+            @include('paginas.objetos.incubadora')
 
         </div>
 
