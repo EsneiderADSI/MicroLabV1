@@ -889,82 +889,105 @@
 /*INCUBADORA FIN*/
 
 
-/*ASA BACTERIOLOGICA INICIO*/
-        .asa1-container {
-            width: 130px;
-            height: 50px;
-            position: relative;
-            margin: 10px auto;
-        }
+/*ASA BACTERIOLOGICA*/
+.asa1-container {
+  width: 130px;
+  height: 50px;
+  position: relative;
 
-        .mango_asa_1 {
-            width: 100px;
-            height: 6px;
-            background-color: #333;
-            position: absolute;
-            left: 0;
-            top: 17px;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-        }
+}
 
-        .asa_1 {
-            width: 20px;
-            height: 20px;
-            transition: background-color 10s linear;
-            background-color: transparent;
-            border: 3px solid #333;
-            border-radius: 50%;
-            position: absolute;
-            left: 98px;
-            top: 10px;
-        }
+.mango_asa_1 {
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(to right, #333, #666);
+  position: absolute;
+  left: 0;
+  top: 17px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+}
 
-        .asa_1.caliente {
-            background-color: orange;
-        }
+.asa_1 {
+  width: 20px;
+  height: 20px;
+  transition: background-color 10s linear;
+  background-color: transparent;
+  border: 3px solid #333;
+  border-radius: 50%;
+  position: absolute;
+  left: 98px;
+  top: 10px;
+}
 
-        .asa_1.caliente_suave {
-            background-color: yellow;
-        }
+.asa_1.caliente {
+  background-color: orange;
+}
 
-        .microorganismo_en_asa1{
-            width: 10px;
-            height: 10px;
-            background-color:#8e44ad;
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-            position:absolute;
-            display: flex;
-        }
+.asa_1.caliente_suave {
+  background-color: yellow;
+}
+
+.microorganismo_en_asa1 {
+  width: 10px;
+  height: 10px;
+  background-color: #8e44ad;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+}
 
 .asa2-container {
-    width: 120px;
-    height: 50px;
-    position: relative;
-    margin: 50px auto;
+  width: 130px;
+  height: 50px;
+  position: relative;
+/*  margin: 50px auto;*/
 }
 
 .mango_asa_2 {
-    width: 100px;
-    height: 6px;
-    background-color: #333;
-    position: absolute;
-    left: 0;
-    top: 14px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(to right, #f9fbe7 , #f1f8e9);
+  position: absolute;
+  left: 0;
+  top: 13px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  z-index: 901;
 }
 
 .asa_2 {
-    width: 0;
-    height: 0;
-    border-left: 17px solid transparent;
-    border-right: 17px solid transparent;
-    border-bottom: 30px solid #333;
-    transform: rotate(145deg);
-    position: absolute;
-    left: 98px;
-    top: 5px;
+   width: 34px; /* Ancho equivalente a los bordes izquierdo y derecho */
+   height: 30px; /* Altura del borde inferior */
+   background-color: #f9fbe7  ; /* Color de fondo */
+   transform: rotate(150deg); /* Mantiene la rotación */
+   position: absolute;
+   left: 98px;
+   top: 5px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+   clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Forma triangular */
+   z-index: 900;
+   outline: 2px solid blue; /* Borde azul */
+}
+.asa_2.caliente {
+  background-color: orange;
+}
+
+.asa_2.caliente_suave {
+  background-color: yellow;
+}
+.microorganismo_en_asa2 {
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  z-index: 1000;
 }
 /*ASA BACTERIOLOGICA FIN*/
 
@@ -1877,73 +1900,152 @@
 
 /*ESTILOS DEL PIPETA INICIO*/
         .pipeta {
-            width: 8px;
-            height: 70px;
+            width: 20px;
+            height: 200px;
             position: relative;
             margin: 20px auto;
         }
         .bulb_pipeta {
-            width: 20px;
-            height: 20px;
-            background-color: #4285f4;
+            width: 30px;
+            height: 30px;
+            background-color: #e0e0e0;
             border-radius: 50%;
             position: absolute;
-            top: -18px;
-            left: 57%;
+            top: 0;
+            left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.1);
         }
         .stem_pipeta {
-            width: 100%;
-            height: 100%;
-            background-color: #f1f3f4;
-            border: 1px solid #000;
-            border-top: none;
-            position: relative;
-            overflow: hidden;
+            width: 6px;
+            height: 160px;
+            background: linear-gradient(to right, #d0d0d0, #f0f0f0, #d0d0d0);
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
         }
         .measurements_pipeta {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 4px 0;
+            padding: 5px 0;
             box-sizing: border-box;
         }
         .measurement_pipeta {
             width: 100%;
             height: 1px;
-            background-color: #000;
+            background-color: #999;
         }
-        .measurement_pipeta::before {
-            content: '';
-            position: absolute;
-            left: -2px;
-            width: 4px;
-            height: 1px;
-            background-color: #4285f4;
-        }
-        .measurement_pipeta:nth-child(5n)::before {
-            width: 6px;
-            left: -3px;
+        .measurement_pipeta:nth-child(5n) {
+            width: 150%;
+            left: -25%;
+            position: relative;
         }
         .tip_pipeta {
-            width: 9px;
+            width: 4px;
             height: 20px;
-            background-color:rgba(0, 0, 0, 0.1);
+            background-color: #d0d0d0;
             position: absolute;
-            bottom: -18px;
+            bottom: 0;
             left: 50%;
-            transform: translateX(-50%) rotate(179deg);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: translateX(-50%);
+            border-radius: 0 0 2px 2px;
+        }
+        .liquid_pipeta {
+            width: 4px;
+            height: 50px;
+/*            background-color: rgba(0, 119, 190, 0.7);*/
+            background-color: transparent;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 2px 2px;
+        }
+        .reflection_pipeta {
+            width: 1px;
+            height: 80%;
+            background-color: rgba(255,255,255,0.5);
+            position: absolute;
+            top: 10%;
+            right: 1px;
+            border-radius: 1px;
         }
 /*ESTILOS DEL PIPETA FIN*/
 
 
+/*ESTILOS PARA EL GOTERO INICIO*/
+        .gotero {
+            width: 40px;
+            height: 150px;
+            position: relative;
+            margin: 20px auto;
+        }
+        .cuerpo_gotero {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border-radius: 0 0 4px 4px;
+        }
+        .tapa_gotero {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 25px;
+            background-color: #333;
+            border-radius: 2px 2px 0 0;
+        }
+        .cuello_gotero {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 25px;
+            background-color: #f0f0f0;
+        }
+        .punta_gotero {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 15px;
+            background-color: #f0f0f0;
+            border-radius: 0 0 2px 2px;
+        }
+        .detalle-tapa_gotero {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 2px;
+            background-color: #555;
+            border-radius: 1px;
+        }
+        .detalle-tapa_gotero:nth-child(1) { top: 5px; }
+        .detalle-tapa_gotero:nth-child(2) { top: 10px; }
+        .reflejo_gotero {
+            position: absolute;
+            bottom: 15px;
+            left: 75%;
+            width: 2px;
+            height: 75px;
+            background-color: #fff;
+            opacity: 0.3;
+            border-radius: 1px;
+        }
+/*ESTILOS PARA EL GOTERO FIN*/
 
 
 /*ESTILOS PARA LA GOTA DE AGUA INICIO*/
