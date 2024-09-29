@@ -96,7 +96,7 @@
       padding: 70px; /* Ajusta según tus necesidades */
     }
 
-.draggable {cursor:move; }
+.draggable {cursor:move;     user-select: none; -webkit-user-select: none;}
 
 
 
@@ -529,7 +529,7 @@
             left: 10%;
             right: 10%;
             bottom: 10%;
-            background-color: #e1dce3; /* Color del fondo de la caja petri */
+            background-color: #fff9c4 ; /* Color del fondo de la caja petri */
             border-radius: 50%;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -579,6 +579,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             display: inline-block;
         }
+
         .petridish_pre::before {
             content: '';
             position: absolute;
@@ -586,7 +587,7 @@
             left: 10%;
             right: 10%;
             bottom: 10%;
-            background-color: #e8eaf6 ; /* Color del fondo de la caja petri */
+            background-color: #fff9c4 ; /* Color del fondo de la caja petri */
             border-radius: 50%;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -939,38 +940,33 @@
   display: flex;
 }
 
-.asa2-container {
-  width: 130px;
-  height: 50px;
-  position: relative;
-/*  margin: 50px auto;*/
-}
+        .asa2-container {
+            width: 130px;
+            height: 50px;
+            position: relative;
 
-.mango_asa_2 {
-  width: 100px;
-  height: 6px;
-  background: linear-gradient(to right, #f9fbe7 , #f1f8e9);
-  position: absolute;
-  left: 0;
-  top: 13px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  border-radius: 3px;
-  z-index: 901;
-}
-
-.asa_2 {
-   width: 34px; /* Ancho equivalente a los bordes izquierdo y derecho */
-   height: 30px; /* Altura del borde inferior */
-   background-color: #f9fbe7  ; /* Color de fondo */
-   transform: rotate(150deg); /* Mantiene la rotación */
-   position: absolute;
-   left: 98px;
-   top: 5px;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-   clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Forma triangular */
-   z-index: 900;
-   outline: 2px solid blue; /* Borde azul */
-}
+        }
+        .mango_asa_2 {
+            width: 100px;
+            height: 6px;
+            background-color: #000;
+            position: absolute;
+            left: 0;
+            top: 22px;
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            z-index: 4;
+        }
+        .asa_2 {
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            position: absolute;
+            right: 12px;
+            top: 15px;
+            transform: rotate(45deg);
+            z-index: 3;
+        }
 .asa_2.caliente {
   background-color: orange;
 }
@@ -989,22 +985,46 @@
   display: flex;
   z-index: 1000;
 }
+
+
+
+    .asa3_recta-container {
+        position: relative;
+        width: 120px;
+        height: 8px;
+        display: inline-block;
+        background-color: #ccc; /* Color de la pala */
+        border-radius: 0px 6px 6px 0px ;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mango_asa_recta {
+        position: absolute;
+        width: 50px;
+        height: 3px;
+        background-color: #616161   ; /* Color del mango */
+        top: 50%;
+        right: -49px;
+        transform: translateY(-50%);
+        border-radius: 8px 8px 8px 8px ;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+
 /*ASA BACTERIOLOGICA FIN*/
 
 
 
-/* MECHERO INICIO (Reducción del 30%) */
-
+/* MECHERO INICIO (Altura reducida a 150px) */
 .mechero-container {
-    width: 84px; /* 120px * 0.7 */
-    height: 210px; /* 300px * 0.7 */
+    width: 84px;
+    height: 150px; /* Reducido de 210px a 150px */
     position: relative;
     margin: 50px;
 }
-
 .base {
-    width: 42px; /* 60px * 0.7 */
-    height: 14px; /* 20px * 0.7 */
+    width: 42px;
+    height: 10px; /* Reducido proporcionalmente */
     background-color: #3b82c4;
     border-radius: 50% 50% 0 0;
     position: absolute;
@@ -1013,73 +1033,66 @@
     transform: translateX(-50%);
     box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.3);
 }
-
 .soporte {
-    width: 14px; /* 20px * 0.7 */
-    height: 84px; /* 120px * 0.7 */
+    width: 14px;
+    height: 60px; /* Reducido proporcionalmente */
     background-color: #3b82c4;
     position: absolute;
-    bottom: 14px; /* 20px * 0.7 */
+    bottom: 10px; /* Ajustado a la nueva altura de la base */
     left: 50%;
     transform: translateX(-50%);
 }
-
 .conector {
-    width: 42px; /* 60px * 0.7 */
-    height: 10.5px; /* 15px * 0.7 */
+    width: 42px;
+    height: 7.5px; /* Reducido proporcionalmente */
     background-color: #3b82c4;
     position: absolute;
-    bottom: 42px; /* 60px * 0.7 */
+    bottom: 30px; /* Ajustado proporcionalmente */
     left: 50%;
     transform: translateX(-50%);
 }
-
 .manguera {
-    width: 70px; /* 100px * 0.7 */
-    height: 7px; /* 10px * 0.7 */
+    width: 40px;
+    height: 5px; /* Reducido proporcionalmente */
     background-color: #6ab8f7;
     border-radius: 5px;
     position: absolute;
-    bottom: 38.5px; /* 55px * 0.7 */
-    left: 49px; /* 70px * 0.7 */
+    bottom: 27.5px; /* Ajustado proporcionalmente */
+    left: 49px;
     transform: rotate(20deg);
 }
-
 .cuello {
-    width: 21px; /* 30px * 0.7 */
-    height: 28px; /* 40px * 0.7 */
+    width: 21px;
+    height: 20px; /* Reducido proporcionalmente */
     background-color: #cccccc;
     position: absolute;
-    bottom: 98px; /* 140px * 0.7 */
+    bottom: 70px; /* Ajustado proporcionalmente */
     left: 50%;
     transform: translateX(-50%);
     border-radius: 5px;
 }
-
 .llama {
-    width: 14px; /* 20px * 0.7 */
-    height: 42px; /* 60px * 0.7 */
+    width: 14px;
+    height: 30px; /* Reducido proporcionalmente */
     background-color: orange;
     position: absolute;
-    bottom: 126px; /* 180px * 0.7 */
+    bottom: 90px; /* Ajustado proporcionalmente */
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50% 50% 10px 10px;
     animation: flame-flicker 1s infinite;
 }
-
 .llama::before {
     content: '';
-    width: 7px; /* 10px * 0.7 */
-    height: 21px; /* 30px * 0.7 */
+    width: 7px;
+    height: 15px; /* Reducido proporcionalmente */
     background-color: yellow;
     position: absolute;
-    top: 10.5px; /* 15px * 0.7 */
+    top: 7.5px; /* Ajustado proporcionalmente */
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50% 50% 10px 10px;
 }
-
 @keyframes flame-flicker {
     0%, 100% {
         transform: translateX(-50%) scale(1);
@@ -1088,7 +1101,6 @@
         transform: translateX(-50%) scale(1.1);
     }
 }
-
 /* MECHERO FIN */
 
 
@@ -1189,145 +1201,145 @@
 
 /*CABINA DE FLUJO INICIO*/
 
-        .cabina-container {
-            width: 200px;
-            height: 300px;
-            background-color: #f4f4f4;
-            position: relative;
-            margin: 50px;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            overflow: hidden; /* Para evitar que los elementos sobresalgan */
-        }
+.cabina-container {
+    width: 600px;
+    height: 350px;
+    background-color: #f4f4f4;
+    position: relative;
+    margin: 50px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
 
-        .cabina-superior {
-            width: 100%;
-            height: 50px;
-            background-color: #e0e0e0;
-            border-radius: 5px 5px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-            box-sizing: border-box; /* Asegura que el padding no desborde el tamaño */
-        }
+.cabina-superior {
+    width: 100%;
+    height: 58px;
+    background-color: #e0e0e0;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 
-        .cabina-superior::after {
-            content: 'CABINA';
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: #555;
-        }
+.cabina-superior::after {
+    content: 'CABINA';
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #555;
+}
 
-        .panel_de_control_cf {
-            width: 20px;
-            height: 20px;
-            background-color: #0066cc;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.panel_de_control_cf {
+    width: 24px;
+    height: 24px;
+    background-color: #0066cc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .puerta-vidrio_cf {
-            width: 180px;
-            height: 230px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 0 0 5px 5px;
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5);
-            z-index: 1;
-        }
+.puerta-vidrio_cf {
+    width: 540px;
+    height: 268px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0 0 5px 5px;
+    position: absolute;
+    top: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5);
+    z-index: 1;
+}
 
-        .panel-interno_cf {
-            width: 180px;
-            height: 110px;
-            background-color: rgba(211, 211, 211, 0.7);
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 0;
-        }
+.panel-interno_cf {
+    width: 540px;
+    height: 128px;
+    background-color: rgba(211, 211, 211, 0.7);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
 
-        .borde-inferior_cf {
-            width: 100%;
-            height: 10px;
-            background-color: #999;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            border-radius: 0 0 5px 5px;
-        }
+.borde-inferior_cf {
+    width: 100%;
+    height: 12px;
+    background-color: #999;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 0 0 5px 5px;
+}
 
-        .patas_cf {
-            width: 10px;
-            height: 20px;
-            background-color: #666;
-            position: absolute;
-            bottom: -20px;
-            left: 20px;
-            border-radius: 2px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+.patas_cf {
+    width: 12px;
+    height: 24px;
+    background-color: #666;
+    position: absolute;
+    bottom: -24px;
+    left: 60px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
-        .patas_cf.pata-derecha_cf {
-            left: auto;
-            right: 20px;
-        }
+.patas_cf.pata-derecha_cf {
+    left: auto;
+    right: 60px;
+}
 
-        .indicador_cf {
-            width: 15px;
-            height: 15px;
-            background-color: #ddd;
-            position: absolute;
-            bottom: 20px;
-            right: 10px;
-            border-radius: 3px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 3px;
-        }
+.indicador_cf {
+    width: 18px;
+    height: 18px;
+    background-color: #ddd;
+    position: absolute;
+    bottom: 24px;
+    right: 20px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3px;
+}
 
-        .indicador_cf::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background-color: green;
-            border-radius: 50%;
-        }
+.indicador_cf::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background-color: green;
+    border-radius: 50%;
+}
 
-        .indicador_cf::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background-color: red;
-            border-radius: 50%;
-        }
+.indicador_cf::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background-color: red;
+    border-radius: 50%;
+}
 
-        .screen_cabina {
-            width: 40px;
-            height: 20px;
-            background-color: #333;
-            border-radius: 3px;
-            position: absolute;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
-            background-color: #000;
-            color: #0f0;
-            font-family: 'Orbitron', sans-serif;
-            top: 15px;
-            left: 15px;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-        }
+.screen_cabina {
+    width: 48px;
+    height: 24px;
+    background-color: #333;
+    border-radius: 3px;
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Orbitron', sans-serif;
+    top: 17px;
+    left: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
 /*CABINA DE FLUJO FIN*/
 
 
@@ -1574,22 +1586,22 @@
         .espatula {
             position: relative;
             width: 80px;
-            height: 50px;
+            height: 16px;
             display: inline-block;
             background-color: #ccc; /* Color de la pala */
-            border-radius: 2px;
+            border-radius: 0px 6px 6px 0px ;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .mango_espatula {
             position: absolute;
             width: 50px;
-            height: 18px;
+            height: 20px;
             background-color: #8b4513; /* Color del mango */
             top: 50%;
             right: -50px;
             transform: translateY(-50%);
-            border-radius: 2px;
+            border-radius: 8px 8px 8px 8px ;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -1899,153 +1911,154 @@
 /*TUBOS DE ENSAYO PERO CON MICROORGANISMOS FIN*/
 
 /*ESTILOS DEL PIPETA INICIO*/
-        .pipeta {
-            width: 20px;
-            height: 200px;
-            position: relative;
-            margin: 20px auto;
-        }
-        .bulb_pipeta {
-            width: 30px;
-            height: 30px;
-            background-color: #e0e0e0;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.1);
-        }
-        .stem_pipeta {
-            width: 6px;
-            height: 160px;
-            background: linear-gradient(to right, #d0d0d0, #f0f0f0, #d0d0d0);
-            position: absolute;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 3px;
-        }
-        .measurements_pipeta {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 5px 0;
-            box-sizing: border-box;
-        }
-        .measurement_pipeta {
-            width: 100%;
-            height: 1px;
-            background-color: #999;
-        }
-        .measurement_pipeta:nth-child(5n) {
-            width: 150%;
-            left: -25%;
-            position: relative;
-        }
-        .tip_pipeta {
-            width: 4px;
-            height: 20px;
-            background-color: #d0d0d0;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 0 0 2px 2px;
-        }
-        .liquid_pipeta {
-            width: 4px;
-            height: 50px;
-/*            background-color: rgba(0, 119, 190, 0.7);*/
-            background-color: transparent;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 0 0 2px 2px;
-        }
-        .reflection_pipeta {
-            width: 1px;
-            height: 80%;
-            background-color: rgba(255,255,255,0.5);
-            position: absolute;
-            top: 10%;
-            right: 1px;
-            border-radius: 1px;
-        }
+.pipeta {
+    width: 20px;
+    height: 150px; /* Ajustado a 150px */
+    position: relative;
+/*    margin: 20px auto;*/
+}
+.bulb_pipeta {
+    width: 25px; /* Tamaño ajustado para que la proporción siga viéndose bien */
+    height: 25px; /* Tamaño ajustado para que la proporción siga viéndose bien */
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.1);
+}
+.stem_pipeta {
+    width: 5px; /* Tamaño ajustado para mantener proporciones */
+    height: 115px; /* Ajustado a 115px */
+    background: linear-gradient(to right, #d0d0d0, #f0f0f0, #d0d0d0);
+    position: absolute;
+    top: 20px; /* Ajustado para adaptarse al nuevo tamaño de la bombilla */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+.measurements_pipeta {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+    box-sizing: border-box;
+}
+.measurement_pipeta {
+    width: 100%;
+    height: 1px;
+    background-color: #999;
+}
+.measurement_pipeta:nth-child(5n) {
+    width: 150%;
+    left: -25%;
+    position: relative;
+}
+.tip_pipeta {
+    width: 4px;
+    height: 15px; /* Ajustado para el nuevo tamaño de la pipeta */
+    background-color: #d0d0d0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0 0 2px 2px;
+}
+.liquid_pipeta {
+    width: 4px;
+    height: 40px; /* Ajustado para que el líquido esté dentro del nuevo tamaño */
+    background-color: transparent;
+    position: absolute;
+    bottom: 15px; /* Ajustado para alinearse al nuevo tamaño de la punta */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0 0 2px 2px;
+}
+.reflection_pipeta {
+    width: 1px;
+    height: 80%;
+    background-color: rgba(255,255,255,0.5);
+    position: absolute;
+    top: 10%;
+    right: 1px;
+    border-radius: 1px;
+}
 /*ESTILOS DEL PIPETA FIN*/
 
 
+
 /*ESTILOS PARA EL GOTERO INICIO*/
-        .gotero {
-            width: 40px;
-            height: 150px;
-            position: relative;
-            margin: 20px auto;
-        }
-        .cuerpo_gotero {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 100px;
-            background-color: #f0f0f0;
-            border-radius: 0 0 4px 4px;
-        }
-        .tapa_gotero {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 25px;
-            background-color: #333;
-            border-radius: 2px 2px 0 0;
-        }
-        .cuello_gotero {
-            position: absolute;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 25px;
-            background-color: #f0f0f0;
-        }
-        .punta_gotero {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 15px;
-            background-color: #f0f0f0;
-            border-radius: 0 0 2px 2px;
-        }
-        .detalle-tapa_gotero {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 2px;
-            background-color: #555;
-            border-radius: 1px;
-        }
-        .detalle-tapa_gotero:nth-child(1) { top: 5px; }
-        .detalle-tapa_gotero:nth-child(2) { top: 10px; }
-        .reflejo_gotero {
-            position: absolute;
-            bottom: 15px;
-            left: 75%;
-            width: 2px;
-            height: 75px;
-            background-color: #fff;
-            opacity: 0.3;
-            border-radius: 1px;
-        }
+.gotero {
+    width: 40px;
+    height: 100px; /* Ajustado a 100px */
+    position: relative;
+/*    margin: 20px auto;*/
+}
+.cuerpo_gotero {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 65px; /* Ajustado para mantener la proporción */
+    background-color: #f0f0f0;
+    border-radius: 0 0 4px 4px;
+}
+.tapa_gotero {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 18px; /* Ajustado para mantener la proporción */
+    background-color: #333;
+    border-radius: 2px 2px 0 0;
+}
+.cuello_gotero {
+    position: absolute;
+    top: 18px; /* Ajustado para alinearse con la nueva altura de la tapa */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 20px; /* Ajustado para mantener la proporción */
+    background-color: #f0f0f0;
+}
+.punta_gotero {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 12px; /* Ajustado para el nuevo tamaño del gotero */
+    background-color: #f0f0f0;
+    border-radius: 0 0 2px 2px;
+}
+.detalle-tapa_gotero {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 2px;
+    background-color: #555;
+    border-radius: 1px;
+}
+.detalle-tapa_gotero:nth-child(1) { top: 3px; /* Ajustado */ }
+.detalle-tapa_gotero:nth-child(2) { top: 8px; /* Ajustado */ }
+.reflejo_gotero {
+    position: absolute;
+    bottom: 12px; /* Ajustado para alinearse con el nuevo tamaño del cuerpo */
+    left: 50%;
+    width: 2px;
+    height: 50px; /* Ajustado para mantener la proporción */
+    background-color: #fff;
+    opacity: 0.3;
+    border-radius: 1px;
+}
 /*ESTILOS PARA EL GOTERO FIN*/
+
 
 
 /*ESTILOS PARA LA GOTA DE AGUA INICIO*/
@@ -2064,7 +2077,137 @@
 
 
 
+/*ESTILOS DE LA NEVERA INICIO*/
+.nevera-container {
+  position: relative;
+  width: 240px; /* Añadido espacio para el botón */
+  height: 300px;
+  display: flex;
+  align-items: center;
+}
 
+.nevera {
+  width: 200px;
+  height: 300px;
+  background: linear-gradient(145deg, #e6e6e6, #f0f0f0);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.1), -5px -5px 15px rgba(255,255,255,0.5);
+}
+
+.puerta-congelador, .puerta-refrigerador {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(145deg, #f0f0f0, #ffffff);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.5);
+}
+
+.puerta-congelador {
+  top: 0;
+  height: 30%;
+  border-bottom: 2px solid #d0d0d0;
+}
+
+.puerta-refrigerador {
+  top: 30%;
+  height: 70%;
+}
+
+.manija-congelador, .manija-refrigerador {
+  position: absolute;
+  right: 10px;
+  width: 6px;
+  height: 40px;
+  background-color: #a0a0a0;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2), -1px -1px 3px rgba(255,255,255,0.7);
+}
+
+.manija-congelador {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.manija-refrigerador {
+  top: 40%;
+}
+
+.manija-congelador::before, .manija-refrigerador::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  width: 10px;
+  height: 20px;
+  background-color: #909090;
+  border-radius: 5px 0 0 5px;
+}
+
+.interior {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8;
+}
+
+.compartimiento-congelador, .compartimiento-refrigerador {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.compartimiento-congelador {
+  top: 0;
+  height: 30%;
+  background-color: #e6f3ff;
+}
+
+.compartimiento-refrigerador {
+  top: 30%;
+  height: 70%;
+}
+
+.estante {
+  width: 90%;
+  height: 2px;
+  background-color: #d0d0d0;
+  margin: 15% auto;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.cajon {
+  width: 90%;
+  height: 20%;
+  background-color: #e0e0e0;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1), inset -1px -1px 3px rgba(255,255,255,0.5);
+}
+
+.boton-nevera {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.boton-nevera:hover {
+  background-color: #45a049;
+}
+/*ESTILOS DE LA NEVERA FIN*/
 
 
 /*MICROSCO´PIO*/
@@ -2161,3 +2304,45 @@
 .microscope-view.fade-out .microscope-circle {
   transform: scale(0);
 }
+
+
+
+
+
+/*ESTILO PRACTICA 2*/
+.lupa-container {
+    width: 80px;
+    height: 150px; /* Ajusté la altura para que no sea tan alto */
+    position: relative;
+    cursor: move;
+    z-index: 1000;
+}
+
+.lupa-circle {
+    width: 100%;
+    height: 80px;
+
+    border: 4px solid black; /* Borde negro suave */
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+
+}
+
+.lupa-handle {
+    width: 12px; /* Un poco más angosto */
+    height: 50px; /* Altura más corta */
+/*    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));*/
+    position: absolute;
+    bottom: -50px; /* Posicionado más arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0 0 10px 10px;
+    border: 2px solid black; /* Borde negro */
+    background-color: black;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+
