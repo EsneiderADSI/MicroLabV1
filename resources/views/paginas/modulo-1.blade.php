@@ -76,9 +76,12 @@
             @include('paginas.objetos.balanza')
             @include('paginas.objetos.microscopio')
             @include('paginas.objetos.phmetro')
+            @include('paginas.objetos.grifo')
             @include('paginas.objetos.pipeta')
             @include('paginas.objetos.gotero')
             @include('paginas.objetos.mechero')
+            @include('paginas.objetos.mortero')
+            @include('paginas.objetos.mortero-mazo')
             @include('paginas.objetos.plancha-calentamiento')
             @include('paginas.objetos.autoclave')
             @include('paginas.objetos.cabina-de-flujo')
@@ -96,7 +99,15 @@
 
 $(document).ready(function() {
     // initializeWorkspaceDraggables();
+  $(document).on('click', '.door_nevera', function(event){
+            var isOpen = $(this).hasClass('open');
 
+            if (isOpen) {
+                $(this).removeClass('open').css('transform', 'rotateY(0deg)');
+            } else {
+                $(this).addClass('open').css('transform', 'rotateY(-100deg)');
+            }
+        });
 
     var elems = document.querySelectorAll('.tabs');
     var instances = M.Tabs.init(elems);
@@ -157,17 +168,17 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula', 'nevera', 'mortero-container', 'mazo-mortero', 'grifo'],
 
   'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
   'balanza': ['medio_cultivo'],
   'plancha-container': ['vaso', 'erlenmeyer'],
-  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'pipeta', 'asa2-container'],
+  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'pipeta', 'asa2-container', 'erlenmeyer'],
   'incubadora-container': ['petridish'],
-  'autoclave-container': ['vaso'],
-  'erlenmeyer': ['medio_cultivo_caldo', 'reactivo', 'phmetro'],
+  'autoclave-container': ['vaso', 'erlenmeyer'],
+  'erlenmeyer': ['medio_cultivo', 'medio_cultivo_caldo', 'reactivo', 'phmetro'],
   'tubo-ensayo-container': ['erlenmeyer'],
-  'cabina-container': ['erlenmeyer'],
+  // 'cabina-container': ['erlenmeyer'],
   'mechero-container': ['asa1-container', 'asa2-container', "portaobjetos"],
   'petridish_pre': ['asa1-container', 'asa2-container'],
   'tubo-ensayo-container_micro': ['pipeta'],
@@ -177,7 +188,7 @@ const acceptedElements = {
 };
 
 // Lista de elementos que deben permanecer fijos en su posición inicial cuándo se suelta en el workspace-inner
-const fixedElements = ["autoclave-container", "incubadora-container", "plancha-container", "cabina-container", "balanza"];
+const fixedElements = ["autoclave-container", "incubadora-container", "cabina-container", "balanza"];
 
 // Función para determinar dónde se debe agregar el elemento
 function determineAppendTarget(draggableType, droppableType) {
@@ -417,7 +428,8 @@ function handleWorkspaceInteraction(elementType, ElementoEnWK, YoWorkspace) {
   switch(elementType) {
     case 'vaso':
       $("#parte1 p").html('Vaso añadido al workspace. Inicializando...');
-      ElementoEnWK.find(".agua_vaso").removeClass("hirviendo");
+      // ElementoEnWK.find(".agua_vaso").removeClass("hirviendo");
+      ElementoEnWK.find(".agua_erlenmeyer").removeClass("hirviendo");
       // Lógica específica para vaso en workspace
       break;
     case 'erlenmeyer':
@@ -549,14 +561,19 @@ function handleBalanzaInteraction(elementType, soltado_en_balanza, YoBalanza) {
 
 function handlePlanchaInteraction(elementType, soltado_en_plancha, YoPlancha) {
   // Implementa la lógica específica para interacciones Plancha
-  $("#parte1 p").html(`${elementType} añadido a la PLANCHA`);
-    YoPlancha.find(".top-plate").css("background-color", "#ffe082");
-  soltado_en_plancha.find(".agua_vaso").addClass("hirviendo");
+    switch(elementType) {
+     case 'erlenmeyer':
+      $("#parte1 p").html(`${elementType} añadido a la PLANCHA`);
+        YoPlancha.find(".top-plate").css("background-color", "#fff8e1");
+      // soltado_en_plancha.find(".agua_vaso").addClass("hirviendo");
+      soltado_en_plancha.find(".agua_erlenmeyer").addClass("hirviendo");
+
+}
 }
 
 function handleAutoclaveInteraction(elementType, soltado_en_Autoclave, YoAutoclave) {
     switch(elementType) {
-     case 'vaso':
+     case 'erlenmeyer':
   // Implementa la lógica específica para interaccion
   $("#parte1 p").html(`${elementType} añadido AL aUTOCLAVE`);
   YoAutoclave.find(".boton_autoclave, .boton_autoclave_2").addClass("animar");
@@ -574,7 +591,7 @@ function handleAutoclaveInteraction(elementType, soltado_en_Autoclave, YoAutocla
 
 function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlacaPetri) {
     switch(elementType) {
-        case 'vaso':
+        case 'erlenmeyer':
         // Mostrar mensaje de interacción
         $("#parte1 p").html(`${elementType} añadido AL placa PETRI`);
 
@@ -583,7 +600,7 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
         // Asignar el id único al elemento YoPlacaPetri
         YoPlacaPetri.attr('id', id_unico_petridish);
         // Cambiar el color del pseudo-elemento ::before para la placa petri específica
-        var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.agua_vaso').css('background-color'));
+        var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.agua_erlenmeyer').css('background-color'));
 
         // Aplicar el estilo al pseudo-elemento ::before del id generado
         $("<style>#" + id_unico_petridish + "::before { background-color: " + LiquidoVaso + " !important; }</style>").appendTo("head");
@@ -665,14 +682,52 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
     // Mostrar mensaje de interacción
     $("#parte1 p").html(`${elementType} añadido AL Erlenmeyer`);
   switch(elementType) {
+    case 'medio_cultivo':
+      $("#parte1 p").html('Medio de cultivo añadido al Erlenmeyer. Mezclando...');
+      // Lógica para medio de cultivo en Erlenmeyer
+        soltado_en_Erlenmeyer.draggable({containment: "parent" });
+
+        const aguaE = YoErlenmeyer.find('.agua_erlenmeyer');
+
+        // Obtener el alto del contenedor del Erlenmeyer (para calcular el porcentaje)
+        const alturaContenedorE = aguaE.parent().height();
+
+        // Obtener la altura actual en píxeles y calcular su porcentaje
+        const alturaActualE = parseFloat(aguaE.css('height'));
+        const porcentajeAlturaE = (alturaActualE / alturaContenedorE) * 100;
+
+        // Verificar si el porcentaje es menor o igual al 10%
+        if (porcentajeAlturaE <= 10) {
+            alert("No hay suficiente agua en el Erlenmeyer");
+            // soltado_en_Erlenmeyer.remove();
+        } else {
+            // Convertir los colores a formato hexadecimal
+            var color_Agua_Hex = rgbAHex(aguaE.css('background-color'));
+            var color_agar_Hex = soltado_en_Erlenmeyer.attr('color')
+
+            // Mezclar los colores en hexadecimal
+            const colorMezclado = mezclarColoresHex(color_Agua_Hex, color_agar_Hex);
+
+            // Aplicar el color mezclado al Erlenmeyer
+            aguaE.css('background-color', colorMezclado);
+            YoErlenmeyer.attr('data', '{"tipo": soltado_en_Erlenmeyer.attr("tipo"), "accion":"mezclado"}')
+
+            // Mostrar el color mezclado en el elemento correspondiente
+            $("#parte1 p").html(colorMezclado+ "\n" + "color_Agua_Hex "+ color_Agua_Hex+ " color_agar_Hex "+ color_agar_Hex);
+            soltado_en_Erlenmeyer.remove();
+        }
+
+
+      break;
+
     case 'medio_cultivo_caldo':
       $("#parte1 p").html('Medio de cultivo Caldo añadido al erlenmeyer. Mezclando...');
-      // Lógica para medio de cultivo en vaso
+      // Lógica para medio de cultivo en Erlenmeyer
         soltado_en_Erlenmeyer.draggable({containment: "parent" });
 
         const agua_erlenmeyer = YoErlenmeyer.find('.agua_erlenmeyer');
 
-        // Obtener el alto del contenedor del vaso (para calcular el porcentaje)
+        // Obtener el alto del contenedor del Erlenmeyer (para calcular el porcentaje)
         const alturaContenedor = agua_erlenmeyer.parent().height();
 
         // Obtener la altura actual en píxeles y calcular su porcentaje
@@ -691,7 +746,7 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
             // Mezclar los colores en hexadecimal
             const colorMezclado = mezclarColoresHex(color_Agua_Hex, color_agar_Hex);
 
-            // Aplicar el color mezclado al vaso
+            // Aplicar el color mezclado al Erlenmeyer
             agua_erlenmeyer.css('background-color', colorMezclado);
             YoErlenmeyer.attr('data', '{"tipo": soltado_en_Erlenmeyer.attr("tipo"), "accion":"mezclado"}')
 
@@ -964,7 +1019,7 @@ function PortaObjetostieneTodosLosReactivos(objeto, reactivos_gramm) {
 
 function handleCabinaInteraction(elementType, soltado_en_Cabina, YoCabina) {
     switch(elementType) {
-     case 'erlenmeyer':
+     case 'xxxxxxx':
     // Mostrar mensaje de interacción
     $("#parte1 p").html(`${elementType} añadido A la CABINA`);
     soltado_en_Cabina.animate({

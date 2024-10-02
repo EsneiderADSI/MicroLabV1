@@ -1,0 +1,1 @@
+<div class="mazo-mortero draggable drag" description="Mazo"></div>

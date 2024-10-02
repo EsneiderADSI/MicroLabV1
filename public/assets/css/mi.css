@@ -436,7 +436,33 @@
 }
 /*Vaso con agua FIN*/
 
+/*Animaciones para el Erlenmeyer HIRVIENDO INICIO*/
+.agua_erlenmeyer.hirviendo::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.5) 2px, transparent 2px),
+        radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.5) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+    animation: burbujas_agua_vaso 5s linear infinite;
+}
 
+.agua_erlenmeyer.hirviendo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: ondulacion_agua_vaso 2s ease-in-out infinite;
+}
+/*Animaciones para el Erlenmeyer HIRVIENDO FIN*/
 
 
 /*Plancha de calentamiento INICIO*/
@@ -1595,7 +1621,7 @@
 
         .mango_espatula {
             position: absolute;
-            width: 50px;
+            width: 60px;
             height: 20px;
             background-color: #8b4513; /* Color del mango */
             top: 50%;
@@ -2078,136 +2104,252 @@
 
 
 /*ESTILOS DE LA NEVERA INICIO*/
-.nevera-container {
-  position: relative;
-  width: 240px; /* Añadido espacio para el botón */
-  height: 300px;
-  display: flex;
-  align-items: center;
-}
-
-.nevera {
-  width: 200px;
-  height: 300px;
-  background: linear-gradient(145deg, #e6e6e6, #f0f0f0);
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.1), -5px -5px 15px rgba(255,255,255,0.5);
-}
-
-.puerta-congelador, .puerta-refrigerador {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(145deg, #f0f0f0, #ffffff);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.5);
-}
-
-.puerta-congelador {
-  top: 0;
-  height: 30%;
-  border-bottom: 2px solid #d0d0d0;
-}
-
-.puerta-refrigerador {
-  top: 30%;
-  height: 70%;
-}
-
-.manija-congelador, .manija-refrigerador {
-  position: absolute;
-  right: 10px;
-  width: 6px;
-  height: 40px;
-  background-color: #a0a0a0;
-  border-radius: 3px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.2), -1px -1px 3px rgba(255,255,255,0.7);
-}
-
-.manija-congelador {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.manija-refrigerador {
-  top: 40%;
-}
-
-.manija-congelador::before, .manija-refrigerador::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  width: 10px;
-  height: 20px;
-  background-color: #909090;
-  border-radius: 5px 0 0 5px;
-}
-
-.interior {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #f8f8f8;
-}
-
-.compartimiento-congelador, .compartimiento-refrigerador {
-  position: absolute;
-  left: 0;
-  width: 100%;
-}
-
-.compartimiento-congelador {
-  top: 0;
-  height: 30%;
-  background-color: #e6f3ff;
-}
-
-.compartimiento-refrigerador {
-  top: 30%;
-  height: 70%;
-}
-
-.estante {
-  width: 90%;
-  height: 2px;
-  background-color: #d0d0d0;
-  margin: 15% auto;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-
-.cajon {
-  width: 90%;
-  height: 20%;
-  background-color: #e0e0e0;
-  position: absolute;
-  bottom: 5%;
-  left: 5%;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1), inset -1px -1px 3px rgba(255,255,255,0.5);
-}
-
-.boton-nevera {
-  position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.boton-nevera:hover {
-  background-color: #45a049;
-}
+        .nevera {
+            width: 200px;
+            height: 300px;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            position: relative;
+            overflow: visible;
+        }
+        .nevera-interior {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .congelador_nevera {
+            height: 30%;
+            background-color: #e8f4f8;
+            border-bottom: 2px solid #d0d0d0;
+        }
+        .cooler_nevera {
+            height: 70%;
+            background-color: #f0f8ff;
+        }
+        .door_nevera {
+            position: absolute;
+            width: 100%;
+            background-color: #c0c0c0;
+            transition: transform 0.5s ease-in-out;
+            transform-origin: left;
+            cursor: pointer;
+        }
+        .door_nevera-top {
+            height: 30%;
+            top: 0;
+            border-radius: 20px 20px 0 0;
+            border-bottom: 2px solid #a0a0a0;
+        }
+        .door_nevera-bottom {
+            height: 70%;
+            bottom: 0;
+            border-radius: 0 0 20px 20px;
+        }
+        .handle_nevera {
+            position: absolute;
+            right: 20px;
+            width: 18px;
+            height: 60px;
+            background-color: #808080;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+        .handle_nevera-top {
+            top: 20px;
+        }
+        .handle_nevera-bottom {
+            bottom: 20px;
+        }
+        .logo_nevera {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+        }
+        .shelf_nevera {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            height: 5px;
+            background-color: rgba(200, 200, 200, 0.5);
+        }
+        .shelf_nevera-1 { top: 50%; }
+        .shelf_nevera-2 { top: 75%; }
+        .divider_nevera {
+            position: absolute;
+            top: 30%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #a0a0a0;
+            z-index: 10;
+        }
 /*ESTILOS DE LA NEVERA FIN*/
+
+/*ESTILOS PARA EL MORTERO INICIO*/
+        .mortero-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mortero {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border-radius: 50% 50% 10% 10%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .mortero::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: #e0e0e0;
+            border-radius: 50% 50% 10% 10%;
+            top: 10px;
+            left: 10px;
+        }
+
+        .mortero::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background-color: #d0d0d0;
+            bottom: 0;
+            left: 40px;
+            border-radius: 0 0 10px 10px;
+        }
+
+
+        .mazo-mortero {
+            width: 20px;
+            height: 120px;
+            position: relative;
+            margin: 10px;
+            z-index: 900;
+            background-color: #d0d0d0;
+
+            border-radius: 10px;
+            transform: rotate(10deg);
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .mazo-mortero::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #c0c0c0;
+            border-radius: 50%;
+            bottom: -5px;
+            left: -5px;
+        }
+
+/*ESTILOS PARA EL MORTERO FIN*/
+
+
+/*ESTILOS PARA LLAVE DE GRIFO INICIO*/
+   .grifo {
+      position: relative;
+      width: 100px;
+      height: 30px;
+      background-color: #ccc;
+      border-radius: 15px;
+      border: 4px solid #999;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .grifo::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #f1c40f; /* Naranja por defecto */
+      border: 5px solid #999;
+      border-radius: 50%;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: background-color 0.3s;
+    }
+
+    .grifo.on::before {
+      background-color: #2ecc71; /* Verde cuando el agua fluye */
+    }
+
+    .tubo_grifo {
+      position: absolute;
+      width: 30px;
+      height: 26px;
+      background-color: #ccc;
+      border-radius: 0 0 5px 5px;
+      border: 4px solid #999;
+      border-top: none;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .agua_grifo {
+      position: absolute;
+      width: 27px;
+      height: 0;
+      background: linear-gradient(to bottom, #00bfff 0%, rgba(0,191,255,0) 100%);
+      top: 46px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+
+    @keyframes agua_grifo-flow {
+      0% {
+        height: 0;
+        opacity: 1;
+      }
+      50% {
+        height: 60px;
+        opacity: 0.8;
+      }
+      100% {
+        height: 80px;
+        opacity: 0;
+      }
+    }
+
+    .flowingGrifo {
+      animation: agua_grifo-flow 1s ease-in-out infinite;
+    }
+/*ESTILOS PARA LLAVE DE GRIFO FIN*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*MICROSCO´PIO*/

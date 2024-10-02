@@ -218,3 +218,23 @@ window.addEventListener('load', simulateAllMicroorganisms);
 });
 
 
+
+
+// ESTILOS PARA LA LLAVE DE GRIFO
+    let waterFlowingGrifo = false;
+
+    function toggleWater() {
+      const agua_grifo = document.getElementById('agua_grifo');
+      const grifo = document.getElementById('grifo');
+      waterFlowingGrifo = !waterFlowingGrifo;
+
+      if (waterFlowingGrifo) {
+        agua_grifo.classList.add('flowingGrifo');
+        agua_grifo.style.opacity = 1;
+        grifo.classList.add('on'); // Cambia a color verde
+      } else {
+        agua_grifo.classList.remove('flowingGrifo');
+        agua_grifo.style.opacity = 0;
+        grifo.classList.remove('on'); // Cambia a color naranja
+      }
+    }
