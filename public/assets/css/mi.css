@@ -966,33 +966,43 @@
   display: flex;
 }
 
-        .asa2-container {
-            width: 130px;
-            height: 50px;
-            position: relative;
+.asa2-container {
+    width: 230px;
+    height: 50px;
+    position: relative;
+}
 
-        }
-        .mango_asa_2 {
-            width: 100px;
-            height: 6px;
-            background-color: #000;
-            position: absolute;
-            left: 0;
-            top: 22px;
-            border-radius: 3px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            z-index: 4;
-        }
-        .asa_2 {
-            width: 20px;
-            height: 20px;
-            background-color: #000;
-            position: absolute;
-            right: 12px;
-            top: 15px;
-            transform: rotate(45deg);
-            z-index: 3;
-        }
+.mango_asa_2 {
+    width: 100px;
+    height: 6px;
+    background-color: #333;
+    position: absolute;
+    left: 0;
+    top: 14px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    border-radius: 3px;
+}
+
+.asa_2 {
+    width: 34px;
+    height: 30px;
+    position: absolute;
+    left: 88px;
+    top: 2px;
+    z-index: 998;
+
+    /* Triángulo usando clip-path */
+    background-color: #333;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
+    /* Rotar para que la punta quede hacia abajo */
+    transform: rotate(-90deg);
+
+    /* Para suavizar los bordes del triángulo */
+    border-radius: 8px;
+}
+
 .asa_2.caliente {
   background-color: orange;
 }
@@ -2263,77 +2273,116 @@
 
 
 /*ESTILOS PARA LLAVE DE GRIFO INICIO*/
-   .grifo {
-      position: relative;
-      width: 100px;
-      height: 30px;
-      background-color: #ccc;
-      border-radius: 15px;
-      border: 4px solid #999;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .grifo::before {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #f1c40f; /* Naranja por defecto */
-      border: 5px solid #999;
-      border-radius: 50%;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: background-color 0.3s;
-    }
-
-    .grifo.on::before {
-      background-color: #2ecc71; /* Verde cuando el agua fluye */
-    }
-
-    .tubo_grifo {
-      position: absolute;
-      width: 30px;
-      height: 26px;
-      background-color: #ccc;
-      border-radius: 0 0 5px 5px;
-      border: 4px solid #999;
-      border-top: none;
-      top: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .agua_grifo {
-      position: absolute;
-      width: 27px;
-      height: 0;
-      background: linear-gradient(to bottom, #00bfff 0%, rgba(0,191,255,0) 100%);
-      top: 46px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-    }
-
-    @keyframes agua_grifo-flow {
-      0% {
-        height: 0;
-        opacity: 1;
-      }
-      50% {
-        height: 60px;
-        opacity: 0.8;
-      }
-      100% {
-        height: 80px;
-        opacity: 0;
-      }
-    }
-
-    .flowingGrifo {
-      animation: agua_grifo-flow 1s ease-in-out infinite;
-    }
+        .sink {
+            width: 300px;
+            height: 300px; /* Reducida de 400px a 300px */
+            background-color: #e0e0e0;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .basin {
+            width: 100%;
+            height: 75%; /* Ajustada de 80% a 75% */
+            background-color: #d0d0d0;
+            position: absolute;
+            bottom: 0;
+            border-radius: 0 0 20px 20px;
+            overflow: hidden;
+        }
+        .basin::before {
+            content: '';
+            position: absolute;
+            top: 2%; /* Ajustado de 5% a 2% */
+            left: 5%;
+            right: 5%;
+            bottom: 2%; /* Ajustado de 5% a 2% */
+            background: radial-gradient(ellipse at center, #b0b0b0 0%, #d0d0d0 70%);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: inset 0 3px 7px rgba(0,0,0,0.2),
+                        inset 0 -3px 7px rgba(255,255,255,0.2);
+        }
+        .basin::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 25px; /* Reducido de 30px a 25px */
+            height: 25px; /* Reducido de 30px a 25px */
+            background: #a0a0a0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .grifo {
+            position: relative;
+            width: 80px; /* Reducido de 100px a 80px */
+            height: 25px; /* Reducido de 30px a 25px */
+            background-color: #ccc;
+            border-radius: 12px;
+            border: 3px solid #999;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            top: 35px; /* Ajustado de 20px a 15px */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .grifo::before {
+            content: "";
+            position: absolute;
+            width: 16px; /* Reducido de 20px a 16px */
+            height: 16px; /* Reducido de 20px a 16px */
+            background-color: #ef5350;
+            border: 4px solid #999;
+            border-radius: 50%;
+            top: -12px; /* Ajustado de -15px a -12px */
+            left: 50%;
+            transform: translateX(-50%);
+            transition: background-color 0.3s;
+        }
+        .grifo.on::before {
+            background-color: #2ecc71;
+        }
+        .tubo_grifo {
+            position: absolute;
+            width: 25px; /* Reducido de 30px a 25px */
+            height: 26px; /* Reducido de 26px a 22px */
+            background-color: #ccc;
+            border-radius: 0 0 4px 4px;
+            border: 3px solid #999;
+            border-top: none;
+            top: 20px; /* Ajustado de 30px a 25px */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .agua_grifo {
+            position: absolute;
+            width: 22px; /* Reducido de 27px a 22px */
+            height: 0;
+            background: linear-gradient(to bottom, #00bfff 0%, rgba(0,191,255,0) 100%);
+            top: 46px; /* Ajustado de 58px a 48px */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        @keyframes agua_grifo-flow {
+            0% {
+                height: 0;
+                opacity: 1;
+            }
+            50% {
+                height: 45px; /* Reducido de 60px a 45px */
+                opacity: 0.8;
+            }
+            100% {
+                height: 60px; /* Reducido de 80px a 60px */
+                opacity: 0;
+            }
+        }
+        .flowingGrifo {
+            animation: agua_grifo-flow 1s ease-in-out infinite;
+        }
 /*ESTILOS PARA LLAVE DE GRIFO FIN*/
 
 

@@ -99,15 +99,6 @@
 
 $(document).ready(function() {
     // initializeWorkspaceDraggables();
-  $(document).on('click', '.door_nevera', function(event){
-            var isOpen = $(this).hasClass('open');
-
-            if (isOpen) {
-                $(this).removeClass('open').css('transform', 'rotateY(0deg)');
-            } else {
-                $(this).addClass('open').css('transform', 'rotateY(-100deg)');
-            }
-        });
 
     var elems = document.querySelectorAll('.tabs');
     var instances = M.Tabs.init(elems);
@@ -168,7 +159,7 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula', 'nevera', 'mortero-container', 'mazo-mortero', 'grifo'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula', 'nevera', 'mortero-container', 'mazo-mortero', 'sink'],
 
   'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
   'balanza': ['medio_cultivo'],
@@ -684,6 +675,7 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
   switch(elementType) {
     case 'medio_cultivo':
       $("#parte1 p").html('Medio de cultivo añadido al Erlenmeyer. Mezclando...');
+      if (YoErlenmeyer.attr("tiene") === "medio_cultivo_caldo"){alert("Prepare esto en otra muestra limpia"); return false;soltado_en_Erlenmeyer.remove();}
       // Lógica para medio de cultivo en Erlenmeyer
         soltado_en_Erlenmeyer.draggable({containment: "parent" });
 
@@ -710,7 +702,7 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
 
             // Aplicar el color mezclado al Erlenmeyer
             aguaE.css('background-color', colorMezclado);
-            YoErlenmeyer.attr('data', '{"tipo": soltado_en_Erlenmeyer.attr("tipo"), "accion":"mezclado"}')
+            YoErlenmeyer.attr('tiene', 'medio_cultivo_agar');
 
             // Mostrar el color mezclado en el elemento correspondiente
             $("#parte1 p").html(colorMezclado+ "\n" + "color_Agua_Hex "+ color_Agua_Hex+ " color_agar_Hex "+ color_agar_Hex);
@@ -721,6 +713,7 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
       break;
 
     case 'medio_cultivo_caldo':
+      if (YoErlenmeyer.attr("tiene") === "medio_cultivo_agar"){alert("Prepare esto en otra muestra limpia"); return false; soltado_en_Erlenmeyer.remove();}
       $("#parte1 p").html('Medio de cultivo Caldo añadido al erlenmeyer. Mezclando...');
       // Lógica para medio de cultivo en Erlenmeyer
         soltado_en_Erlenmeyer.draggable({containment: "parent" });
@@ -748,7 +741,7 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
 
             // Aplicar el color mezclado al Erlenmeyer
             agua_erlenmeyer.css('background-color', colorMezclado);
-            YoErlenmeyer.attr('data', '{"tipo": soltado_en_Erlenmeyer.attr("tipo"), "accion":"mezclado"}')
+            YoErlenmeyer.attr('tiene', 'medio_cultivo_caldo');
 
             // Mostrar el color mezclado en el elemento correspondiente
             $("#parte1 p").html(colorMezclado+ "\n" + "color_Agua_Hex "+ color_Agua_Hex+ " color_agar_Hex "+ color_agar_Hex);

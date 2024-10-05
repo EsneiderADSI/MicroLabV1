@@ -56,7 +56,20 @@ function rgbAHex(rgb) {
 
 
 $(document).ready(function() {
+            $(document).on('click', '.grifo', function(event){
+                $(this).toggleClass('on');
+                $(this).find('.agua_grifo').toggleClass('flowingGrifo');
+            });
 
+  $(document).on('click', '.door_nevera', function(event){
+            var isOpen = $(this).hasClass('open');
+
+            if (isOpen) {
+                $(this).removeClass('open').css('transform', 'rotateY(0deg)');
+            } else {
+                $(this).addClass('open').css('transform', 'rotateY(-100deg)');
+            }
+        });
 // Selecciona el elemento donde se mostrarán las coordenadas
 const coordinatesDisplay = document.getElementById('coordinates');
 
@@ -221,20 +234,4 @@ window.addEventListener('load', simulateAllMicroorganisms);
 
 
 // ESTILOS PARA LA LLAVE DE GRIFO
-    let waterFlowingGrifo = false;
 
-    function toggleWater() {
-      const agua_grifo = document.getElementById('agua_grifo');
-      const grifo = document.getElementById('grifo');
-      waterFlowingGrifo = !waterFlowingGrifo;
-
-      if (waterFlowingGrifo) {
-        agua_grifo.classList.add('flowingGrifo');
-        agua_grifo.style.opacity = 1;
-        grifo.classList.add('on'); // Cambia a color verde
-      } else {
-        agua_grifo.classList.remove('flowingGrifo');
-        agua_grifo.style.opacity = 0;
-        grifo.classList.remove('on'); // Cambia a color naranja
-      }
-    }
