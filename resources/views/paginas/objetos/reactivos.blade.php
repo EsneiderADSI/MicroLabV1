@@ -69,3 +69,11 @@
         <div class="liquido_botella" style="background-color: rgba(178, 235, 242, 0.6);"></div>
         <div class="texto-botella">HCl</div>
     </div>
+
+    <div class="reactivo aceite_de_inmersion draggable drag" tipo="aceite_de_inmersion " description="Aceite de Inmersión ">
+        <div class="borde-superior_botella"></div>
+        <div class="brillo_botella"></div>
+        <div class="tapa_botella"></div>
+        <div class="liquido_botella" style="background-color: rgba(229, 198, 97, 0.46);"></div>
+        <div class="texto-botella">AI</div>
+    </div>

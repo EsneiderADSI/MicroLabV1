@@ -226,7 +226,8 @@ function simulateAllMicroorganisms() {
 }
 
 // Run the simulation when the page loads
-window.addEventListener('load', simulateAllMicroorganisms);
+// CODIGO QUE CARGA LAS FUNCIONES PARA SIMULAR LOS MICROOGANISMOS EN LAS PLACAS PETRI
+// window.addEventListener('load', simulateAllMicroorganisms);
 
 });
 

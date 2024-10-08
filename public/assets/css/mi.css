@@ -613,7 +613,7 @@
             left: 10%;
             right: 10%;
             bottom: 10%;
-            background-color: #fff9c4 ; /* Color del fondo de la caja petri */
+            background-color: #ddf9c4 ; /* Color del fondo de la caja petri */
             border-radius: 50%;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -927,7 +927,7 @@
 .mango_asa_1 {
   width: 100px;
   height: 6px;
-  background: linear-gradient(to right, #333, #666);
+  background-color: #fff8e1;
   position: absolute;
   left: 0;
   top: 17px;
@@ -938,33 +938,16 @@
 .asa_1 {
   width: 20px;
   height: 20px;
-  transition: background-color 10s linear;
+
   background-color: transparent;
-  border: 3px solid #333;
+  border: 3px solid #bdbdbd;
   border-radius: 50%;
   position: absolute;
   left: 98px;
   top: 10px;
 }
 
-.asa_1.caliente {
-  background-color: orange;
-}
 
-.asa_1.caliente_suave {
-  background-color: yellow;
-}
-
-.microorganismo_en_asa1 {
-  width: 10px;
-  height: 10px;
-  background-color: #8e44ad;
-  border-radius: 50%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  display: flex;
-}
 
 .asa2-container {
     width: 230px;
@@ -975,7 +958,7 @@
 .mango_asa_2 {
     width: 100px;
     height: 6px;
-    background-color: #333;
+    background-color: #70cfff3f;
     position: absolute;
     left: 0;
     top: 14px;
@@ -993,7 +976,7 @@
     z-index: 998;
 
     /* Triángulo usando clip-path */
-    background-color: #333;
+    background-color: #70cfff3f;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 
     /* Rotar para que la punta quede hacia abajo */
@@ -1001,32 +984,14 @@
 
     /* Para suavizar los bordes del triángulo */
     border-radius: 8px;
+    /*transición  del color */
+    transition: background-color 5s ease;
 }
-
-.asa_2.caliente {
-  background-color: orange;
-}
-
-.asa_2.caliente_suave {
-  background-color: yellow;
-}
-.microorganismo_en_asa2 {
-  width: 10px;
-  height: 10px;
-  background-color: blue;
-  border-radius: 50%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  display: flex;
-  z-index: 1000;
-}
-
 
 
     .asa3_recta-container {
         position: relative;
-        width: 120px;
+        width: 50px;
         height: 8px;
         display: inline-block;
         background-color: #ccc; /* Color de la pala */
@@ -1036,11 +1001,11 @@
 
     .mango_asa_recta {
         position: absolute;
-        width: 50px;
+        width: 70px;
         height: 3px;
         background-color: #616161   ; /* Color del mango */
         top: 50%;
-        right: -49px;
+        right: -69px;
         transform: translateY(-50%);
         border-radius: 8px 8px 8px 8px ;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1545,7 +1510,7 @@
 
 
 /* microorganismo INICIO */
-   .microorganismo {
+   .muestra {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -1562,19 +1527,19 @@
 }
 
 /* Escherichia coli - forma ovalada */
-[name="escherichia_coli"] {
+[name="dolex_gripa"] {
     background: linear-gradient(135deg, #4caf50, #8bc34a);
     border-radius: 50% / 30%;
 }
 
-/* Staphylococcus aureus - forma circular */
-[name="staphylococcus_aureus"] {
+/*  aspirina - forma circular */
+[name="aspirina"] {
     background: linear-gradient(135deg, #f44336, #e57373);
     border-radius: 50%;
 }
 
 /* Bacillus subtilis - forma de barra */
-[name="bacillus_subtilis"] {
+[name="sevedol"] {
     background: linear-gradient(135deg, #ff9800, #ffb74d);
     border-radius: 20% / 50%;
 }
@@ -1956,7 +1921,7 @@
 .bulb_pipeta {
     width: 25px; /* Tamaño ajustado para que la proporción siga viéndose bien */
     height: 25px; /* Tamaño ajustado para que la proporción siga viéndose bien */
-    background-color: #e0e0e0;
+    background-color: orange;
     border-radius: 50%;
     position: absolute;
     top: 0;
@@ -2109,6 +2074,18 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3); /* Sombras para simular un efecto de profundidad */
         }
+
+        .gota_Agua_ConMuestra {
+            width: 20px;
+            height: 10px;
+            background-color: rgba(0, 191, 255, 0.4); /* Color azul claro con transparencia */
+            border-radius: 60% 60% 40% 40%; /* Bordes más extendidos para simular que está "regada" */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3); /* Sombras para simular un efecto de profundidad */
+        }
 /*ESTILOS PARA LA GOTA DE AGUA FIN*/
 
 
@@ -2181,6 +2158,14 @@
             height: 50px;
             background-color: #ff6b6b;
             border-radius: 50%;
+            color: #0f0;
+            font-size: 14px;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            display: flex; /* Añadido */
+            align-items: center; /* Añadido */
+            justify-content: center; /* Añadido */
         }
         .shelf_nevera {
             position: absolute;
@@ -2459,8 +2444,8 @@
 .microscope-particle {
   position: absolute;
   width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  height: 30px;
+  border-radius: 36%;
   opacity: 0;
   animation: fadeIn 1s ease-in-out forwards;
 }

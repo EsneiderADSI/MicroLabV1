@@ -32,6 +32,9 @@
                 <p>Reactivos</p>
                 @include('paginas.objetos.reactivos')
                 <div class="divider"></div>
+                <p>Muestras</p>
+                @include('paginas.objetos.muestras')
+                <div class="divider"></div>
                 <p>Medios de Cultivo</p>
                 @include('paginas.objetos.medios_de_cultivo')
                 <p>Medios de Cultivo Caldos</p>
@@ -99,7 +102,6 @@
 
 $(document).ready(function() {
     // initializeWorkspaceDraggables();
-
     var elems = document.querySelectorAll('.tabs');
     var instances = M.Tabs.init(elems);
     // Función para inicializar elementos redimensionables
@@ -161,12 +163,14 @@ $(document).ready(function() {
 const acceptedElements = {
   'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula', 'nevera', 'mortero-container', 'mazo-mortero', 'sink'],
 
-  'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
+  'vaso': ['medio_cultivo', 'reactivo', 'muestra', 'phmetro', 'pipeta'],
+  'mortero-container': ['muestra'],
+  'muestra': ['mazo-mortero'],
   'balanza': ['medio_cultivo'],
   'plancha-container': ['vaso', 'erlenmeyer'],
-  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'pipeta', 'asa2-container', 'erlenmeyer'],
+  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'asa2-container', 'pipeta', 'asa2-container', 'erlenmeyer'],
   'incubadora-container': ['petridish'],
-  'autoclave-container': ['vaso', 'erlenmeyer'],
+  'autoclave-container': ['vaso', 'erlenmeyer', 'asa1-container', 'asa2-container', 'medio_cultivo', 'petridish', 'pipeta'],
   'erlenmeyer': ['medio_cultivo', 'medio_cultivo_caldo', 'reactivo', 'phmetro'],
   'tubo-ensayo-container': ['erlenmeyer'],
   // 'cabina-container': ['erlenmeyer'],
@@ -175,6 +179,8 @@ const acceptedElements = {
   'tubo-ensayo-container_micro': ['pipeta'],
   'reactivo': ['pipeta'],
   'portaobjetos': ['pipeta', 'asa1-container', 'reactivo', 'cubreobjetos'],
+  'sink': ['portaobjetos'],
+  'nevera': ['petridish_pre', 'petridish'],
   'microscopio': ['portaobjetos'],
 };
 
@@ -410,8 +416,16 @@ function detectSpecificCombination(droppedElement, dropTarget) {
         // cuándo interactuen con el agua
       handleMicroscopioInteraction(droppedType, droppedElement, dropTarget);
       break;
-    // Agrega más casos según sea necesario
 
+    case 'nevera':
+        // cuándo interactuen con el agua
+      handleNeveraInteraction(droppedType, droppedElement, dropTarget);
+      break;
+
+    case 'muestra':
+        // cuándo interactuen con el agua
+      handleMuestraInteraction(droppedType, droppedElement, dropTarget);
+      break;
   }
 }
 
@@ -420,11 +434,11 @@ function handleWorkspaceInteraction(elementType, ElementoEnWK, YoWorkspace) {
     case 'vaso':
       $("#parte1 p").html('Vaso añadido al workspace. Inicializando...');
       // ElementoEnWK.find(".agua_vaso").removeClass("hirviendo");
-      ElementoEnWK.find(".agua_erlenmeyer").removeClass("hirviendo");
       // Lógica específica para vaso en workspace
       break;
     case 'erlenmeyer':
       $("#parte1 p").html('Erlenmeyer añadido al workspace. Configurando...');
+        ElementoEnWK.find(".agua_erlenmeyer").removeClass("hirviendo");
       // Lógica específica para erlenmeyer en workspace
       break;
     case 'plancha-container':
@@ -434,9 +448,40 @@ function handleWorkspaceInteraction(elementType, ElementoEnWK, YoWorkspace) {
 
     case 'petridish':
       $("#parte1 p").html('Placa Petri añadida al workspace. Preparando...');
-            // asignar un clase a la placa petri agrega para diferenciarla y que se puedan agregar más , ya que la funcion eliminarElementosIguales elimina elementos iguales tomando como referencia sus clases.
+      break;
 
+    case 'asa1-container':
+      if (ElementoEnWK.find(".caliente").length > 0){
+            ElementoEnWK.find(".asa_1").animate(
+              { backgroundColor: "#fff8e1" },
+              {
+                duration: 3000,
+                step: function() {
+                  $(this).removeClass('caliente').addClass('caliente_suave');
+                },
+                complete: function() {
+                  $(this).attr("tiene_microorganismo", "no");
+                }
+              }
+            );
+      }
+      break;
 
+    case 'asa2-container':
+      if (ElementoEnWK.find(".caliente").length > 0){
+            ElementoEnWK.find(".asa_2").animate(
+              { backgroundColor: "#fff8e1" },
+              {
+                duration: 3000,
+                step: function() {
+                  $(this).removeClass('caliente').addClass('caliente_suave');
+                },
+                complete: function() {
+                  $(this).attr("tiene_microorganismo", "no");
+                }
+              }
+            );
+      }
       break;
     // Más casos según sea necesario
   }
@@ -516,11 +561,28 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
       }
       // Lógica para pHmetro en vaso
       break;
-    case 'microorganismo':
-      $("#parte1 p").html('Microorganismo añadido al vaso. Iniciando cultivo...');
-      // Lógica para microorganismo en vaso
-      soltado_en_el_vaso.remove();
+    case 'muestra':
+      $("#parte1 p").html('muestra añadido al vaso...');
+      // Lógica para muestra en vaso
+      var valor =  soltado_en_el_vaso.attr("esta_triturada");
+      if(valor == "si") {
+          Yovaso.attr('tiene_muestra_triturada', 'si');
+          soltado_en_el_vaso.remove();
+      }else{
+        alert("La muestra no está triturada");
+      }
       break;
+
+     case 'pipeta':
+        // solo si a la pipeta quien le apunta es al agua
+        var valor_vaso = Yovaso.attr("tiene_muestra_triturada");
+        if (valor_vaso == "si"){
+            soltado_en_el_vaso.find('.tip_pipeta').css('background-color', '#3498db');
+            soltado_en_el_vaso.addClass("tiene_muestra_triturada");
+
+        }
+
+        break;
 
     case 'phmetro':
     const valor_ph = () => (Math.random() * (7.4 - 6.8) + 6.8).toFixed(1);
@@ -563,21 +625,29 @@ function handlePlanchaInteraction(elementType, soltado_en_plancha, YoPlancha) {
 }
 
 function handleAutoclaveInteraction(elementType, soltado_en_Autoclave, YoAutoclave) {
-    switch(elementType) {
-     case 'erlenmeyer':
+
   // Implementa la lógica específica para interaccion
+    soltado_en_Autoclave.animate({
+        opacity: 0,      // Cambiar opacidad a 0 para que se desvanezca
+    }, 500, function() {  // Duración de la animación: 500ms
+        soltado_en_Autoclave.css("display", "none"); // Después de la animación, ocultamos el elemento
+    });
+
   $("#parte1 p").html(`${elementType} añadido AL aUTOCLAVE`);
   YoAutoclave.find(".boton_autoclave, .boton_autoclave_2").addClass("animar");
   // Animar la subida de temperatura
   $({ temp: 0 }).animate({ temp: 121 }, {
-    duration: 60000,
+    duration: 10000,
     step: function(now) {
         YoAutoclave.find(".temperatura_autoclave").text(Math.floor(now) + "°C");
+
+        if (now ==121){
+          soltado_en_Autoclave.css("display", "block").animate({ opacity: 1 }, 500);
+         }
     }
 });
 
 
-}
 }
 
 function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlacaPetri) {
@@ -589,7 +659,7 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
         // Generar un id único para la placa petri (añadir prefijo)
         var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
         // Asignar el id único al elemento YoPlacaPetri
-        YoPlacaPetri.attr('id', id_unico_petridish);
+        YoPlacaPetri.attr('id', id_unico_petridish).addClass("utilizada");
         // Cambiar el color del pseudo-elemento ::before para la placa petri específica
         var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.agua_erlenmeyer').css('background-color'));
 
@@ -599,31 +669,57 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
 
         case 'asa1-container':
             $("#parte1 p").html(`${elementType} EL ASA SOLTÓ MICROORGANISMO TOMADO DE LA PLACA PETRI PREPARADA`);
-            if (soltado_en_PlacaPetri.find(".asa_1").find(".microorganismo_en_asa1").length > 0) {
-                alert("Excelente");
+          if (YoPlacaPetri.hasClass("utilizada")){
+
+            if (YoPlacaPetri.hasClass("colonia_crecida")){
+
+
+            if(soltado_en_PlacaPetri.find(".asa_1").hasClass("caliente") || soltado_en_PlacaPetri.find(".asa_1").hasClass("caliente_suave")) {
+                soltado_en_PlacaPetri.find(".asa_1").removeClass("caliente").addClass("caliente_suave");
+                 var objeto_colonia = YoPlacaPetri.find(".microorganism_petridish_pre").first().clone();
+                  soltado_en_PlacaPetri.find(".asa_1").find(".microorganism_petridish_pre").remove();
+                  soltado_en_PlacaPetri.find(".asa_1").append(objeto_colonia);
+                  soltado_en_PlacaPetri.find(".asa_1").addClass("tieneMuestra");
 
             }else{
-                alert("Placa petri preparada colonia creciendo Usando ASA 1");
-                return;
+              alert("El asa circular no está esterilizada");
             }
+
+          }else{alert("Esta placa petri no tiene una colonia para obtener.");}
+        }else{
+
+        }
+
+
+
 
         break;
 
         case 'asa2-container':
-            $("#parte1 p").html(`${elementType} EL ASA TRIANGULAR SOLTÓ MICROORGANISMO TOMADO DE LA PLACA PETRI PREPARADA`);
-            if (soltado_en_PlacaPetri.find(".asa_2").find(".microorganismo_en_asa2").length > 0) {
-                alert("Placa petri preparada colonia creciendo Usando ASA 2");
+          // mezclar el agua con la muestra que deja la pipeta en la placa petri usando el agua 2
+          if (YoPlacaPetri.find(".gota_Agua_ConMuestra")){
 
+            if(soltado_en_PlacaPetri.find(".asa_2").hasClass("caliente") || soltado_en_PlacaPetri.find(".asa_2").hasClass("caliente_suave")) {
+                soltado_en_PlacaPetri.find(".asa_2").removeClass("caliente").addClass("caliente_suave");
+
+                  YoPlacaPetri.find(".gota_Agua_ConMuestra").animate({
+                      backgroundColor: "transparent"
+                    }, 5000);
+                  YoPlacaPetri.addClass("lista_para_incubar");
             }else{
-                alert("El Asa no tiene microorganismo para incubar en la caja petri.");
-                return;
+              alert("El asa digralsky no está esterilizada");
             }
+
+          }
+
 
         break;
 
         case 'pipeta':
+
             $("#parte1 p").html(`${elementType} LA PIPETA SE SOLTÓ SOBRE LA PLACA PETRI`);
-            if (soltado_en_PlacaPetri.attr("tiene_muestra") == "si") {
+
+            if (soltado_en_PlacaPetri.hasClass("tiene_muestra_tb_ensayo")) {
             // Generar un id único para la placa petri (añadir prefijo)
             var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
             // Asignar el id único al elemento YoPlacaPetri
@@ -636,7 +732,15 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
 
             }
 
+         if (soltado_en_PlacaPetri.hasClass('tiene_muestra_triturada')) {
+
+            YoPlacaPetri.append('<div class="gota_Agua_ConMuestra"></div>').attr("tiene_gota_Agua_Muestra", "si");
+
+        }
+
         break;
+
+
 }
 
 }
@@ -645,6 +749,7 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
 function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncubadora) {
     switch(elementType) {
      case 'petridish':
+      if (!soltado_en_Incubadora.hasClass("lista_para_incubar")){alert("No está lista para incubar");return;}
     // Mostrar mensaje de interacción
     $("#parte1 p").html(`${elementType} añadido A la INCUBADORA`);
     soltado_en_Incubadora.animate({
@@ -655,19 +760,53 @@ function handleIncubadoraInteraction(elementType, soltado_en_Incubadora, YoIncub
         soltado_en_Incubadora.css("display", "none"); // Después de la animación, ocultamos el elemento
     });
 
-  $({ temp: 0 }).animate({ temp: 45 }, {
+  $({ temp: 0 }).animate({ temp: 37 }, {
     duration: 6000,
     step: function(now) {
         YoIncubadora.find(".screen_incubadora").text(Math.floor(now) + "°C");
         knob_incubadora = YoIncubadora.find('.knob_incubadora');
-        if (now ==45){knob_incubadora.css("background-color", "#0f0"); $(".workspace-inner .petridish").css("display", "block").animate({ width: "80px", height: "80px", opacity: 1 }, 500);}else{knob_incubadora.css("background-color", "#d22");}
+        if (now ==37){
+          knob_incubadora.css("background-color", "#0f0"); $(".workspace-inner .petridish").css("display", "block").animate({ width: "80px", height: "80px", opacity: 1 }, 500);
+            // solo poblar si es una placa utilizada , osea ya tiene una muestra de cultivo preparada
+            if (soltado_en_Incubadora.hasClass("utilizada")) {
+            soltado_en_Incubadora.find(".microorganism_petridish_pre").remove();
+            for (let i = 0; i < 15; i++) { PoblarPlacaPetri(soltado_en_Incubadora); }
+            soltado_en_Incubadora.addClass("colonia_crecida");
+          }
+         }else{
+          knob_incubadora.css("background-color", "#d22");
+        }
+
     }
 });
 
 
+
+
+
+break;
 }
 }
 
+function PoblarPlacaPetri(petriDish) {
+    const microorganism = document.createElement('div');
+    microorganism.className = 'microorganism_petridish_pre';
+
+    const size = Math.random() * 6 + 2; // Size between 2px and 8px
+    const top = Math.random() * 60 + 20; // Position between 20% and 80%
+    const left = Math.random() * 60 + 20; // Position between 20% and 80%
+
+    microorganism.style.width = `${size}px`;
+    microorganism.style.height = `${size}px`;
+    microorganism.style.top = `${top}%`;
+    microorganism.style.left = `${left}%`;
+
+    const hue = Math.floor(Math.random() * 360);
+    var color = `hsl(${hue}, 70%, 50%)`;
+    microorganism.style.backgroundColor = color;
+
+    petriDish.append(microorganism);
+}
 
  function handleErlenmeyerInteraction(elementType, soltado_en_Erlenmeyer, YoErlenmeyer) {
     // Mostrar mensaje de interacción
@@ -834,7 +973,7 @@ function handleTuboEnsayoMicroorganismoInteraction(elementType, soltado_en_TuboE
 
 
     soltado_en_TuboEnsayoMicro.find('.tip_pipeta').css('background-color', '#' + Math.floor(Math.random()*16777215).toString(16));
-    soltado_en_TuboEnsayoMicro.attr("tiene_muestra", "si");
+    soltado_en_TuboEnsayoMicro.addClass("tiene_muestra_tb_ensayo").attr("tiene_muestra_tb_ensayo", "si");
     break;
 }
 }
@@ -882,14 +1021,14 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
             break; // Break for 'pipeta'
 
         case 'asa1-container':
-            if (!soltado_enPortaObjeto.find(".microorganismo_en_asa1").length > 0) {
+            if (!soltado_enPortaObjeto.find(".microorganism_petridish_pre").length > 0) {
                 alert("El asa no tiene una muestra de microorganismo para soltar en el portaobjetos");
             } else {
                 if (YoPortaObjeto.find(".gota_Agua").length > 0) {
                     $("#parte1 p").html(`${elementType} añadido AL PORTAOBJETOS`);
-                    var microorganismo_Asa = soltado_enPortaObjeto.find(".microorganismo_en_asa1");
+                    var microorganismo_Asa = soltado_enPortaObjeto.find(".microorganism_petridish_pre");
                     YoPortaObjeto.find(".gota_Agua").append(microorganismo_Asa).attr("tiene_microorganismo", "si");
-                    soltado_enPortaObjeto.find(".microorganismo_en_asa1").remove();
+                    soltado_enPortaObjeto.find(".microorganism_petridish_pre").remove();
 
                 } else {
                     alert("Primero utilice la pipeta y obtenga una gota de agua desde el recipiente de agua y aplíquela al portaobjetos");
@@ -902,7 +1041,7 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
                 var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
 
             if (reactivos_gramm.includes(soltado_enPortaObjeto.attr("tipo"))) {
-                if (!YoPortaObjeto.find(".microorganismo_en_asa1").length > 0  ) {
+                if (!YoPortaObjeto.find(".microorganism_petridish_pre").length > 0  ) {
                     alert("El portaobjetos no tiene microorganismos para detectar");
                     soltado_enPortaObjeto.remove();
                 } else {
@@ -1007,8 +1146,49 @@ function PortaObjetostieneTodosLosReactivos(objeto, reactivos_gramm) {
   }
 }
 
+// INTERACCION DEL MAZO CON LA MUESTRA A PREPARAR
+function handleMuestraInteraction(elementType, soltado_enMuestra, YoMuestra) {
+    switch(elementType) {
+        case 'mazo-mortero':
+                $("#parte1 p").html(`${elementType} añadido A LA MUESTRA`);
+                  YoMuestra.attr("esta_triturada", "si");
+            break;
 
+    }
+}
 
+function handleNeveraInteraction(elementType, soltado_enNevera, YoNevera) {
+    switch(elementType) {
+        case 'petridish':
+    soltado_enNevera.animate({
+        opacity: 0,      // Cambiar opacidad a 0 para que se desvanezca
+    }, 500, function() {  // Duración de la animación: 500ms
+        soltado_enNevera.css("display", "none"); // Después de la animación, ocultamos el elemento
+    });
+
+  // Animar la subida de temperatura
+  $({ temp: 0 }).animate({ temp: 24 }, {
+    duration: 24000,
+    step: function(now) {
+        YoNevera.find(".logo_nevera").text(Math.floor(now) + " H");
+        if (now ==24){
+          soltado_enNevera.css("display", "block").animate({ opacity: 1 }, 500);
+          abrirPuerta(YoNevera.find(".door_nevera-bottom"));
+         }
+    }
+});
+            break;
+    }
+}
+
+function abrirPuerta(PuertaNevera){
+      var isOpen = PuertaNevera.hasClass('open');
+      if (isOpen) {
+          PuertaNevera.removeClass('open').css('transform', 'rotateY(0deg)');
+      } else {
+          PuertaNevera.addClass('open').css('transform', 'rotateY(-100deg)');
+      }
+}
 
 function handleCabinaInteraction(elementType, soltado_en_Cabina, YoCabina) {
     switch(elementType) {
@@ -1045,7 +1225,19 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
         soltado_en_Mechero.find(".asa_1").removeClass('caliente_suave');
         soltado_en_Mechero.find(".asa_1").removeClass('caliente_suave');
 
-        soltado_en_Mechero.find(".asa_1").addClass('caliente').attr("tiene_microorganismo", "no");
+
+        soltado_en_Mechero.find(".asa_1").animate(
+              { backgroundColor: "#ffcc80" },
+              {
+                duration: 8000, // 8000 milisegundos = 8 segundos
+                step: function() {
+                  $(this).addClass('caliente').removeClass('caliente_suave');
+                },
+                complete: function() {
+                  $(this).attr("tiene_microorganismo", "no");
+                }
+              }
+            );
         soltado_en_Mechero.find(".microorganismo_en_asa1").remove();
         break;
 
@@ -1056,7 +1248,18 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
         soltado_en_Mechero.find(".asa_2").removeClass('caliente_suave');
         soltado_en_Mechero.find(".asa_2").removeClass('caliente_suave');
 
-        soltado_en_Mechero.find(".asa_2").addClass('caliente').attr("tiene_microorganismo", "no");
+        soltado_en_Mechero.find(".asa_2").animate(
+              { backgroundColor: "#ffcc80" },
+              {
+                duration: 8000, // 8000 milisegundos = 8 segundos
+                step: function() {
+                  $(this).addClass('caliente').removeClass('caliente_suave');
+                },
+                complete: function() {
+                  $(this).attr("tiene_microorganismo", "no");
+                }
+              }
+            );
         soltado_en_Mechero.find(".microorganismo_en_asa2").remove();
         break;
 
@@ -1064,12 +1267,12 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
     // Mostrar mensaje de interacción
         $("#parte1 p").html(`${elementType} añadido AL MECHERO`);
 
-        if(soltado_en_Mechero.find(".gota_Agua").length > 0 && soltado_en_Mechero.find(".microorganismo_en_asa1").length > 0){
+        if(soltado_en_Mechero.find(".gota_Agua").length > 0 && soltado_en_Mechero.find(".microorganism_petridish_pre").length > 0){
                 soltado_en_Mechero.find(".gota_Agua").animate({
                     backgroundColor: "#CD7F32"  // Marrón quemado claro
                 }, 20000);
 
-        soltado_en_Mechero.find(".microorganismo_en_asa1").fadeOut(20000);
+        soltado_en_Mechero.find(".microorganism_petridish_pre").fadeOut(20000);
         }else{
             alert("El portaobjetos no cumple con lo necesario para pasarlo por el mechero.");
         }
@@ -1084,25 +1287,35 @@ function handlePlacaPetriPreparadaInteraction(elementType, soltado_en_PetriPrepa
         case 'asa1-container':
         // Mostrar mensaje de interacción
         $("#parte1 p").html(`${elementType} añadido AL placa PETRI MICROORGANISMO...->`);
+    if(soltado_en_PetriPreparada.find(".asa_1").hasClass("caliente") || soltado_en_PetriPreparada.find(".asa_1").hasClass("caliente_suave")) {}else{alert("El asa no está esterilizada"); return;}
+
+        // Validar para recoger con el asa de la colonia aislada
+        if (soltado_en_PetriPreparada.find(".asa_1").find(".microorganism_petridish_pre").length > 0){
+         // poner el microorganismo aquí , en una placa petri sin utilizar
+          var micro_de_asa = soltado_en_PetriPreparada.find(".asa_1").find(".microorganism_petridish_pre").first().clone();
+          micro_de_asa.css({
+            top: Math.random() * 60 + 20,
+            left:Math.random() * 60 + 20
+          });
+          if(YoPlacaPetriPreparada.append(micro_de_asa)){
+            YoPlacaPetriPreparada.addClass("coloniaAislada");
+            soltado_en_PetriPreparada.find(".asa_1").find(".microorganism_petridish_pre").remove();
+          }
 
 
-        if (soltado_en_PetriPreparada.find(".asa_1").attr("tiene_microorganismo") == "si" && soltado_en_PetriPreparada.find(".asa_1").hasClass("caliente_suave")) {
-                alert("Lleva el asa con la muestra a tu placa petri");
-                return;
+        }
+        else
+        {
 
-             }
-             else{
-                   if (!soltado_en_PetriPreparada.find(".asa_1").hasClass("caliente")) {
-                        alert("El Asa no está caliente , útilice el mechero primero.") ;
-                        return;
-                    }
-                    else{
-                    soltado_en_PetriPreparada.find(".asa_1").removeClass('caliente').addClass('caliente_suave');
-                    soltado_en_PetriPreparada.find(".asa_1").append('<div class="microorganismo_en_asa1"></div>').attr("tiene_microorganismo", "si");
-
-                    }
-             }
-
+          var objeto_colonia_aislada = YoPlacaPetriPreparada.find(".microorganism_petridish_pre").first().clone();
+          objeto_colonia_aislada.css({
+              top: Math.random() * 100 + '%',
+              left: Math.random() * 100 + '%'
+          });
+          if(soltado_en_PetriPreparada.find(".asa_1").append(objeto_colonia_aislada)){
+            soltado_en_PetriPreparada.find(".asa_1").addClass("TieneMuestraAislada");
+          }
+        }
 
 
 
