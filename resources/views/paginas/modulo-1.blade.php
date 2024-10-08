@@ -1040,9 +1040,9 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
             case 'reactivo':
                 var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
 
-            if (reactivos_gramm.includes(soltado_enPortaObjeto.attr("tipo"))) {
+            if (reactivos_gramm.includes(soltado_enPortaObjeto.attr("tipo")) || soltado_enPortaObjeto.attr("tipo") == "aceite_de_inmersion") {
                 if (!YoPortaObjeto.find(".microorganism_petridish_pre").length > 0  ) {
-                    alert("El portaobjetos no tiene microorganismos para detectar");
+                    alert("El portaobjetos no tiene muestras para detectar");
                     soltado_enPortaObjeto.remove();
                 } else {
                     $("#parte1 p").html(`${elementType} añadido AL PORTAOBJETOS`);
@@ -1102,10 +1102,9 @@ function PortaObjetostieneTodosLosReactivos(objeto, reactivos_gramm) {
 }
 
 // CUANDO SE SUELTA EN EL MICROSCOPIO
- function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicroscopio) {
+function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicroscopio) {
   if (elementType === 'portaobjetos') {
     $("#parte1 p").html(`${elementType} añadido AL MICROSCOPIO ANALIZANDO...`);
-
     var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
     if (!PortaObjetostieneTodosLosReactivos(soltado_enMicroscopio, reactivos_gramm)) {
         alert("El PortaObjeto no tiene la coloración de Gram completa.");
@@ -1113,22 +1112,68 @@ function PortaObjetostieneTodosLosReactivos(objeto, reactivos_gramm) {
     }
     // Aplicar zoom suave
     $(YoMicroscopio).addClass('zoom-in');
-
     // Crear pantalla negra con círculo de microscopio
     const microscopeView = $('<div id="microscopeView" class="microscope-view">').appendTo('body');
-
     const circle = $('<div class="microscope-circle">').appendTo(microscopeView);
 
-    // Generar objetos aleatorios
+    // Determinar el color al inicio de la función
     const color = Math.random() < 0.5 ? 'purple' : 'pink';
-    for (let i = 0; i < 20; i++) {
-      $('<div class="microscope-particle">').css({
-        left: Math.random() * 100 + '%',
-        top: Math.random() * 100 + '%',
-        backgroundColor: color,
-        animationDelay: Math.random() * 2 + 's'
-      }).appendTo(circle);
+
+    // Función para generar partículas según el objetivo
+    function generateParticles(objective) {
+      circle.empty(); // Limpiar partículas existentes
+      let particleCount, particleWidth, particleHeight, particleOpacity;
+
+      switch(objective) {
+        case '4X':
+          particleCount = 100;
+          particleWidth = 2;
+          particleHeight = 6;
+          particleOpacity = 0.3;
+          break;
+        case '10X':
+          particleCount = 50;
+          particleWidth = 4;
+          particleHeight = 12;
+          particleOpacity = 0.5;
+          break;
+        case '40X':
+          particleCount = 20;
+          particleWidth = 8;
+          particleHeight = 24;
+          particleOpacity = 0.7;
+          break;
+        case '100X':
+          particleCount = 5;
+          particleWidth = 15;
+          particleHeight = 45;
+          particleOpacity = 1;
+          break;
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        $('<div class="microscope-particle">').css({
+          left: Math.random() * 100 + '%',
+          top: Math.random() * 100 + '%',
+          backgroundColor: color,
+          width: `${particleWidth}px`,
+          height: `${particleHeight}px`,
+          opacity: particleOpacity,
+          animationDelay: Math.random() * 2 + 's'
+        }).appendTo(circle);
+      }
     }
+
+    // Crear botones para los objetivos
+    const objectiveButtons = $('<div class="objective-buttons">').appendTo(microscopeView);
+    ['4X', '10X', '40X', '100X'].forEach(objective => {
+      $('<button>').text(objective).appendTo(objectiveButtons).click(() => {
+        generateParticles(objective);
+      });
+    });
+
+    // Generar vista inicial (4X por defecto)
+    generateParticles('4X');
 
     // Botón para salir
     $('<button class="microscope-exit-btn">').text('Salir').appendTo(microscopeView).click(() => {
@@ -1145,7 +1190,6 @@ function PortaObjetostieneTodosLosReactivos(objeto, reactivos_gramm) {
     }, 100);
   }
 }
-
 // INTERACCION DEL MAZO CON LA MUESTRA A PREPARAR
 function handleMuestraInteraction(elementType, soltado_enMuestra, YoMuestra) {
     switch(elementType) {
@@ -1238,7 +1282,7 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
                 }
               }
             );
-        soltado_en_Mechero.find(".microorganismo_en_asa1").remove();
+
         break;
 
     case 'asa2-container':

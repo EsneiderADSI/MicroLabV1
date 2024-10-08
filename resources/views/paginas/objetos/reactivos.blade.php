@@ -70,7 +70,7 @@
         <div class="texto-botella">HCl</div>
     </div>
 
-    <div class="reactivo aceite_de_inmersion draggable drag" tipo="aceite_de_inmersion " description="Aceite de Inmersión ">
+    <div class="reactivo aceite_de_inmersion draggable drag" tipo="aceite_de_inmersion" description="Aceite de Inmersión">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
