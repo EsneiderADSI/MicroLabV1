@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MicroLab</title>
+    <title>MicroLab P2</title>
+    <!-- Favicon para navegadores antiguos -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <!-- Favicon para navegadores modernos -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.ico') }}">
+    <!-- Favicon para dispositivos Apple -->
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/favicon.ico') }}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&display=swap" rel="stylesheet">
@@ -20,30 +27,17 @@
             <div class="divider"></div>
                 <p>Placa Petri</p>
                 <div class="divider"></div>
-                @include('paginas.objetos.placa-petri')
+                @include('paginas.objetos.practica2.placa-petri-p2')
                 <div class="divider"></div>
-                @include('paginas.objetos.placa-petri-preparada')
+                @include('paginas.objetos.practica2.placa-petri-preparada-p2')
                 <p></p>
                 <div class="divider"></div>
                 <p>Lupa</p>
                 @include('paginas.objetos.lupa')
                 <p></p>
                 <div class="divider"></div>
-                <p>Tubo de Ensayo</p>
-                @include('paginas.objetos.tubo-ensayo')
-                <div class="divider"></div>
-                @include('paginas.objetos.tubo-ensayo-microorganismo')
-                <div class="divider"></div>
-                <p>Frasco</p>
-                @include('paginas.objetos.frasco')
-                <div class="divider"></div>
                 <p>Reactivos</p>
                 @include('paginas.objetos.reactivos')
-                <div class="divider"></div>
-                <p>Medios de Cultivo</p>
-                @include('paginas.objetos.medios_de_cultivo')
-                <p>Medios de Cultivo Caldos</p>
-                @include('paginas.objetos.medios_de_cultivo_caldos')
                 <div class="divider"></div>
                 <p>Asa</p>
                 @include('paginas.objetos.asa')
@@ -70,12 +64,8 @@
         <div class="sidebar col-sm-3  lime lighten-5">
             <h5>Herramientas</h5>
             <!-- Aquí puedes agregar herramientas adicionales o configuraciones -->
-            @include('paginas.objetos.balanza')
             @include('paginas.objetos.microscopio')
-            @include('paginas.objetos.phmetro')
             @include('paginas.objetos.pipeta')
-            @include('paginas.objetos.mechero')
-            @include('paginas.objetos.plancha-calentamiento')
             @include('paginas.objetos.autoclave')
             @include('paginas.objetos.cabina-de-flujo')
             @include('paginas.objetos.incubadora')
@@ -86,7 +76,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="{{ asset('assets/js/mi.js') }}"></script>
+<script src="{{ asset('assets/js/mi.jsp2.js') }}"></script>
     <script>
 
 $(document).ready(function() {
@@ -151,18 +141,16 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'lupa-container'],
-  'vaso': ['medio_cultivo', 'reactivo', 'microorganismo', 'phmetro'],
-  'balanza': ['medio_cultivo'],
-  'plancha-container': ['vaso', 'erlenmeyer'],
-  'petridish': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'pipeta', 'zoom'],
-  'incubadora-container': ['petridish'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish_p2', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'petridish_pre_prac2','tubo-ensayo-container_micro', 'pipeta', 'lupa-container'],
+
+  'petridish_p2': ['agar', 'microorganismo', 'vaso', 'asa1-container', 'pipeta', 'zoom'],
+  'incubadora-container': ['petridish_p2'],
   'autoclave-container': ['vaso'],
   'erlenmeyer': ['medio_cultivo_caldo', 'reactivo', 'phmetro'],
   'tubo-ensayo-container': ['erlenmeyer'],
   'cabina-container': ['erlenmeyer'],
   'mechero-container': ['asa1-container', 'asa2-container'],
-  'petridish_pre': ['asa1-container', 'asa2-container', 'lupa-container'],
+  'petridish_pre_prac2': ['asa1-container', 'asa2-container', 'lupa-container'],
   'tubo-ensayo-container_micro': ['pipeta'],
   'reactivo': ['pipeta'],
   'portaobjetos': ['pipeta', 'asa1-container'],
@@ -178,7 +166,7 @@ function determineAppendTarget(draggableType, droppableType) {
   const appendToTargetCombinations = [
     { draggable: 'medio_cultivo', droppable: 'vaso' },
     { draggable: 'medio_cultivo_caldo', droppable: 'erlenmeyer' },
-    { draggable: 'microorganismo', droppable: 'petridish' },
+    { draggable: 'microorganismo', droppable: 'petridish_p2' },
     // { draggable: 'vaso', droppable: 'autoclave-container' }
     // Agrega aquí más combinaciones según sea necesario
   ];
@@ -221,13 +209,13 @@ function makeDroppable(element) {
     },
     over: function(event, ui) {
       $(this).addClass('droppable-highlight');
-      if (ui.draggable.hasClass("lupa-container") && $(this).hasClass("petridish_pre")){
+      if (ui.draggable.hasClass("lupa-container") && $(this).hasClass("petridish_pre_prac2")){
           $(this).css({"transform": "scale(4)", "transition": "all 0.3s ease"});
       }
     },
     out: function(event, ui) {
       $(this).removeClass('droppable-highlight');
-      if (ui.draggable.hasClass("lupa-container") && $(this).hasClass("petridish_pre")){
+      if (ui.draggable.hasClass("lupa-container") && $(this).hasClass("petridish_pre_prac2")){
            $(this).css({ "transform": "scale(1)", "transition": "all 0.3s ease"});
       }
     },
@@ -356,7 +344,7 @@ function detectSpecificCombination(droppedElement, dropTarget) {
     case 'workspace-inner':
       handleWorkspaceInteraction(droppedType, droppedElement, dropTarget);
       break;
-    case 'petridish_pre':
+    case 'petridish_pre_prac2':
       handlePlacaPetriPreparadaInteraction(droppedType, droppedElement, dropTarget);
       break;
 
@@ -384,7 +372,7 @@ function handleWorkspaceInteraction(elementType, ElementoEnWK, YoWorkspace) {
       // Lógica específica para placa de Petri en workspace
       break;
 
-    case 'petridish':
+    case 'petridish_p2':
       $("#parte1 p").html('Placa Petri añadida al workspace. Preparando...');
             // asignar un clase a la placa petri agrega para diferenciarla y que se puedan agregar más , ya que la funcion eliminarElementosIguales elimina elementos iguales tomando como referencia sus clases.
 
