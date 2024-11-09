@@ -22,6 +22,7 @@
             <div class="container">
                 <div class="row">
                   <div class="col" style="z-index: 1000;">
+                    <h3><span class="highlight">@if(Auth::check()){{ Auth::user()->nombres }} {{ Auth::user()->apellidos }}!@endif </span> </h3>
                     <div class="container my-5">
                         <a style="text-decoration: none;" href="{{ route('modulo1') }}">
                         <div class="row card-custom">

@@ -31,11 +31,12 @@
                   </div>
                   <div class="col" style="margin-top: 100px; z-index: 1000;">
                     <div>
-                        <h1><span class="highlight">BIENVENIDOS A</span> MICROLAB</h1>
+                        <h1><span class="highlight">HOLA @if(Auth::check()){{ Auth::user()->nombres }}!@endif </span> </h1>
                         <p class="subtitle">Laboratorio Microbiológico Virtual</p>
                         {{-- <p class="description">Lorem ipsum dolor sit amet, consectetuer adipiing elit, sed diam nonummy nibh euismod tincd.</p> --}}
                         <div class="button-container">
                             <a href="{{ route('modulos') }}" class="button">EMPEZAR</a>
+                            <a href="{{ route('logout') }}" class="btn btn-danger">Salir</a>
                         </div>
                     </div>
                   </div>
