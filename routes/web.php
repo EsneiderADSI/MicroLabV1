@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modulos/modulo-1', [HomeController::class, 'modulo1'])->name('modulo1');
     Route::get('/modulos/modulo-2', [HomeController::class, 'modulo2'])->name('modulo2');
     Route::get('/modulos/modulo-3', [HomeController::class, 'modulo3'])->name('modulo3');
+    Route::get('/modulos/modulo-4', [HomeController::class, 'modulo4'])->name('modulo4');
 });
 
 

@@ -62,3 +62,11 @@ function simulateAllMicroorganisms() {
 
 // Ejecutar la simulación cuando se carga la página
 window.addEventListener('load', simulateAllMicroorganisms);
+
+
+$(document).ready(function() {
+    $(document).on('click', '.grifo', function(event){
+        $(this).toggleClass('on');
+        $(this).find('.agua_grifo').toggleClass('flowingGrifo');
+    });
+});

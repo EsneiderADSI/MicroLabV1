@@ -20,9 +20,15 @@ class HomeController extends Controller
         return view('paginas.modulo-2');
     }
 
-           public function modulo3()
+    public function modulo3()
     {
         return view('paginas.modulo-3');
+    }
+
+
+    public function modulo4()
+    {
+        return view('paginas.modulo-4');
     }
 
     public function homebanner()

@@ -2728,3 +2728,212 @@
             z-index: 1;
         }
 /*Placa de PETRI PRACTICA 3 FIN*/
+
+
+
+
+
+
+
+/*ALIMENTOS HONGOS FILAMENTOSOS PRACTICA 4 INICIO*/
+    .hongos {
+      display: flex;
+      gap: 20px;
+      padding: 1px;
+/*      justify-content: center;*/
+    }
+
+    /* Pan con hongos */
+    .pan {
+      width: 80px;
+      height: 80px;
+      background: #d1a879;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+    }
+    .pan::before, .pan::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #8c9c73 20%, #5a6b4d 60%, transparent 80%);
+      opacity: 0.8;
+    }
+    .pan::before {
+      top: 10px;
+      left: 15px;
+      width: 30px;
+      height: 30px;
+    }
+    .pan::after {
+      bottom: 15px;
+      right: 10px;
+      width: 25px;
+      height: 25px;
+    }
+
+    /* Manzana con hongos */
+    .manzana {
+      width: 80px;
+      height: 80px;
+      background: #e63946;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+    }
+    .manzana::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 35px;
+      width: 8px;
+      height: 20px;
+      background: #6b4423;
+      transform: rotate(-15deg);
+    }
+    .manzana::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      right: 25px;
+      width: 35px;
+      height: 35px;
+      background: radial-gradient(circle at center, #9db5b2 10%, #5f7470 50%, transparent 70%);
+      opacity: 0.9;
+    }
+    .manzana-leaf {
+      position: absolute;
+      top: 10px;
+      left: 40px;
+      width: 15px;
+      height: 8px;
+      background: #4a7c59;
+      border-radius: 0 50% 50% 0;
+      transform: rotate(-15deg);
+    }
+
+    /* Zanahoria con hongos */
+    .zanahoria {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
+    }
+    .zanahoria-body {
+      width: 40px;
+      height: 75px;
+      background: #ff8c42;
+      border-radius: 10px;
+      position: relative;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+      transform: rotate(180deg);
+    }
+    .zanahoria-top {
+      width: 30px;
+      height: 10px;
+      background: #4a7c59;
+      border-radius: 10px 10px 0 0;
+      position: absolute;
+      top: -5px;
+    }
+    .zanahoria::before {
+      content: '';
+      position: absolute;
+      bottom: 15px;
+      left: 26px;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at center, #9db5b2 10%, #5f7470 50%, transparent 70%);
+      opacity: 0.8;
+      z-index: 10;
+    }
+
+    .hongo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+/*ALIMENTOS HONGOS FILAMENTOSOS PRACTICA 4 FIN*/
+
+
+/*MUESTRAS CLINICAS INICIO*/
+    .mclinica {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      padding: 1px;
+
+    }
+
+    .mc {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 1px solid #444;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+
+
+    /* Muestras clínicas */
+    .skin {
+      background: #ffddd2;
+    }
+    .skin::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        #e29578 10px,
+        #e29578 20px
+      );
+    }
+
+    .nail {
+      background: #ddb892;
+    }
+    .nail::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 40%,
+        #9c6644 40%,
+        #9c6644 60%,
+        transparent 60%
+      );
+    }
+
+    .dandruff {
+      background: #f4f1de;
+    }
+    .dandruff::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        circle at 30% 30%,
+        white 5px,
+        transparent 15px
+      ),
+      radial-gradient(
+        circle at 70% 70%,
+        white 8px,
+        transparent 18px
+      );
+    }
+/*MUESTRAS CLINICAS FIN*/

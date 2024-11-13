@@ -28,7 +28,7 @@
                         <div class="row card-custom">
                             <div class="col-md-6 bg-red text-white p-5 d-flex flex-column justify-content-between">
                                 <div>
-                                    <h5>Práctica # 1</h5>
+                                    <h5>Técnicas de laboratorio</h5>
                                 </div>
                             </div>
                             <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
@@ -41,7 +41,7 @@
                         <div class="row card-custom">
                             <div class="col-md-6 bg-yelow text-white p-5 d-flex flex-column justify-content-between">
                                 <div>
-                                    <h5>Práctica # 2</h5>
+                                    <h5>Bacteriología General</h5>
                                 </div>
                             </div>
                             <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
@@ -62,7 +62,7 @@
                         <div class="row card-custom">
                             <div class="col-md-6 bg-orange text-white p-5 d-flex flex-column justify-content-between">
                                 <div>
-                                    <h5>Práctica # 3</h5>
+                                    <h5>Parasitología Intestinal</h5>
                                 </div>
                             </div>
                             <div class="col-md-6 p-5 d-flex flex-column justify-content-between bg-light-blue position-relative">
@@ -72,10 +72,11 @@
                         </a>
 
                         <br>
+                        <a style="text-decoration: none;" href="{{ route('modulo4') }}">
                         <div class="row card-custom">
                             <div class="col-md-6 bg-dark2 text-white p-5 d-flex flex-column justify-content-between">
                                 <div>
-                                    <h5>Práctica # 4</h5>
+                                    <h5>Hongos Filamentosos</h5>
                                 </div>
                                 {{-- <div>
                                     <a href="#" class="btn btn-light btn-lg">LEARN MORE</a>
@@ -85,6 +86,7 @@
                                 <img src="{{ asset('assets/images/svg/modulos/bitrina1.svg') }}" alt="Lab Image" class="img-fluid">
                             </div>
                         </div>
+                    </a>
                     </div>
 
                   </div>

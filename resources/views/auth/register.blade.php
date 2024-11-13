@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <title>Registro - Microlab</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <div class="container">
@@ -12,7 +33,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4>Registro de Usuario</h4>
+                        <h4>Registro de Usuario Microlab</h4>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
@@ -52,14 +73,17 @@
                             <div class="mb-3">
                                 <label for="categoria" class="form-label">Categoría</label>
                                 <select class="form-select" id="categoria" name="categoria" required>
-                                    <option value="Estudiante">Estudiante</option>
-                                    <option value="Profesor">Profesor</option>
+                                    <option value="Estudiante" {{ old('categoria') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
+                                    <option value="Profesor" {{ old('categoria') == 'Profesor' ? 'selected' : '' }}>Profesor</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password" required aria-describedby="passwordHelpBlock">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    La contraseña debe tener al menos 8 caracteres.
+                                </small>
                             </div>
 
                             <div class="mb-3">
@@ -80,5 +104,7 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
