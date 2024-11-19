@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
 </head>
 
@@ -32,8 +33,12 @@
                 @include('paginas.objetos.practica2.placa-petri-preparada-p2')
                 <p></p>
                 <div class="divider"></div>
+                <p>Cuenta Colonias</p>
+                <p>-</p>
+                @include('paginas.objetos.cuenta-colonias')
                 <p>Lupa</p>
                 @include('paginas.objetos.lupa')
+                <div class="divider"></div>
 
                 <div class="entrada_de_texto draggable drag" description="Entrada de texto">
                     <SPAN>Entrada de texto</SPAN>
@@ -60,6 +65,7 @@
         <div class="workspace col-md-6">
             <div id="parte1" class="workspace-inner lime lighten-4">
                 <blockquote>IDENTIFICACIÓN MACROSCÓPICA, MICROSCÓPICA,BIOQUÍMICA Y MOLECULAR DE BACTERIAS. <a style="font-size: 12px;" href="javascript:void(0)" class="disabled flow-text" id="coordinates"></a></blockquote>
+                <div align="right"><a href="/"><i class="material-icons">home</i></a><a href="/modulos"><i class="material-icons">apps</i></a></div>
                 <p></p>
             </div>
         </div>
@@ -146,7 +152,7 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish_p2', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula', 'nevera', 'mortero-container', 'mazo-mortero', 'sink' , 'petridish_pre_prac2', 'lupa-container', 'entrada_de_texto'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'medio_cultivo_caldo', 'erlenmeyer', 'petridish_p2', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre','tubo-ensayo-container_micro', 'pipeta', 'gotero', 'espatula', 'nevera', 'mortero-container', 'mazo-mortero', 'sink' , 'petridish_pre_prac2', 'lupa-container', 'entrada_de_texto', 'cuenta-colonias'],
 
   'vaso': ['medio_cultivo', 'reactivo', 'muestra', 'phmetro', 'pipeta'],
   'mortero-container': ['muestra'],
@@ -168,6 +174,7 @@ const acceptedElements = {
   'sink': ['portaobjetos'],
   'nevera': ['petridish_pre', 'petridish_p2'],
   'microscopio': ['portaobjetos'],
+  'cuenta-colonias': ['petridish_pre_prac2'],
 };
 
 // Lista de elementos que deben permanecer fijos en su posición inicial cuándo se suelta en el workspace-inner
@@ -205,7 +212,8 @@ $(".draggable").draggable({
   start: function(event, ui) {
     $(ui.helper).css('width', $(this).width());
     let elementType = $(this).attr('class').split(' ')[0];
-    $("#parte1 p").html("Arrastrando: " + elementType);
+    let Nombre = $(this).attr('description');
+    $("#parte1 p").html("Arrastrando: " + Nombre);
   }
 });
 
@@ -411,6 +419,11 @@ function detectSpecificCombination(droppedElement, dropTarget) {
     case 'microscopio':
         // cuándo interactuen con el agua
       handleMicroscopioInteraction(droppedType, droppedElement, dropTarget);
+      break;
+
+    case 'cuenta-colonias':
+        // cuándo interactuen con el agua
+      handleCuentaColoniasInteraction(droppedType, droppedElement, dropTarget);
       break;
 
     case 'nevera':
@@ -1183,6 +1196,269 @@ function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicr
     setTimeout(() => {
       microscopeView.addClass('active');
     }, 100);
+  }
+}
+
+
+
+// INTERACCION CON LA CUENTA COLONIA
+function handleCuentaColoniasInteraction(elementType, soltado_enMicroscopio, YoMicroscopio) {
+  if (elementType === 'petridish_pre_prac2') {
+    $('body > *:not(#counterView)').addClass('temporarily-hidden');
+    $(YoMicroscopio).addClass('zoom-in');
+
+    const counterView = $('<div id="counterView" class="counter-view">').appendTo('body');
+    const petriDish = $('<div class="petri-dish">').appendTo(counterView);
+
+    const fecalColors = [
+      'rgb(101, 67, 33)',  // Marrón oscuro
+      'rgb(139, 69, 19)',  // Marrón saddle
+      'rgb(160, 82, 45)',  // Marrón siena
+      'rgb(165, 42, 42)',  // Marrón rojizo
+      'rgb(128, 70, 27)',  // Marrón tierra
+      'rgb(89, 60, 31)',   // Marrón oscuro
+      'rgba(139, 0, 0, 0.7)', // Rojo oscuro semi-transparente
+    ];
+
+    let colonyCount = 0;
+    const countDisplay = $('<div class="count-display">').text('Colonias: 0').appendTo(counterView);
+
+    // Crear cuadrícula mejorada
+    const grid = $('<div class="counting-grid">').appendTo(petriDish);
+    // Líneas verticales
+    for (let i = 1; i < 10; i++) {
+      $('<div>').addClass('grid-line vertical').css({
+        'left': `${i * 10}%`
+      }).appendTo(grid);
+    }
+    // Líneas horizontales
+    for (let i = 1; i < 10; i++) {
+      $('<div>').addClass('grid-line horizontal').css({
+        'top': `${i * 10}%`
+      }).appendTo(grid);
+    }
+
+    function generateColonies(zoomLevel) {
+      // Remover solo las colonias, manteniendo la cuadrícula
+      petriDish.find('.colony').remove();
+      colonyCount = 0;
+      countDisplay.text('Colonias: 0');
+
+      let config = {
+        baseSize: 0,
+        count: 0,
+        spread: 0,
+        clickable: false
+      };
+
+      switch(zoomLevel) {
+        case '1X':
+          config = { baseSize: 3, count: 150, spread: 90, clickable: false };
+          break;
+        case '2X':
+          config = { baseSize: 6, count: 80, spread: 85, clickable: true };
+          break;
+        case '4X':
+          config = { baseSize: 12, count: 40, spread: 80, clickable: true };
+          break;
+        case '8X':
+          config = { baseSize: 24, count: 20, spread: 75, clickable: true };
+          break;
+      }
+
+      for (let i = 0; i < config.count; i++) {
+        const size = config.baseSize + (Math.random() * config.baseSize * 0.5);
+        const color = fecalColors[Math.floor(Math.random() * fecalColors.length)];
+        const opacity = 0.7 + (Math.random() * 0.3);
+
+        const colony = $('<div class="colony">').css({
+          left: (Math.random() * config.spread) + '%',
+          top: (Math.random() * config.spread) + '%',
+          width: `${size}px`,
+          height: `${size}px`,
+          backgroundColor: color,
+          opacity: opacity,
+          borderRadius: '50%',
+          position: 'absolute',
+          transform: `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`,
+          boxShadow: `0 0 ${size/4}px rgba(0,0,0,0.3)`,
+          cursor: config.clickable ? 'pointer' : 'default'
+        }).appendTo(petriDish);
+
+        const texture = $('<div>').css({
+          width: '100%',
+          height: '100%',
+          background: `radial-gradient(circle at ${Math.random() * 100}% ${Math.random() * 100}%,
+                                    rgba(255,255,255,0.2),
+                                    transparent)`,
+          borderRadius: '50%',
+          position: 'absolute'
+        }).appendTo(colony);
+
+        if (config.clickable) {
+          colony.click(function() {
+            if (!$(this).hasClass('counted')) {
+              $(this).addClass('counted').css('border', '2px solid #ff0');
+              colonyCount++;
+              countDisplay.text(`Colonias: ${colonyCount}`);
+            }
+          });
+        }
+      }
+    }
+
+    const zoomControls = $('<div class="zoom-controls">').appendTo(counterView);
+    ['1X', '2X', '4X', '8X'].forEach(zoom => {
+      $('<button>').text(zoom).appendTo(zoomControls).click(() => {
+        generateColonies(zoom);
+        zoomControls.find('button').removeClass('active');
+        $(event.target).addClass('active');
+      });
+    });
+
+    // Botón de reset mejorado
+    $('<button class="reset-btn">').text('Reset').appendTo(counterView).click(() => {
+      colonyCount = 0;
+      countDisplay.text('Colonias: 0');
+      const activeZoom = zoomControls.find('button.active').text();
+      generateColonies(activeZoom); // Regenera las colonias con el zoom actual
+    });
+
+  $('<button class="exit-btn">').text('Salir').appendTo(counterView).click(() => {
+      // Mostrar nuevamente los elementos ocultos
+      $('.temporarily-hidden').removeClass('temporarily-hidden');
+
+      counterView.addClass('fade-out');
+      setTimeout(() => {
+          counterView.remove();
+          $(YoMicroscopio).removeClass('zoom-in');
+      }, 1000);
+  });
+
+    const stylescc = `
+      .temporarily-hidden {
+          display: none !important;
+      }
+      .counter-view {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .petri-dish {
+        width: 400px;
+        height: 400px;
+        background: #f5f5f5;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
+      }
+      .counting-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+      }
+      .grid-line {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      .grid-line.vertical {
+        width: 1px;
+        height: 100%;
+      }
+      .grid-line.horizontal {
+        width: 100%;
+        height: 1px;
+      }
+      /* Líneas principales más oscuras */
+      .grid-line:nth-child(5),
+      .grid-line:nth-child(14) {
+        background-color: rgba(0, 0, 0, 0.5);
+        width: ${props => props.vertical ? '2px' : '100%'};
+        height: ${props => props.horizontal ? '2px' : '100%'};
+      }
+      .count-display {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        font-size: 20px;
+        font-family: monospace;
+        background: rgba(0,0,0,0.7);
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+      .zoom-controls {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+      }
+      .zoom-controls button {
+        padding: 5px 15px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .zoom-controls button:hover {
+        background: #444;
+      }
+      .zoom-controls button.active {
+        background: #666;
+      }
+      .exit-btn, .reset-btn {
+        position: absolute;
+        top: 20px;
+        padding: 5px 15px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .exit-btn {
+        right: 20px;
+        background: #ff4444;
+      }
+      .exit-btn:hover {
+        background: #ff6666;
+      }
+      .reset-btn {
+        right: 100px;
+        background: #444;
+      }
+      .reset-btn:hover {
+        background: #555;
+      }
+      .colony.counted {
+        transform: scale(1.1);
+        transition: transform 0.2s;
+      }
+      .fade-out {
+        opacity: 0;
+        transition: opacity 1s;
+      }
+    `;
+
+    $('<style>').text(stylescc).appendTo('head');
+
+    generateColonies('1X');
+    zoomControls.find('button').first().addClass('active');
   }
 }
 // INTERACCION DEL MAZO CON LA MUESTRA A PREPARAR

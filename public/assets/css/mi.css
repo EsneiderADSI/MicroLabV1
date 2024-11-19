@@ -2086,6 +2086,9 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3); /* Sombras para simular un efecto de profundidad */
         }
+
+
+
 /*ESTILOS PARA LA GOTA DE AGUA FIN*/
 
 
@@ -2497,7 +2500,30 @@
   transform: scale(0);
 }
 
+.microscope-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
 
+
+
+
+.microscope-exit-btn:hover {
+  background-color: #ff6666;
+}
+
+.fade-out {
+  opacity: 0 !important;
+}
+
+.zoom-in {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+}
 
 
 
@@ -2730,7 +2756,69 @@
 /*Placa de PETRI PRACTICA 3 FIN*/
 
 
+/*Placa de PETRI PRACTICA 4 INICIO*/
+        .petridish_p4 {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            background-color: #e6e6e6;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        .petridish_p4::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            background-color: #d9d9d9 ; /* Color del fondo de la caja PETRI PRACTICA 4 */
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .petridish_p4::after {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            right: 5%;
+            bottom: 5%;
+            border: 2px solid #d9d9d9;
+            border-radius: 50%;
+        }
+        .shine_petridish_p4 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 30%),
+                linear-gradient(45deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        .shine_petridish_p4::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 15%;
+            height: 15%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
 
+    .hongos_p4 {
+        position: absolute;
+        border-radius: 50%;
+        mix-blend-mode: multiply; /* Para mezclar los colores con el fondo */
+        filter: blur(2px); /* Para un efecto suave */
+        z-index: 1;
+    }
+
+/*Placa de PETRI PRACTICA 4 FIN*/
 
 
 
@@ -2772,8 +2860,8 @@
       height: 25px;
     }
 
-    /* Manzana con hongos */
-    .manzana {
+    /* tomate con hongos */
+    .tomate {
       width: 80px;
       height: 80px;
       background: #e63946;
@@ -2781,7 +2869,7 @@
       position: relative;
       box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
     }
-    .manzana::before {
+    .tomate::before {
       content: '';
       position: absolute;
       top: 15px;
@@ -2791,7 +2879,7 @@
       background: #6b4423;
       transform: rotate(-15deg);
     }
-    .manzana::after {
+    .tomate::after {
       content: '';
       position: absolute;
       top: 5px;
@@ -2801,7 +2889,7 @@
       background: radial-gradient(circle at center, #9db5b2 10%, #5f7470 50%, transparent 70%);
       opacity: 0.9;
     }
-    .manzana-leaf {
+    .tomate-leaf {
       position: absolute;
       top: 10px;
       left: 40px;
@@ -2812,10 +2900,10 @@
       transform: rotate(-15deg);
     }
 
-    /* Zanahoria con hongos */
-    .zanahoria {
+    /* fresa con hongos */
+    .fresa {
       width: 80px;
-      height: 80px;
+      height: 50px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -2823,17 +2911,17 @@
       justify-content: center;
 
     }
-    .zanahoria-body {
+    .fresa-body {
       width: 40px;
-      height: 75px;
-      background: #ff8c42;
+      height: 45px;
+      background: #e63946;
       border-radius: 10px;
       position: relative;
       clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
       box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
       transform: rotate(180deg);
     }
-    .zanahoria-top {
+    .fresa-top {
       width: 30px;
       height: 10px;
       background: #4a7c59;
@@ -2841,7 +2929,7 @@
       position: absolute;
       top: -5px;
     }
-    .zanahoria::before {
+    .fresa::before {
       content: '';
       position: absolute;
       bottom: 15px;
@@ -2937,3 +3025,240 @@
       );
     }
 /*MUESTRAS CLINICAS FIN*/
+
+
+
+/*CINTA INICIO*/
+        .cinta {
+            width: 150px;
+            height: 50px;
+            border-radius: 8px;
+            position: relative;
+            background-color: rgba(220, 240, 255, 0.2);
+            border: 1px solid rgba(173, 216, 230, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+/*CINTA FIN*/
+
+
+
+/*AQUI TENEMOS LAS MUESTRA PARA ADICIONAR A LAS CINTAS P4 INICIO*/
+/* Muestra de pan con moho */
+/* Muestra de pan con moho */
+.muestra_de_pan_con_mobo {
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle at 30% 30%, #a5b594, #8c9c73);
+  border-radius: 50% 60% 45% 55%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 4px rgba(140, 156, 115, 0.5);
+  filter: blur(0.2px);
+}
+.muestra_de_pan_con_mobo::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle at 40% 40%, #7a8a63, #5a6b4d);
+  border-radius: 60% 40% 55% 45%;
+  top: 2px;
+  left: 2px;
+  filter: blur(0.3px);
+}
+.muestra_de_pan_con_mobo::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #a5b594;
+  border-radius: 45% 55% 50% 50%;
+  bottom: 2px;
+  right: 1px;
+  filter: blur(0.2px);
+}
+
+/* Muestra de tomate con moho */
+.muestra_de_tomate_con_mobo {
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle at 45% 45%, #b5c1be, #9db5b2);
+  border-radius: 55% 45% 60% 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 4px rgba(157, 181, 178, 0.6);
+  filter: blur(0.2px);
+}
+.muestra_de_tomate_con_mobo::before {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: radial-gradient(circle at 35% 35%, #8fa3a0, #5f7470);
+  border-radius: 40% 60% 50% 50%;
+  top: 3px;
+  left: 3px;
+  filter: blur(0.3px);
+}
+.muestra_de_tomate_con_mobo::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #b5c1be;
+  border-radius: 50% 50% 45% 55%;
+  bottom: 1px;
+  right: 2px;
+  filter: blur(0.2px);
+}
+
+/* Muestra de fresa con moho */
+.muestra_de_fresa_con_mobo {
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle at 40% 40%, #b5c1be, #9db5b2);
+  border-radius: 45% 55% 40% 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 4px rgba(157, 181, 178, 0.6);
+  filter: blur(0.2px);
+}
+.muestra_de_fresa_con_mobo::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle at 45% 45%, #8fa3a0, #5f7470);
+  border-radius: 55% 45% 50% 50%;
+  top: 4px;
+  left: 4px;
+  filter: blur(0.3px);
+}
+.muestra_de_fresa_con_mobo::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #a5b0ad;
+  border-radius: 50% 45% 55% 50%;
+  top: 1px;
+  right: 1px;
+  filter: blur(0.2px);
+}
+/*AQUI TENEMOS LAS MUESTRA PARA ADICIONAR A LAS CINTAS P4 FIN*/
+
+
+
+.gota_KOH {
+    width: 30px;
+    height: 20px;
+    background-color: rgba(127, 128, 130); /* Color azul claro con transparencia */
+    border-radius: 60% 60% 40% 40%; /* Bordes más extendidos para simular que está "regada" */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(130, 128, 130); /* Sombras para simular un efecto de profundidad */
+}
+
+
+
+
+
+/*CUE*NA COLONIAS INICIO */
+.cuenta-colonias {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.screen_cc {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 20px;
+  background-color: #ff0000;
+  border-radius: 3px;
+}
+
+.circle_cc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.grid_cc {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#2196f3 1px, transparent 1px),
+    linear-gradient(90deg, #2196f3 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.3;
+}
+
+.buttons_cc {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.button_cc {
+  width: 15px;
+  height: 15px;
+  background-color: #333;
+  border-radius: 50%;
+}
+
+.antenna_cc {
+  position: absolute;
+  top: -30px;
+  right: 50%;
+  width: 3px;
+  height: 30px;
+  background-color: #666;
+}
+
+.antenna_cc::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 20px;
+  height: 4px;
+  background-color: #666;
+  border-radius: 2px;
+}
+
+.light_cc {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: #2196f3;
+  border-radius: 50%;
+  animation: twinkle 1s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+/*CUE*NA COLONIAS FIN */

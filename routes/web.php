@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CalificacionController;
 
 use App\Http\Controllers\HomeController;
 
@@ -39,7 +40,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/banner', [HomeController::class, 'homebanner'])->name('homebanner');
 
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/calificaciones', [CalificacionController::class, 'index'])->name('calificaciones.index');
+});
 
 
 // Nuestras rutas personalizadas

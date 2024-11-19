@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/mi.css') }}">
 </head>
 
@@ -76,7 +77,7 @@
         <div class="workspace col-md-6">
             <div id="parte1" class="workspace-inner lime lighten-4">
                 <blockquote>TÉCNICAS BÁSICAS DE LABORATORIO PARA EL ESTUDIO DE LOS MICROORGANISMOS <a style="font-size: 12px;" href="javascript:void(0)" class="disabled flow-text" id="coordinates"></a></blockquote>
-
+                <div align="right"><a href="/"><i class="material-icons">home</i></a><a href="/modulos"><i class="material-icons">apps</i></a></div>
                 <p></p>
             </div>
         </div>
@@ -228,7 +229,8 @@ $(".draggable").draggable({
   start: function(event, ui) {
     $(ui.helper).css('width', $(this).width());
     let elementType = $(this).attr('class').split(' ')[0];
-    $("#parte1 p").html("Arrastrando: " + elementType);
+    let Nombre = $(this).attr('description');
+    $("#parte1 p").html("Arrastrando: " + Nombre);
   }
 });
 

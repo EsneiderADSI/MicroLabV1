@@ -77,3 +77,19 @@
         <div class="liquido_botella" style="background-color: rgba(229, 198, 97, 0.46);"></div>
         <div class="texto-botella">AI</div>
     </div>
+
+    <div class="reactivo azul_de_metileno draggable drag" tipo="azul_de_metileno" description="Azul de Metileno">
+        <div class="borde-superior_botella"></div>
+        <div class="brillo_botella"></div>
+        <div class="tapa_botella"></div>
+        <div class="liquido_botella" style="background-color: rgba(42, 108, 232);"></div>
+        <div class="texto-botella">AM</div>
+    </div>
+
+    <div class="reactivo hidroxido_de_potasio draggable drag" tipo="hidroxido_de_potasio" description="Hidróxido de potasio">
+        <div class="borde-superior_botella"></div>
+        <div class="brillo_botella"></div>
+        <div class="tapa_botella"></div>
+        <div class="liquido_botella" style="background-color: rgba(127, 128, 130);"></div>
+        <div class="texto-botella">KOH</div>
+    </div>

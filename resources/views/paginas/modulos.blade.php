@@ -54,6 +54,11 @@
                   <div class="col" style="margin-top: 150px; z-index: 1000;">
                     <div class="recuadro-texto">
                         <p>MÓDULOS</p>
+                        @if(Auth::check() && Auth::user()->categoria === "Profesor")
+                            <a href="{{ route('calificaciones.index') }}">NOTAS</a>
+                        @endif
+
+
                     </div>
                   </div>
                   <div class="col" style="z-index: 1000;">

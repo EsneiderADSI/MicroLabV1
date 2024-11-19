@@ -1,0 +1,1 @@
+<div class="cinta draggable drag" description="Cinta"></div>
