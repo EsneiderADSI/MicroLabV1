@@ -71,6 +71,7 @@
             @include('paginas.objetos.microscopio')
             @include('paginas.objetos.gotero')
             @include('paginas.objetos.autoclave')
+            @include('paginas.objetos.cabina-de-flujo')
 
         </div>
 
@@ -538,16 +539,33 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
 
 // INTERACCION CON EL AGUA
 function handleReactivoInteraction(elementType, soltadoEnReactivo, YoReactivo) {
-    switch(elementType) {
-     case 'gotero':
-        if (YoReactivo.hasClass("hidroxido_de_potasio")){
-            soltadoEnReactivo.find('.punta_gotero').css('background-color', '#7F8082');
-            soltadoEnReactivo.find('.punta_gotero').addClass("tiene_gota_de_hidroxido_de_potasio");
+  switch(elementType) {
+      case 'gotero':
+          // Validación inicial
+          if (soltadoEnReactivo.find('.punta_gotero').hasClass('tiene_gota_de_hidroxido_de_potasio') ||
+              soltadoEnReactivo.find('.punta_gotero').hasClass('tiene_gota_de_azul_de_metileno')) {
 
-        }
-        break;
+              alert('El gotero ya tiene una sustancia.');
 
-}
+              // Remover ambas clases
+              soltadoEnReactivo.find('.punta_gotero')
+                  .removeClass('tiene_gota_de_hidroxido_de_potasio')
+                  .removeClass('tiene_gota_de_azul_de_metileno');
+
+              return; // Salimos del case para no continuar con el resto del código
+          }
+
+          // Resto del código original
+          if (YoReactivo.hasClass("hidroxido_de_potasio")){
+              soltadoEnReactivo.find('.punta_gotero').css('background-color', '#7F8082');
+              soltadoEnReactivo.find('.punta_gotero').addClass("tiene_gota_de_hidroxido_de_potasio");
+          }
+          if (YoReactivo.hasClass("azul_de_metileno")){
+              soltadoEnReactivo.find('.punta_gotero').css('background-color', '#2a6ce8');
+              soltadoEnReactivo.find('.punta_gotero').addClass("tiene_gota_de_azul_de_metileno");
+          }
+          break;
+  }
 }
 
 // ACCION PARA LA CINTA CON EL PAN
@@ -559,6 +577,7 @@ function handlePanInteraction(elementType, soltado_Pan, YoPan) {
                 if (!soltado_Pan.find(".muestra_de_pan_con_mobo").length > 0) {
                   soltado_Pan.append('<div class="muestra_de_pan_con_mobo"></div>');
                   soltado_Pan.addClass('usado');
+                  soltado_Pan.attr('tipo_muestra', 'muestra_pan');
                 }
                 else{
                   alert("La cinta ya tiene la muestra.");
@@ -581,6 +600,7 @@ function handleTomateInteraction(elementType, soltado_Tomate, YoTomate) {
                 if (!soltado_Tomate.find(".muestra_de_tomate_con_mobo").length > 0) {
                   soltado_Tomate.append('<div class="muestra_de_tomate_con_mobo"></div>');
                   soltado_Tomate.addClass('usado');
+                  soltado_Tomate.attr('tipo_muestra', 'muestra_tomate');
                 }
                 else{
                   alert("La cinta ya tiene la muestra.");
@@ -603,6 +623,7 @@ function handleFresaInteraction(elementType, soltado_Fresa, YoFresa) {
                 if (!soltado_Fresa.find(".muestra_de_fresa_con_mobo").length > 0) {
                   soltado_Fresa.append('<div class="muestra_de_fresa_con_mobo"></div>');
                   soltado_Fresa.addClass('usado');
+                  soltado_Fresa.attr('tipo_muestra', 'muestra_fresa');
                 }
                 else{
                   alert("La cinta ya tiene la muestra.");
@@ -625,6 +646,15 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
                 if (!YoPortaObjeto.find(".gota_KOH").length > 0) {
                     YoPortaObjeto.append('<div class="gota_KOH"></div>').attr("tiene_gota_KOH", "si");
                     YoPortaObjeto.addClass("usado");
+                    return;
+                }
+            }
+
+            if (soltado_enPortaObjeto.find(".tiene_gota_de_azul_de_metileno").length > 0) {
+                if (!YoPortaObjeto.find(".gota_AM").length > 0) {
+                    YoPortaObjeto.append('<div class="gota_AM"></div>').attr("tiene_gota_AM", "si");
+                    YoPortaObjeto.addClass("usado");
+                    return;
                 }
             }
             }else{
@@ -633,7 +663,13 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
             break; // Break for 'pipeta'
 
         case 'cinta':
-            if (!YoPortaObjeto.hasClass("usado")) {
+          if (!YoPortaObjeto.find('.gota_AM').length > 0)
+          {
+            alert("No hay gota de reactivo Azúl de Metileno para continuar");
+            return;
+          }
+
+            if (!YoPortaObjeto.hasClass("usado") || YoPortaObjeto.find('.gota_KOH').length > 0 || YoPortaObjeto.find('.gota_AM').length > 0) {
 
               if (soltado_enPortaObjeto.find(".muestra_de_pan_con_mobo, .muestra_de_tomate_con_mobo, .muestra_de_fresa_con_mobo").length > 0) {
                   // Obtener dimensiones
@@ -655,7 +691,8 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
 
                   // Hacer el append
                   YoPortaObjeto.append(soltado_enPortaObjeto);
-                  YoPortaObjeto.addClass("usado");
+                  var tipo_muestra = soltado_enPortaObjeto.attr('tipo_muestra');
+                  YoPortaObjeto.addClass("usado"+tipo_muestra);
               }
             }else{
               alert("El portaobjetos ya tiene una muestra.");
@@ -746,6 +783,21 @@ function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicr
           break;
         case '40X':
           imagePath = '/assets/images/pruebap4.jpg';
+
+          if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_pan"){
+            imagePath = '/assets/images/muestra_pan.jpg';
+          }
+
+          if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_fresa"){
+            imagePath = '/assets/images/muestra_fresa.jpg';
+          }
+        if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_tomate"){
+            imagePath = '/assets/images/muestra_tomate.jpg';
+          }
+
+        if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_caspa"){
+            imagePath = '/assets/images/muestra_caspa.jpg';
+          }
           break;
         case '100X':
           imagePath = '/assets/images/pruebap4.jpg';

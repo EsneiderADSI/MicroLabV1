@@ -79,6 +79,7 @@
             @include('paginas.objetos.pipeta')
             @include('paginas.objetos.autoclave')
             @include('paginas.objetos.incubadora')
+            @include('paginas.objetos.cabina-de-flujo')
 
         </div>
 

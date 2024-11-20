@@ -3168,6 +3168,19 @@
     box-shadow: 0 4px 10px rgba(130, 128, 130); /* Sombras para simular un efecto de profundidad */
 }
 
+/*Gota de azul de metileno P4*/
+.gota_AM {
+    width: 30px;
+    height: 20px;
+    background-color: rgba(42, 108, 232); /* Color azul claro con transparencia */
+    border-radius: 60% 60% 40% 40%; /* Bordes más extendidos para simular que está "regada" */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(58, 130, 252); /* Sombras para simular un efecto de profundidad */
+}
+
 
 
 
