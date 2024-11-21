@@ -64,7 +64,7 @@
         <!-- Espacio de trabajo central -->
         <div class="workspace col-md-6">
             <div id="parte1" class="workspace-inner lime lighten-4">
-                <blockquote>IDENTIFICACIÓN MACROSCÓPICA, MICROSCÓPICA,BIOQUÍMICA Y MOLECULAR DE BACTERIAS. <a style="font-size: 12px;" href="javascript:void(0)" class="disabled flow-text" id="coordinates"></a></blockquote>
+                <blockquote>IDENTIFICACIÓN MACROSCÓPICA Y MICROSCÓPICA DE BACTERIAS. <a style="font-size: 12px;" href="javascript:void(0)" class="disabled flow-text" id="coordinates"></a></blockquote>
                 <div align="right"><a href="/"><i class="material-icons">home</i></a><a href="/modulos"><i class="material-icons">apps</i></a></div>
                 <p></p>
             </div>
