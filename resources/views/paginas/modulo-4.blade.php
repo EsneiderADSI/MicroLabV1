@@ -665,7 +665,7 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
         case 'cinta':
           if (!YoPortaObjeto.find('.gota_AM').length > 0)
           {
-            alert("No hay gota de reactivo Azúl de Metileno para continuar");
+            alert("No hay gota de reactivo Azul de Metileno para continuar");
             return;
           }
 
@@ -776,31 +776,34 @@ function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicr
       let imagePath;
       switch(objective) {
         case '4X':
-          imagePath = '/assets/images/pruebap4.jpg'; // Reemplaza con la ruta de tu imagen
+          imagePath = '/assets/images/no_disponible.jpg';
           break;
         case '10X':
-          imagePath = '/assets/images/Bienfondo-practica.jpg';
+          imagePath = '/assets/images/no_disponible.jpg';
           break;
         case '40X':
-          imagePath = '/assets/images/pruebap4.jpg';
 
           if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_pan"){
             imagePath = '/assets/images/muestra_pan.jpg';
           }
 
-          if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_fresa"){
+         else if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_fresa"){
             imagePath = '/assets/images/muestra_fresa.jpg';
           }
-        if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_tomate"){
+       else if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_tomate"){
             imagePath = '/assets/images/muestra_tomate.jpg';
           }
 
-        if(soltado_enMicroscopio.find(".cinta").attr("tipo_muestra") == "muestra_caspa"){
+       else if(soltado_enMicroscopio.hasClass("TieneMuestraCaspa")){
             imagePath = '/assets/images/muestra_caspa.jpg';
           }
+
+        else {
+          imagePath = '/assets/images/no_disponible.jpg';
+        }
           break;
         case '100X':
-          imagePath = '/assets/images/pruebap4.jpg';
+          imagePath = '/assets/images/no_disponible.jpg';
           break;
       }
 
@@ -822,7 +825,7 @@ function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicr
     });
 
     // Mostrar imagen inicial (4X por defecto)
-    changeImage('4X');
+    changeImage('40X');
 
     // Botón para salir
     $('<button class="microscope-exit-btn">').text('Salir').appendTo(microscopeView).click(() => {

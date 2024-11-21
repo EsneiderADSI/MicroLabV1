@@ -158,7 +158,7 @@
 /* Estilos específicos para cada div */
 
 [name="agar_chromocult"] {
-    background: linear-gradient(135deg, #7f8c8d, #bdc3c7);
+    background: linear-gradient(135deg, #adc3c7, #adc3d7);
 }
 
 [name="agar_m-HPC"] {
@@ -166,7 +166,7 @@
 }
 
 [name="agar_nutritivo"] {
-    background: linear-gradient(135deg, #2980b9, #3498db);
+    background: linear-gradient(135deg, #8380a9, #8980a9);
 }
 
 [name="agar_sangre"] {
@@ -605,7 +605,26 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             display: inline-block;
         }
+.streaking-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+  max-height: 60%;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
+  z-index: 1; /* Establecer z-index en 1 para que esté por encima de .petridish_pre::before */
+}
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
         .petridish_pre::before {
             content: '';
             position: absolute;
@@ -616,7 +635,9 @@
             background-color: #ddf9c4 ; /* Color del fondo de la caja petri */
             border-radius: 50%;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+
         }
+
         .petridish_pre::after {
             content: '';
             position: absolute;
@@ -2278,7 +2299,7 @@
 
 /*ESTILOS PARA LLAVE DE GRIFO INICIO*/
         .sink {
-            width: 300px;
+            width: 260px;
             height: 300px; /* Reducida de 400px a 300px */
             background-color: #e0e0e0;
             border-radius: 20px 20px 0 0;
