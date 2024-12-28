@@ -32,12 +32,19 @@
                 @include('paginas.objetos.lupa')
                 <p></p>
                 <div class="divider"></div>
-                <p>Reactivos</p>
+                <p><a href="{{ asset('Fichas Tecnicas Medios de Cultivo.pdf') }}" target="_blank">Reactivos</a></p>
                 @include('paginas.objetos.reactivos')
+                <div class="divider"></div>
+
+                <div class="entrada_de_texto draggable drag" description="Entrada de texto">
+                    <SPAN>Entrada de texto</SPAN>
+                    <div><textarea></textarea></div>
+                </div>
                 <div class="divider"></div>
                 <p>Asa</p>
                 @include('paginas.objetos.asa')
                 @include('paginas.objetos.asa2')
+                @include('paginas.objetos.asa3')
                 <div class="divider"></div>
                 <p>Espátula</p>
                 @include('paginas.objetos.espatula')
@@ -62,7 +69,7 @@
             <!-- Aquí puedes agregar herramientas adicionales o configuraciones -->
             @include('paginas.objetos.mechero')
             @include('paginas.objetos.microscopio')
-            @include('paginas.objetos.pipeta')
+            @include('paginas.objetos.gotero')
             @include('paginas.objetos.autoclave')
             @include('paginas.objetos.cabina-de-flujo')
 
@@ -138,18 +145,18 @@ $(document).ready(function() {
 
 // Configuración de elementos aceptados por cada contenedor
 const acceptedElements = {
-  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish_p3', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'petridish_pre_prac2','tubo-ensayo-container_micro', 'pipeta', 'lupa-container'],
+  'workspace-inner': ['balanza','vaso', 'medio_cultivo', 'erlenmeyer', 'petridish_p3', 'reactivo', 'microorganismo', 'mechero-container', 'autoclave-container', 'plancha-container', 'incubadora-container', 'cabina-container', 'phmetro', 'tubo-ensayo-container', 'portaobjetos', 'cubreobjetos', 'microscopio', 'asa1-container', 'asa2-container', 'asa3_recta-container', 'petridish_pre_prac2','tubo-ensayo-container_micro', 'gotero', 'lupa-container'],
 
   'incubadora-container': ['petridish_p3'],
   'autoclave-container': ['vaso'],
   'erlenmeyer': ['medio_cultivo_caldo', 'reactivo', 'phmetro'],
   'tubo-ensayo-container': ['erlenmeyer'],
   'cabina-container': ['erlenmeyer'],
-  'mechero-container': ['asa1-container', 'asa2-container'],
-  'petridish_p3': ['asa1-container', 'asa2-container', 'lupa-container'],
-  'tubo-ensayo-container_micro': ['pipeta'],
-  'reactivo': ['pipeta'],
-  'portaobjetos': ['pipeta', 'asa1-container'],
+  'mechero-container': ['asa1-container', 'asa2-container', 'asa3_recta-container'],
+  'petridish_p3': ['asa3_recta-container', 'lupa-container'],
+  'tubo-ensayo-container_micro': ['gotero'],
+  'reactivo': ['gotero'],
+  'portaobjetos': ['gotero', 'asa3_recta-container', 'cubreobjetos'],
   'microscopio': ['portaobjetos'],
 };
 
@@ -163,7 +170,7 @@ function determineAppendTarget(draggableType, droppableType) {
     { draggable: 'medio_cultivo', droppable: 'vaso' },
     { draggable: 'medio_cultivo_caldo', droppable: 'erlenmeyer' },
     { draggable: 'microorganismo', droppable: 'petridish_p3' },
-    // { draggable: 'vaso', droppable: 'autoclave-container' }
+    { draggable: 'cubreobjetos', droppable: 'portaobjetos' }
     // Agrega aquí más combinaciones según sea necesario
   ];
 
@@ -552,11 +559,11 @@ function handleVasoInteraction(elementType, soltado_en_el_vaso, Yovaso) {
       }
       break;
 
-     case 'pipeta':
-        // solo si a la pipeta quien le apunta es al agua
+     case 'gotero':
+        // solo si a la gotero quien le apunta es al agua
         var valor_vaso = Yovaso.attr("tiene_muestra_triturada");
         if (valor_vaso == "si"){
-            soltado_en_el_vaso.find('.tip_pipeta').css('background-color', '#3498db');
+            soltado_en_el_vaso.find('.punta_gotero').css('background-color', '#3498db');
             soltado_en_el_vaso.addClass("tiene_muestra_triturada");
 
         }
@@ -646,18 +653,18 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
         $("<style>#" + id_unico_petridish + "::before { background-color: " + LiquidoVaso + " !important; }</style>").appendTo("head");
         break;
 
-        case 'asa1-container':
+        case 'asa3_recta-container':
             $("#parte1 p").html(`${elementType} EL ASA SOLTÓ MICROORGANISMO TOMADO DE LA PLACA PETRI PREPARADA`);
 
-            if(soltado_en_PlacaPetri.find(".asa_1").hasClass("caliente") || soltado_en_PlacaPetri.find(".asa_1").hasClass("caliente_suave")) {
-                soltado_en_PlacaPetri.find(".asa_1").removeClass("caliente").addClass("caliente_suave");
+            if(soltado_en_PlacaPetri.find(".asa_3").hasClass("caliente") || soltado_en_PlacaPetri.find(".asa_3").hasClass("caliente_suave")) {
+                soltado_en_PlacaPetri.find(".asa_3").removeClass("caliente").addClass("caliente_suave");
                  var objeto_colonia = YoPlacaPetri.find(".heces_p3").first().clone();
-                  soltado_en_PlacaPetri.find(".asa_1").find(".heces_p3").remove();
-                  soltado_en_PlacaPetri.find(".asa_1").append(objeto_colonia);
-                  soltado_en_PlacaPetri.find(".asa_1").addClass("tieneMuestra");
+                  soltado_en_PlacaPetri.find(".asa_3").find(".heces_p3").remove();
+                  soltado_en_PlacaPetri.find(".asa_3").append(objeto_colonia);
+                  soltado_en_PlacaPetri.find(".asa_3").addClass("tieneMuestra");
 
             }else{
-              alert("El asa circular no está esterilizada");
+              alert("El asa de punta recta no está esterilizada");
             }
 
 
@@ -667,7 +674,7 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
         break;
 
         case 'asa2-container':
-          // mezclar el agua con la muestra que deja la pipeta en la placa petri usando el agua 2
+          // mezclar el agua con la muestra que deja la gotero en la placa petri usando el agua 2
           if (YoPlacaPetri.find(".gota_Agua_ConMuestra")){
 
             if(soltado_en_PlacaPetri.find(".asa_2").hasClass("caliente") || soltado_en_PlacaPetri.find(".asa_2").hasClass("caliente_suave")) {
@@ -686,17 +693,17 @@ function handlePlacaPetriInteraction(elementType, soltado_en_PlacaPetri, YoPlaca
 
         break;
 
-        case 'pipeta':
+        case 'gotero':
 
-            $("#parte1 p").html(`${elementType} LA PIPETA SE SOLTÓ SOBRE LA PLACA PETRI`);
+            $("#parte1 p").html(`${elementType} El gotero se soltó sobre la placa petri.`);
 
             if (soltado_en_PlacaPetri.hasClass("tiene_muestra_tb_ensayo")) {
             // Generar un id único para la placa petri (añadir prefijo)
             var id_unico_petridish = 'petridish_' + Math.floor(Math.random() * (10000 - 10 + 1)) + 10;
             // Asignar el id único al elemento YoPlacaPetri
-            YoPlacaPetri.attr('id', id_unico_petridish).attr("muestra_de_pipeta", "si");
+            YoPlacaPetri.attr('id', id_unico_petridish).attr("muestra_de_gotero", "si");
             // Cambiar el color del pseudo-elemento ::before para la placa petri específica
-            var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.tip_pipeta').css('background-color'));
+            var LiquidoVaso = rgbAHex(soltado_en_PlacaPetri.find('.punta_gotero').css('background-color'));
 
             // Aplicar el estilo al pseudo-elemento ::before del id generado
             $("<style>#" + id_unico_petridish + "::before { background-color: " + LiquidoVaso + " !important; }</style>").appendTo("head");
@@ -938,12 +945,12 @@ function handleTuboEnsayoInteraction(elementType, soltado_en_TuboEnsayo, YoTuboE
 
 function handleTuboEnsayoMicroorganismoInteraction(elementType, soltado_en_TuboEnsayoMicro, YoTuboEnsayoMicro) {
     switch(elementType) {
-     case 'pipeta':
+     case 'gotero':
     // Mostrar mensaje de interacción
     $("#parte1 p").html(`${elementType} añadido AL TUBO DE ENSAYO CON MICROORGANISMOS`);
 
 
-    soltado_en_TuboEnsayoMicro.find('.tip_pipeta').css('background-color', '#' + Math.floor(Math.random()*16777215).toString(16));
+    soltado_en_TuboEnsayoMicro.find('.punta_gotero').css('background-color', '#' + Math.floor(Math.random()*16777215).toString(16));
     soltado_en_TuboEnsayoMicro.addClass("tiene_muestra_tb_ensayo").attr("tiene_muestra_tb_ensayo", "si");
     break;
 }
@@ -952,14 +959,14 @@ function handleTuboEnsayoMicroorganismoInteraction(elementType, soltado_en_TuboE
 // INTERACCION CON EL AGUA
 function handleReactivoInteraction(elementType, soltado_en_Agua, YoReactivo) {
     switch(elementType) {
-     case 'pipeta':
-        // solo si a la pipeta quien le apunta es al agua
+     case 'gotero':
+        // solo si a la gotero quien le apunta es al agua
         if (YoReactivo.hasClass("agua")){
             // Mostrar mensaje de interacción
             $("#parte1 p").html(`${elementType} añadido AL RECIPIENTE CON AGUA`);
 
 
-            soltado_en_Agua.find('.tip_pipeta').css('background-color', '#3498db');
+            soltado_en_Agua.find('.punta_gotero').css('background-color', '#3498db');
             soltado_en_Agua.addClass("tiene_gota_de_Agua");
 
         }
@@ -969,7 +976,7 @@ function handleReactivoInteraction(elementType, soltado_en_Agua, YoReactivo) {
             $("#parte1 p").html(`${elementType} añadido AL RECIPIENTE CON ALCOHOL`);
 
 
-            soltado_en_Agua.find('.tip_pipeta').css('background-color', '#d0d0d0');
+            soltado_en_Agua.find('.punta_gotero').css('background-color', '#d0d0d0');
             soltado_en_Agua.addClass("esterilizado");
 
         }
@@ -979,7 +986,7 @@ function handleReactivoInteraction(elementType, soltado_en_Agua, YoReactivo) {
             $("#parte1 p").html(`${elementType} añadido AL RECIPIENTE CON LUGOL`);
 
 
-            soltado_en_Agua.find('.tip_pipeta').css('background-color', '#ffeb3b99');
+            soltado_en_Agua.find('.punta_gotero').css('background-color', '#ffeb3b99');
             soltado_en_Agua.addClass("tiene_gota_de_Lugol");
 
         }
@@ -991,7 +998,7 @@ function handleReactivoInteraction(elementType, soltado_en_Agua, YoReactivo) {
 // INTERACCION CON EL AGUA
 function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPortaObjeto) {
     switch(elementType) {
-        case 'pipeta':
+        case 'gotero':
             if (soltado_enPortaObjeto.hasClass("tiene_gota_de_Agua")) {
                 // Mostrar mensaje de interacción
                 $("#parte1 p").html(`${elementType} añadido AL PORTAOBJETOS`);
@@ -1007,9 +1014,9 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
                     YoPortaObjeto.append('<div class="gota_Lugol"></div>').attr("tiene_gota_Lugol", "si");
                 }
             }
-            break; // Break for 'pipeta'
+            break; // Break for 'gotero'
 
-        case 'asa1-container':
+        case 'asa3_recta-container':
             if (!soltado_enPortaObjeto.find(".heces_p3").length > 0) {
                 alert("El asa no tiene una muestra fecal para soltar en el portaobjetos");
             } else {
@@ -1020,14 +1027,14 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
                     soltado_enPortaObjeto.find(".heces_p3").remove();
 
                 } else {
-                    alert("Primero utilice la pipeta y obtenga una gota de lugol desde el recipiente con lugol y aplíquela al portaobjetos");
+                    alert("Primero utilice la gotero y obtenga una gota de lugol desde el recipiente con lugol y aplíquela al portaobjetos");
                 }
             }
             break; // Break for 'asa1-container'
 
 
             case 'reactivo':
-                var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
+                var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "safranina"];
 
             if (reactivos_gramm.includes(soltado_enPortaObjeto.attr("tipo")) || soltado_enPortaObjeto.attr("tipo") == "aceite_de_inmersion") {
                 if (!YoPortaObjeto.find(".microorganism_petridish_pre").length > 0  ) {
@@ -1050,7 +1057,7 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
 }
 
 function validarYAgregarReactivoPortaobjetos(reactivo, objeto) {
-    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
+    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "safranina"];
 
     // Verificar si el reactivo está en la lista
     if (!reactivos_gramm.includes(reactivo)) {
@@ -1521,7 +1528,7 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
     switch(elementType) {
      case 'asa1-container':
     // Mostrar mensaje de interacción
-    $("#parte1 p").html(`${elementType} añadido AL MECHERO`);
+    $("#parte1 p").html(`${elementType} añadido al Mechero`);
 
         soltado_en_Mechero.find(".asa_1").removeClass('caliente_suave');
         soltado_en_Mechero.find(".asa_1").removeClass('caliente_suave');
@@ -1544,7 +1551,7 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
 
     case 'asa2-container':
     // Mostrar mensaje de interacción
-    $("#parte1 p").html(`${elementType} añadido AL MECHERO`);
+    $("#parte1 p").html(`${elementType} añadido al Mechero`);
 
         soltado_en_Mechero.find(".asa_2").removeClass('caliente_suave');
         soltado_en_Mechero.find(".asa_2").removeClass('caliente_suave');
@@ -1564,9 +1571,32 @@ function handleMecheroInteraction(elementType, soltado_en_Mechero, YoMechero) {
         soltado_en_Mechero.find(".microorganismo_en_asa2").remove();
         break;
 
+
+    case 'asa3_recta-container':
+    // Mostrar mensaje de interacción
+    $("#parte1 p").html(`${elementType} añadido al Mechero`);
+
+        soltado_en_Mechero.find(".asa_3").removeClass('caliente_suave');
+        soltado_en_Mechero.find(".asa_3").removeClass('caliente_suave');
+
+        soltado_en_Mechero.find(".asa_3").animate(
+              { backgroundColor: "#ffcc80" },
+              {
+                duration: 8000, // 8000 milisegundos = 8 segundos
+                step: function() {
+                  $(this).addClass('caliente').removeClass('caliente_suave');
+                },
+                complete: function() {
+                  $(this).attr("tiene_microorganismo", "no");
+                }
+              }
+            );
+        soltado_en_Mechero.find(".microorganismo_en_asa2").remove();
+        break;
+
     case 'portaobjetos':
     // Mostrar mensaje de interacción
-        $("#parte1 p").html(`${elementType} añadido AL MECHERO`);
+        $("#parte1 p").html(`${elementType} añadido al Mechero`);
 
         if(soltado_en_Mechero.find(".gota_Agua").length > 0 && soltado_en_Mechero.find(".microorganism_petridish_pre").length > 0){
                 soltado_en_Mechero.find(".gota_Agua").animate({
@@ -1730,16 +1760,7 @@ $("<style>")
         }
         LlenarBotellas();
 
-        $(document).on('click', '.reactivo', function(event){
-            const liquido_botella = $(this).find('.liquido_botella');
-            if (liquido_botella.css('height') === '40px') {
-                // Si está lleno, vaciarlo
-                liquido_botella.css('height', '0');
-            } else {
-                // Si está vacío, llenarlo
-                liquido_botella.css('height', '40px');
-            }
-        });
+
 
 
     // Llenar el frasco de agua

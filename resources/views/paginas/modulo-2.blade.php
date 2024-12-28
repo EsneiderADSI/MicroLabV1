@@ -45,7 +45,7 @@
                     <div><textarea></textarea></div>
                 </div>
                 <div class="divider"></div>
-                <p>Reactivos</p>
+                <p><a href="{{ asset('Fichas Tecnicas Medios de Cultivo.pdf') }}" target="_blank">Reactivos</a></p>
                 @include('paginas.objetos.reactivos')
                 <div class="divider"></div>
                 <p>Asa</p>
@@ -188,7 +188,7 @@ function determineAppendTarget(draggableType, droppableType) {
     { draggable: 'medio_cultivo', droppable: 'vaso' },
     { draggable: 'medio_cultivo_caldo', droppable: 'erlenmeyer' },
     { draggable: 'microorganismo', droppable: 'petridish_p2' },
-    // { draggable: 'vaso', droppable: 'autoclave-container' }
+    { draggable: 'cubreobjetos', droppable: 'portaobjetos' }
     // Agrega aquí más combinaciones según sea necesario
   ];
 
@@ -1047,7 +1047,7 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
 
 
             case 'reactivo':
-                var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
+                var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "safranina"];
 
             if (reactivos_gramm.includes(soltado_enPortaObjeto.attr("tipo")) || soltado_enPortaObjeto.attr("tipo") == "aceite_de_inmersion") {
                 if (!YoPortaObjeto.find(".microorganism_petridish_prac2").length > 0  ) {
@@ -1070,7 +1070,7 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
 }
 
 function validarYAgregarReactivoPortaobjetos(reactivo, objeto) {
-    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
+    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "safranina"];
 
     // Verificar si el reactivo está en la lista
     if (!reactivos_gramm.includes(reactivo)) {
@@ -1114,7 +1114,7 @@ function PortaObjetostieneTodosLosReactivos(objeto, reactivos_gramm) {
 function handleMicroscopioInteraction(elementType, soltado_enMicroscopio, YoMicroscopio) {
   if (elementType === 'portaobjetos') {
     $("#parte1 p").html(`${elementType} añadido AL MICROSCOPIO ANALIZANDO...`);
-    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
+    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "safranina"];
     if (!PortaObjetostieneTodosLosReactivos(soltado_enMicroscopio, reactivos_gramm)) {
         alert("El PortaObjeto no tiene la coloración de Gram completa.");
         return false;
@@ -1745,16 +1745,7 @@ $("<style>")
         }
         LlenarBotellas();
 
-        $(document).on('click', '.reactivo', function(event){
-            const liquido_botella = $(this).find('.liquido_botella');
-            if (liquido_botella.css('height') === '40px') {
-                // Si está lleno, vaciarlo
-                liquido_botella.css('height', '0');
-            } else {
-                // Si está vacío, llenarlo
-                liquido_botella.css('height', '40px');
-            }
-        });
+
 
 
     // Llenar el frasco de agua

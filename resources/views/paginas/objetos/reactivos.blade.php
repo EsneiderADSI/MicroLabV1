@@ -30,13 +30,13 @@
         <div class="texto-botella">Alcohol</div>
     </div>
 
-    <div class="reactivo acetona draggable drag" tipo="acetona" description="Acetona">
+{{--     <div class="reactivo acetona draggable drag" tipo="acetona" description="Acetona">
         <div class="borde-superior_botella"></div>
         <div class="brillo_botella"></div>
         <div class="tapa_botella"></div>
         <div class="liquido_botella" style="background-color: rgba(224, 224, 224, 0.6);"></div>
         <div class="texto-botella">Acetona</div>
-    </div>
+    </div> --}}
 
     <div class="reactivo safranina draggable drag" tipo="safranina" description="Safranina">
         <div class="borde-superior_botella"></div>

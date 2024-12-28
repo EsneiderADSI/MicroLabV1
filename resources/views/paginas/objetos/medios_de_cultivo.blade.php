@@ -1,4 +1,4 @@
-<div tipo="medio_cultivo" color="#8f8c8d" value="0" name="agar_chromocult" class="medio_cultivo draggable drag" description="Agar Chromocult"></div>
+{{-- <div tipo="medio_cultivo" color="#8f8c8d" value="0" name="agar_chromocult" class="medio_cultivo draggable drag" description="Agar Chromocult"></div> --}}
 <div tipo="medio_cultivo" color="#27ae60" value="0" name="agar_m-HPC" class="medio_cultivo draggable drag" description="Agar m-HPC"></div>
 <div tipo="medio_cultivo" color="#8380a9" value="0" name="agar_nutritivo" class="medio_cultivo draggable drag" description="Agar nutritivo"></div>
 <div tipo="medio_cultivo" color="#c0392b" value="0" name="agar_sangre" class="medio_cultivo draggable drag" description="Agar Sangre"></div>

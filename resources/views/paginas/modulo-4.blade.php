@@ -38,7 +38,13 @@
                 @include('paginas.objetos.lupa')
                 <p></p>
                 <div class="divider"></div>
-                <p>Reactivos</p>
+
+                <div class="entrada_de_texto draggable drag" description="Entrada de texto">
+                    <SPAN>Entrada de texto</SPAN>
+                    <div><textarea></textarea></div>
+                </div>
+                <div class="divider"></div>
+                <p><a href="{{ asset('Fichas Tecnicas Medios de Cultivo.pdf') }}" target="_blank">Reactivos</a></p>
                 @include('paginas.objetos.reactivos')
                 <div class="divider"></div>
                 <p>Asa</p>
@@ -58,7 +64,7 @@
         <!-- Espacio de trabajo central -->
         <div class="workspace col-md-6">
             <div id="parte1" class="workspace-inner lime lighten-4">
-                <blockquote>Hongos filamentosos <a style="font-size: 12px;" href="javascript:void(0)" class="disabled flow-text" id="coordinates"></a></blockquote>
+                <blockquote>HONGOS FILAMENTOSOS <a style="font-size: 12px;" href="javascript:void(0)" class="disabled flow-text" id="coordinates"></a></blockquote>
                 <div align="right"><a href="/"><i class="material-icons">home</i></a><a href="/modulos"><i class="material-icons">apps</i></a></div>
                 <p></p>
             </div>
@@ -722,7 +728,7 @@ function handlePortaObjetoInteraction(elementType, soltado_enPortaObjeto, YoPort
 
 
 function validarYAgregarReactivoPortaobjetos(reactivo, objeto) {
-    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "acetona", "safranina"];
+    var reactivos_gramm = ["cristal-violeta", "lugol", "alcohol", "safranina"];
 
     // Verificar si el reactivo está en la lista
     if (!reactivos_gramm.includes(reactivo)) {
@@ -1217,16 +1223,6 @@ $("<style>")
         }
         LlenarBotellas();
 
-        $(document).on('click', '.reactivo', function(event){
-            const liquido_botella = $(this).find('.liquido_botella');
-            if (liquido_botella.css('height') === '40px') {
-                // Si está lleno, vaciarlo
-                liquido_botella.css('height', '0');
-            } else {
-                // Si está vacío, llenarlo
-                liquido_botella.css('height', '40px');
-            }
-        });
 
 
     // Llenar el frasco de agua

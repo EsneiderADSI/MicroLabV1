@@ -97,3 +97,20 @@ window.addEventListener('load', simulateAllMicroorganisms);
 setInterval(() => {
     simulateAllMicroorganisms();
 }, 5000); // Actualiza cada 5 segundos
+
+
+// Selecciona el elemento donde se mostrarán las coordenadas
+const coordinatesDisplay = document.getElementById('coordinates');
+
+// Selecciona el contenedor workspace-inner
+const workspaceInner = document.querySelector('.workspace-inner');
+
+// Escucha el evento 'mousemove' en el contenedor
+workspaceInner.addEventListener('mousemove', function(event) {
+    // Obtiene las coordenadas relativas al contenedor
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+    // Actualiza el contenido del <p> con las coordenadas
+    coordinatesDisplay.textContent = `X: ${x}, Y: ${y}`;
+});
